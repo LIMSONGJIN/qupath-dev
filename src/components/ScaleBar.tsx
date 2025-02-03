@@ -3,80 +3,83 @@ import OpenSeadragon from "openseadragon";
 
 type ScalebarProps = {
   viewer: OpenSeadragon.Viewer;
-  pixelsPerMeter: number; // Number of pixels per meter for the image
-  minWidthPx?: number; // Minimum width of the scalebar in pixels
-  location?: "BOTTOM_LEFT" | "BOTTOM_RIGHT" | "TOP_LEFT" | "TOP_RIGHT"; // Location of the scalebar
-  color?: string; // Scalebar color
-  fontColor?: string; // Font color
-  backgroundColor?: string; // Background color
-  fontSize?: string; // Font size
-  barThickness?: number; // Thickness of the scalebar in pixels
+  imageWidth: number; // 이미지 크기 추가
+  minWidthPx?: number;
+  location?: "BOTTOM_LEFT" | "BOTTOM_RIGHT" | "TOP_LEFT" | "TOP_RIGHT";
+  color?: string;
+  fontColor?: string;
+  backgroundColor?: string;
+  fontSize?: string;
+  barThickness?: number;
 };
 
 const Scalebar: React.FC<ScalebarProps> = ({
   viewer,
-  pixelsPerMeter,
-  minWidthPx = 150,
-  location = "BOTTOM_LEFT",
-  color = "white",
-  fontColor = "white",
-  backgroundColor = "rgba(0, 0, 0, 0.5)",
-  fontSize = "14px",
-  barThickness = 4,
+  imageWidth,
+  minWidthPx,
+  location,
+  color,
+  fontColor,
+  backgroundColor,
+  fontSize,
+  barThickness
 }) => {
   const scalebarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!viewer || !scalebarRef.current) return;
+    if (!viewer || !scalebarRef.current || imageWidth <= 0) return;
+
+    // 이미지 크기를 기반으로 zoomSteps 생성
+    const maxStep = imageWidth;
+    const stepCount = 8;
+    const zoomSteps = Array.from({ length: stepCount }, (_, i) => Math.round(maxStep / Math.pow(2, i)));
 
     const updateScalebar = () => {
-      if (!viewer || !scalebarRef.current) return;
+      if (!viewer || !scalebarRef.current || !minWidthPx) return;  // minWidthPx 체크 추가
 
       const zoom = viewer.viewport.getZoom();
-      const imageZoom = viewer.world.getItemAt(0).viewportToImageZoom(zoom);
-      const currentPixelsPerMeter = imageZoom * pixelsPerMeter;
+      const tiledImage = viewer.world.getItemAt(0);
+      if (!tiledImage) return;
 
-      // Calculate size and text for the scalebar
-      const sizeInMeters = minWidthPx / currentPixelsPerMeter;
-      const sizeText =
-        sizeInMeters >= 1
-          ? `${sizeInMeters.toFixed(2)} m`
-          : `${(sizeInMeters * 1000).toFixed(0)} mm`;
+      const imageZoom = tiledImage.viewportToImageZoom(zoom);
+      const targetStep = zoomSteps.find((step) => minWidthPx / imageZoom >= step) || zoomSteps[zoomSteps.length - 1];
 
-      // Update scalebar styles
-      scalebarRef.current.style.width = `${minWidthPx}px`;
+      // DPI 보정 추가
+      const dpiCorrection = window.devicePixelRatio || 1;
+      const adjustmentFactor = 0.975; // 소수점 보정 추가
+      const barLength = (targetStep * imageZoom ) / dpiCorrection;
+
+      console.log('Bar Length:', barLength);
+      scalebarRef.current.style.width = `${barLength}px`;
       scalebarRef.current.style.borderBottom = `${barThickness}px solid ${color}`;
-      scalebarRef.current.textContent = sizeText;
+      scalebarRef.current.textContent = `${targetStep} px`;
     };
 
-    // Attach event handlers
     viewer.addHandler("zoom", updateScalebar);
     viewer.addHandler("animation", updateScalebar);
     viewer.addHandler("open", updateScalebar);
 
-    // Initialize the scalebar
     updateScalebar();
 
     return () => {
-      // Cleanup handlers
       viewer.removeHandler("zoom", updateScalebar);
       viewer.removeHandler("animation", updateScalebar);
       viewer.removeHandler("open", updateScalebar);
     };
-  }, [viewer, pixelsPerMeter, minWidthPx, color, barThickness]);
+  }, [viewer, imageWidth, minWidthPx, color, barThickness]);
 
   const getPositionStyles = () => {
     switch (location) {
       case "BOTTOM_LEFT":
-        return { bottom: "10px", left: "10px" };
+        return { bottom: "20px", left: "20px" };
       case "BOTTOM_RIGHT":
-        return { bottom: "10px", right: "10px" };
+        return { bottom: "20px", right: "20px" };
       case "TOP_LEFT":
-        return { top: "10px", left: "10px" };
+        return { top: "20px", left: "20px" };
       case "TOP_RIGHT":
-        return { top: "10px", right: "10px" };
+        return { top: "20px", right: "20px" };
       default:
-        return { bottom: "10px", left: "10px" };
+        return { bottom: "20px", left: "20px" };
     }
   };
 
@@ -85,6 +88,7 @@ const Scalebar: React.FC<ScalebarProps> = ({
       ref={scalebarRef}
       style={{
         position: "absolute",
+        boxSizing: "border-box",
         ...getPositionStyles(),
         color: fontColor,
         backgroundColor,
