@@ -8,11 +8,16 @@ import ZoomOutIcon from "@mui/icons-material/ZoomOut";
 import HomeIcon from "@mui/icons-material/Home";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 
+interface ImageViewerProps {
+  imageUrl: string;
+}
 const ImageViewer: React.FC = () => {
   const viewerRef = useRef<OpenSeadragon.Viewer | null>(null);
   const paperCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isViewerReady, setIsViewerReady] = useState(false);
-  const [imageWidth, setImageWidth] = useState(0); // 이미지 크기 상태 추가
+  const [imageWidth, setImageWidth] = useState(0);
+  const [isToolbarVisible, setIsToolbarVisible] = useState(true); // Toolbar visibility state
+  const hideTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!viewerRef.current) {
@@ -25,12 +30,13 @@ const ImageViewer: React.FC = () => {
         showNavigator: true,
         showNavigationControl: false,
         defaultZoomLevel: 0.9,
-        visibilityRatio: 1,
+        visibilityRatio: 0,
         minZoomLevel: 0.1,
         maxZoomLevel: 20,
         constrainDuringPan: true,
         animationTime: 1.2,
         springStiffness: 7.0,
+        zoomPerClick: 1,          // 클릭 시 줌 비활성화 (줌 배율 1)
       });
 
       viewer.addHandler("open", () => {
@@ -38,8 +44,9 @@ const ImageViewer: React.FC = () => {
           paper.setup(paperCanvasRef.current);
           drawGrid();
         }
-
-        // 이미지 크기 가져와 상태에 저장
+        if (viewer.container) {
+          viewer.container.style.backgroundColor = '#000000';  // 검은색 배경 설정
+        }
         const tiledImage = viewer.world.getItemAt(0);
         if (tiledImage) {
           setImageWidth(tiledImage.getContentSize().x);
@@ -51,7 +58,20 @@ const ImageViewer: React.FC = () => {
 
       viewer.addHandler("zoom", drawGrid);
       viewer.addHandler("animation", drawGrid);
+
+      // Add event handlers to reset toolbar hide timer on interaction
+      const resetToolbarTimer = () => {
+        setIsToolbarVisible(true);
+        if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+        hideTimerRef.current = window.setTimeout(() => setIsToolbarVisible(false), 3000);
+      };
+
+      viewer.addHandler("canvas-click", resetToolbarTimer);
+      viewer.addHandler("canvas-drag", resetToolbarTimer);
+      viewer.addHandler("canvas-scroll", resetToolbarTimer);
+
       viewerRef.current = viewer;
+      resetToolbarTimer();
     }
 
     return () => {
@@ -62,19 +82,15 @@ const ImageViewer: React.FC = () => {
     };
   }, []);
 
-  // Grid 그리기 함수
   const drawGrid = () => {
     if (!paper.view || !viewerRef.current) return;
 
-    // 현재 줌 레벨과 뷰 크기 가져오기
     const zoom = viewerRef.current.viewport.getZoom();
     const bounds = viewerRef.current.viewport.getBounds();
-    const gridSpacing = 100 / zoom; // 줌에 따라 간격 조정
+    const gridSpacing = 100 / zoom;
 
-    // 기존 그리기 레이어 초기화
     paper.project.activeLayer.removeChildren();
 
-    // 격자 생성
     for (let x = Math.floor(bounds.x / gridSpacing) * gridSpacing; x < bounds.x + bounds.width; x += gridSpacing) {
       new paper.Path.Line({
         from: [x, bounds.y],
@@ -95,9 +111,9 @@ const ImageViewer: React.FC = () => {
 
     paper.view.update();
   };
+
   return (
-    <div style={{ position: "relative", width: "800px", height: "800px", margin: "0 auto" }}>
-      {/* OpenSeadragon 뷰어 */}
+    <div style={{ position: "relative", width: "100%", height: "100%", margin: "0 auto" , overflow: "hidden"}}>
       <div
         id="openseadragon"
         style={{
@@ -107,8 +123,6 @@ const ImageViewer: React.FC = () => {
           position: "relative",
         }}
       ></div>
-
-      {/* Paper.js 캔버스 */}
       <canvas
         ref={paperCanvasRef}
         style={{
@@ -120,8 +134,7 @@ const ImageViewer: React.FC = () => {
           pointerEvents: "none",
         }}
       ></canvas>
-
-      {/* Scalebar */}
+      
       {isViewerReady && viewerRef.current && imageWidth > 0 && (
         <Scalebar
           viewer={viewerRef.current}
@@ -132,38 +145,39 @@ const ImageViewer: React.FC = () => {
           backgroundColor="rgba(0, 0, 0, 0.7)"
           fontSize="14px"
           barThickness={6}
-          imageWidth={imageWidth} // 이미지 크기 전달
+          imageWidth={imageWidth}
         />
       )}
 
-
-      {/* MUI 도구 버튼들 */}
-      <div
-        style={{
-          position: "absolute",
-          top: "10px",
-          left: "10px",
-          zIndex: 1000,
-          display: "flex",
-          gap: "10px",
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
-          borderRadius: "8px",
-          padding: "5px",
-        }}
-      >
-        <IconButton onClick={() => viewerRef.current?.viewport.zoomBy(1.2).applyConstraints()} color="primary">
-          <ZoomInIcon />
-        </IconButton>
-        <IconButton onClick={() => viewerRef.current?.viewport.zoomBy(0.8).applyConstraints()} color="primary">
-          <ZoomOutIcon />
-        </IconButton>
-        <IconButton onClick={() => viewerRef.current?.viewport.goHome()} color="primary">
-          <HomeIcon />
-        </IconButton>
-        <IconButton onClick={() => viewerRef.current?.setFullScreen(!viewerRef.current.isFullPage())} color="primary">
-          <FullscreenIcon />
-        </IconButton>
-      </div>
+      {isToolbarVisible && (
+        <div
+          style={{
+            position: "absolute",
+            top: "10px",
+            left: "10px",
+            zIndex: 1000,
+            display: "flex",
+            gap: "10px",
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            borderRadius: "8px",
+            padding: "5px",
+            transition: "opacity 0.5s ease",
+          }}
+        >
+          <IconButton onClick={() => viewerRef.current?.viewport.zoomBy(1.2).applyConstraints()} color="primary">
+            <ZoomInIcon />
+          </IconButton>
+          <IconButton onClick={() => viewerRef.current?.viewport.zoomBy(0.8).applyConstraints()} color="primary">
+            <ZoomOutIcon />
+          </IconButton>
+          <IconButton onClick={() => viewerRef.current?.viewport.goHome()} color="primary">
+            <HomeIcon />
+          </IconButton>
+          <IconButton onClick={() => viewerRef.current?.setFullScreen(!viewerRef.current.isFullPage())} color="primary">
+            <FullscreenIcon />
+          </IconButton>
+        </div>
+      )}
     </div>
   );
 };
