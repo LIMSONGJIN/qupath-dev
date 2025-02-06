@@ -11,12 +11,13 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 interface ImageViewerProps {
   imageUrl: string;
 }
-const ImageViewer: React.FC = () => {
+
+const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
   const viewerRef = useRef<OpenSeadragon.Viewer | null>(null);
   const paperCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isViewerReady, setIsViewerReady] = useState(false);
   const [imageWidth, setImageWidth] = useState(0);
-  const [isToolbarVisible, setIsToolbarVisible] = useState(true); // Toolbar visibility state
+  const [isToolbarVisible, setIsToolbarVisible] = useState(true);
   const hideTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const ImageViewer: React.FC = () => {
         element: document.getElementById("openseadragon") as HTMLElement,
         tileSources: {
           type: "image",
-          url: "/images/1.png",
+          url: imageUrl,  // 초기 이미지 경로로 설정
         },
         showNavigator: true,
         showNavigationControl: false,
@@ -36,7 +37,7 @@ const ImageViewer: React.FC = () => {
         constrainDuringPan: true,
         animationTime: 1.2,
         springStiffness: 7.0,
-        zoomPerClick: 1,          // 클릭 시 줌 비활성화 (줌 배율 1)
+        zoomPerClick: 1,
       });
 
       viewer.addHandler("open", () => {
@@ -44,14 +45,10 @@ const ImageViewer: React.FC = () => {
           paper.setup(paperCanvasRef.current);
           drawGrid();
         }
-        if (viewer.container) {
-          viewer.container.style.backgroundColor = '#000000';  // 검은색 배경 설정
-        }
         const tiledImage = viewer.world.getItemAt(0);
         if (tiledImage) {
           setImageWidth(tiledImage.getContentSize().x);
         }
-
         viewer.viewport.fitBounds(tiledImage.getBounds(true));
         setIsViewerReady(true);
       });
@@ -59,7 +56,6 @@ const ImageViewer: React.FC = () => {
       viewer.addHandler("zoom", drawGrid);
       viewer.addHandler("animation", drawGrid);
 
-      // Add event handlers to reset toolbar hide timer on interaction
       const resetToolbarTimer = () => {
         setIsToolbarVisible(true);
         if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
@@ -71,16 +67,11 @@ const ImageViewer: React.FC = () => {
       viewer.addHandler("canvas-scroll", resetToolbarTimer);
 
       viewerRef.current = viewer;
-      resetToolbarTimer();
+    } else {
+      // 새로운 이미지가 선택될 때마다 OpenSeadragon에 새 이미지 로드
+      viewerRef.current.open({ type: "image", url: imageUrl });
     }
-
-    return () => {
-      if (viewerRef.current) {
-        viewerRef.current.destroy();
-        viewerRef.current = null;
-      }
-    };
-  }, []);
+  }, [imageUrl]);  // imageUrl이 변경될 때마다 실행
 
   const drawGrid = () => {
     if (!paper.view || !viewerRef.current) return;
@@ -113,7 +104,7 @@ const ImageViewer: React.FC = () => {
   };
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%", margin: "0 auto" , overflow: "hidden"}}>
+    <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
       <div
         id="openseadragon"
         style={{
@@ -134,7 +125,7 @@ const ImageViewer: React.FC = () => {
           pointerEvents: "none",
         }}
       ></canvas>
-      
+
       {isViewerReady && viewerRef.current && imageWidth > 0 && (
         <Scalebar
           viewer={viewerRef.current}

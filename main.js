@@ -7,8 +7,8 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1600,
+    height: 900,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"), // Preload 스크립트 연결
       contextIsolation: true, // 보안 강화
