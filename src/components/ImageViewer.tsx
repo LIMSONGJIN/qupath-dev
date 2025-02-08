@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import OpenSeadragon from "openseadragon";
-import paper from "paper";
 import Scalebar from "./ScaleBar";
 import { IconButton } from "@mui/material";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
@@ -14,7 +13,6 @@ interface ImageViewerProps {
 
 const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
   const viewerRef = useRef<OpenSeadragon.Viewer | null>(null);
-  const paperCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isViewerReady, setIsViewerReady] = useState(false);
   const [imageWidth, setImageWidth] = useState(0);
   const [isToolbarVisible, setIsToolbarVisible] = useState(true);
@@ -26,7 +24,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
         element: document.getElementById("openseadragon") as HTMLElement,
         tileSources: {
           type: "image",
-          url: imageUrl,  // 초기 이미지 경로로 설정
+          url: imageUrl,
         },
         showNavigator: true,
         showNavigationControl: false,
@@ -41,10 +39,6 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
       });
 
       viewer.addHandler("open", () => {
-        if (paperCanvasRef.current) {
-          paper.setup(paperCanvasRef.current);
-          drawGrid();
-        }
         const tiledImage = viewer.world.getItemAt(0);
         if (tiledImage) {
           setImageWidth(tiledImage.getContentSize().x);
@@ -52,9 +46,6 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
         viewer.viewport.fitBounds(tiledImage.getBounds(true));
         setIsViewerReady(true);
       });
-
-      viewer.addHandler("zoom", drawGrid);
-      viewer.addHandler("animation", drawGrid);
 
       const resetToolbarTimer = () => {
         setIsToolbarVisible(true);
@@ -68,40 +59,9 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
 
       viewerRef.current = viewer;
     } else {
-      // 새로운 이미지가 선택될 때마다 OpenSeadragon에 새 이미지 로드
       viewerRef.current.open({ type: "image", url: imageUrl });
     }
-  }, [imageUrl]);  // imageUrl이 변경될 때마다 실행
-
-  const drawGrid = () => {
-    if (!paper.view || !viewerRef.current) return;
-
-    const zoom = viewerRef.current.viewport.getZoom();
-    const bounds = viewerRef.current.viewport.getBounds();
-    const gridSpacing = 100 / zoom;
-
-    paper.project.activeLayer.removeChildren();
-
-    for (let x = Math.floor(bounds.x / gridSpacing) * gridSpacing; x < bounds.x + bounds.width; x += gridSpacing) {
-      new paper.Path.Line({
-        from: [x, bounds.y],
-        to: [x, bounds.y + bounds.height],
-        strokeColor: "gray",
-        strokeWidth: 1,
-      });
-    }
-
-    for (let y = Math.floor(bounds.y / gridSpacing) * gridSpacing; y < bounds.y + bounds.height; y += gridSpacing) {
-      new paper.Path.Line({
-        from: [bounds.x, y],
-        to: [bounds.x + bounds.width, y],
-        strokeColor: "gray",
-        strokeWidth: 1,
-      });
-    }
-
-    paper.view.update();
-  };
+  }, [imageUrl]);
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
@@ -114,17 +74,6 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
           position: "relative",
         }}
       ></div>
-      <canvas
-        ref={paperCanvasRef}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          pointerEvents: "none",
-        }}
-      ></canvas>
 
       {isViewerReady && viewerRef.current && imageWidth > 0 && (
         <Scalebar
