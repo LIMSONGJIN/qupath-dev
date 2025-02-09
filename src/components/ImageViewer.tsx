@@ -99,12 +99,10 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
       // 뷰포트 상의 크기 계산
       const viewportWidth = bottomRight.x - topLeft.x;
       const viewportHeight = bottomRight.y - topLeft.y;
-      if (overlayRef.current) {
-        viewer.addOverlay({
-          element: overlayRef.current as HTMLElement,  // 또는 as HTMLDivElement
-          location: new OpenSeadragon.Rect(0, 0, 1, 1), // 좌표 확인 필요
-        });
-      }
+      viewer.addOverlay({
+        element: overlayRef.current as HTMLElement,
+        location: new OpenSeadragon.Rect(0, 0, 1, 1),  // 좌표 확인 필요
+      });
       
       return (
         <div
