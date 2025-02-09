@@ -1,22 +1,31 @@
 import React, { useEffect, useRef, useState } from "react";
 import OpenSeadragon from "openseadragon";
-import Scalebar from "./ScaleBar";
 import { IconButton } from "@mui/material";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ZoomOutIcon from "@mui/icons-material/ZoomOut";
 import HomeIcon from "@mui/icons-material/Home";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import Scalebar from "./ScaleBar";
+
+interface Annotation {
+  id: string;
+  bbox: [number, number, number, number]; // [x, y, width, height]
+  class: string;
+}
 
 interface ImageViewerProps {
   imageUrl: string;
+  annotations: Annotation[];
 }
 
-const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
+const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
   const viewerRef = useRef<OpenSeadragon.Viewer | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
   const [isViewerReady, setIsViewerReady] = useState(false);
   const [imageWidth, setImageWidth] = useState(0);
   const [isToolbarVisible, setIsToolbarVisible] = useState(true);
   const hideTimerRef = useRef<number | null>(null);
+
 
   useEffect(() => {
     if (!viewerRef.current) {
@@ -24,7 +33,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
         element: document.getElementById("openseadragon") as HTMLElement,
         tileSources: {
           type: "image",
-          url: imageUrl,
+          url: imageUrl,  // 초기 이미지 경로로 설정
         },
         showNavigator: true,
         showNavigationControl: false,
@@ -37,8 +46,16 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
         springStiffness: 7.0,
         zoomPerClick: 1,
       });
+      // 오버레이 설정
+      if (overlayRef.current) {
+        viewer.addOverlay({
+          element: overlayRef.current,
+          location: viewer.viewport.imageToViewportCoordinates(0, 0), // 초기 위치
+        });
+      }
 
       viewer.addHandler("open", () => {
+
         const tiledImage = viewer.world.getItemAt(0);
         if (tiledImage) {
           setImageWidth(tiledImage.getContentSize().x);
@@ -57,24 +74,76 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
       viewer.addHandler("canvas-drag", resetToolbarTimer);
       viewer.addHandler("canvas-scroll", resetToolbarTimer);
 
-      viewerRef.current = viewer;
+      viewerRef.current = viewer;    
     } else {
       viewerRef.current.open({ type: "image", url: imageUrl });
     }
   }, [imageUrl]);
 
+  const renderAnnotations = () => {
+    if (!viewerRef.current) return [];
+  
+    const viewer = viewerRef.current;
+    const viewport = viewer.viewport;
+    const imageSize = viewer.world.getItemAt(0)?.getContentSize();
+  
+    if (!imageSize) return [];
+  
+    return annotations.map(({ id, bbox }) => {
+      const [x, y, width, height] = bbox;
+  
+      // 이미지 좌표를 뷰포트 좌표로 변환
+      const topLeft = viewport.imageToViewportCoordinates(x, y);
+      const bottomRight = viewport.imageToViewportCoordinates(x + width, y + height);
+  
+      // 뷰포트 상의 크기 계산
+      const viewportWidth = bottomRight.x - topLeft.x;
+      const viewportHeight = bottomRight.y - topLeft.y;
+      if (overlayRef.current) {
+        viewer.addOverlay({
+          element: overlayRef.current as HTMLElement,  // 또는 as HTMLDivElement
+          location: new OpenSeadragon.Rect(0, 0, 1, 1), // 좌표 확인 필요
+        });
+      }
+      
+      return (
+        <div
+          key={id}
+          style={{
+            position: "absolute",
+            left: `${topLeft.x * 100}%`,
+            top: `${topLeft.y * 100}%`,
+            width: `${viewportWidth * 100}%`,
+            height: `${viewportHeight * 100}%`,
+            border: "2px solid red",
+          }}
+        ></div>
+      );
+    });
+  };
+  
+
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <div
         id="openseadragon"
-        style={{
-          width: "100%",
-          height: "100%",
-          border: "1px solid #ccc",
-          position: "relative",
-        }}
+        style={{ width: "100%", height: "100%", position: "relative" }}
       ></div>
 
+      {/* 오버레이 컨테이너 */}
+      <div
+        ref={overlayRef}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "none",
+        }}
+      >
+        {renderAnnotations()}
+      </div>
       {isViewerReady && viewerRef.current && imageWidth > 0 && (
         <Scalebar
           viewer={viewerRef.current}
@@ -89,19 +158,19 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
         />
       )}
 
-      {isToolbarVisible && (
-        <div
-          style={{
-            position: "absolute",
-            top: "10px",
-            left: "10px",
-            zIndex: 1000,
-            display: "flex",
-            gap: "10px",
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderRadius: "8px",
-            padding: "5px",
-            transition: "opacity 0.5s ease",
+        {isToolbarVisible && (
+            <div
+              style={{
+                position: "absolute",
+                top: "10px",
+                left: "10px",
+                zIndex: 1000,
+                display: "flex",
+                gap: "10px",
+                backgroundColor: "rgba(255, 255, 255, 0.8)",
+                borderRadius: "8px",
+                padding: "5px",
+                transition: "opacity 0.5s ease",
           }}
         >
           <IconButton onClick={() => viewerRef.current?.viewport.zoomBy(1.2).applyConstraints()} color="primary">
@@ -119,6 +188,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl }) => {
         </div>
       )}
     </div>
+    
   );
 };
 

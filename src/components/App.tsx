@@ -9,11 +9,19 @@ interface ImageInfo {
   name: string;
 }
 
+interface Annotation {
+  id: string;
+  bbox: [number, number, number, number]; // [centerX, centerY, width, height]
+  class: string;
+}
+
 function App() {
   const [selectedImage, setSelectedImage] = useState<string>("");
   const [selectedImageName, setSelectedImageName] = useState<string>("이미지를 선택하세요");
   const [images, setImages] = useState<ImageInfo[]>([]);
+  const [annotations, setAnnotations] = useState<Annotation[]>([]);
 
+  // 이미지 선택 이벤트 핸들러
   const handleImageSelect = (image: string, name: string) => {
     setSelectedImage(image);
     setSelectedImageName(name);
@@ -21,6 +29,17 @@ function App() {
     // 선택한 이미지 정보를 로컬 스토리지에 저장
     localStorage.setItem("selectedImage", image);
     localStorage.setItem("selectedImageName", name);
+
+    // 해당 이미지에 대한 annotation 데이터 로드
+    fetch(`/annotations/${name.split(".")[0]}_annotation.json`)
+      .then((response) => response.json())
+      .then((data) => {
+        setAnnotations(data.annotations || []);
+      })
+      .catch((error) => {
+        console.error("Error loading annotations:", error);
+        setAnnotations([]); // 실패 시 빈 배열로 설정
+      });
   };
 
   // 단축키 이벤트 핸들러 추가
@@ -60,14 +79,14 @@ function App() {
 
         <div style={{ flex: 2, backgroundColor: "#000", position: "relative", overflow: "hidden" }}>
           {selectedImage ? (
-            <ImageViewer imageUrl={selectedImage} />
+            <ImageViewer imageUrl={selectedImage} annotations={annotations} />
           ) : (
             <div style={{ color: "white", textAlign: "center", marginTop: "20px" }}>이미지를 선택하세요</div>
           )}
         </div>
 
         <div style={{ width: "250px", backgroundColor: "#f8f9fa", borderLeft: "1px solid #ccc", padding: "10px", overflowY: "auto" }}>
-        <ClassManager selectedImageName={selectedImageName} />
+          <ClassManager selectedImageName={selectedImageName} />
         </div>
       </div>
     </div>
