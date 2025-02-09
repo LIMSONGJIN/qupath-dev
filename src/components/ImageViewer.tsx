@@ -18,12 +18,17 @@ interface ImageViewerProps {
   annotations: Annotation[];
 }
 
+interface CustomOSDEvent extends OpenSeadragon.OSDEvent<any> {
+  position: OpenSeadragon.Point;
+}
+
 const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
   const viewerRef = useRef<OpenSeadragon.Viewer | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const [isViewerReady, setIsViewerReady] = useState(false);
   const [imageWidth, setImageWidth] = useState(0);
   const [isToolbarVisible, setIsToolbarVisible] = useState(true);
+  const [selectedAnnotation, setSelectedAnnotation] = useState<string | null>(null);
   const hideTimerRef = useRef<number | null>(null);
 
 
@@ -79,6 +84,39 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
       viewerRef.current.open({ type: "image", url: imageUrl });
     }
   }, [imageUrl]);
+  useEffect(() => {
+    if (!viewerRef.current) return;
+
+    const handleCanvasClick = (event: CustomOSDEvent) => {
+      const viewportPoint = viewerRef.current!.viewport.pointFromPixel(event.position);
+      const imagePoint = viewerRef.current!.viewport.viewportToImageCoordinates(viewportPoint);
+
+      let clickedAnnotationId: string | null = null;
+
+      annotations.forEach(({ id, bbox }) => {
+        const [x, y, width, height] = bbox;
+        if (
+          imagePoint.x >= x &&
+          imagePoint.x <= x + width &&
+          imagePoint.y >= y &&
+          imagePoint.y <= y + height
+        ) {
+          clickedAnnotationId = id;
+        }
+      });
+
+      if (clickedAnnotationId) {
+        setSelectedAnnotation((prevId) => (prevId === clickedAnnotationId ? null : clickedAnnotationId));
+        console.log(`Annotation clicked: ${clickedAnnotationId}`);
+      }
+    };
+
+    viewerRef.current.addHandler("canvas-click", handleCanvasClick);
+
+    return () => {
+      viewerRef.current?.removeHandler("canvas-click", handleCanvasClick);
+    };
+  }, [annotations]);
 
   const renderAnnotations = () => {
     if (!viewerRef.current) return [];
@@ -89,7 +127,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
   
     if (!imageSize) return [];
   
-    return annotations.map(({ id, bbox }) => {
+    return annotations.map(({ id, bbox, class: className }) => {
       const [x, y, width, height] = bbox;
   
       // 이미지 좌표를 뷰포트 좌표로 변환
@@ -99,11 +137,14 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
       // 뷰포트 상의 크기 계산
       const viewportWidth = bottomRight.x - topLeft.x;
       const viewportHeight = bottomRight.y - topLeft.y;
-      viewer.addOverlay({
-        element: overlayRef.current as HTMLElement,
-        location: new OpenSeadragon.Rect(0, 0, 1, 1),  // 좌표 확인 필요
-      });
-      
+      if (overlayRef.current) {
+        viewer.addOverlay({
+          element: overlayRef.current as HTMLElement,  // 또는 as HTMLDivElement
+          location: new OpenSeadragon.Rect(0, 0, 1, 1), // 좌표 확인 필요
+        });
+      }
+      const isSelected = id === selectedAnnotation;
+      const borderColor = isSelected ? "yellow" : "red"; // 클래스 색상 또는 노란색
       return (
         <div
           key={id}
@@ -113,8 +154,8 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
             top: `${topLeft.y * 100}%`,
             width: `${viewportWidth * 100}%`,
             height: `${viewportHeight * 100}%`,
-            border: "2px solid red",
-          }}
+            border: `3px solid ${borderColor}`,
+           }}
         ></div>
       );
     });

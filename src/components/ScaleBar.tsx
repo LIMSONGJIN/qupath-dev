@@ -46,10 +46,8 @@ const Scalebar: React.FC<ScalebarProps> = ({
 
       // DPI 보정 추가
       const dpiCorrection = window.devicePixelRatio || 1;
-      const adjustmentFactor = 0.975; // 소수점 보정 추가
       const barLength = (targetStep * imageZoom ) / dpiCorrection;
 
-      console.log('Bar Length:', barLength);
       scalebarRef.current.style.width = `${barLength}px`;
       scalebarRef.current.style.borderBottom = `${barThickness}px solid ${color}`;
       scalebarRef.current.textContent = `${targetStep} px`;
