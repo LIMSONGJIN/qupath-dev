@@ -66,8 +66,6 @@ function App() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh", width: "100vw", overflow: "hidden" }}>
-      <Toolbar />
-
       <div style={{ padding: "10px", backgroundColor: "#f8f9fa", borderBottom: "1px solid #ddd", textAlign: "center" }}>
         <h3 style={{ margin: 0 }}>{selectedImageName}</h3>
       </div>
