@@ -1,17 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { ImageListProps, ImageInfo } from "../types/imagelist";
 
-interface ImageListProps {
-  onImageSelect: (image: string, name: string) => void;
-  selectedImage: string;
-  setImages: (images: ImageInfo[]) => void;  // 이미지 리스트 상태 전달
-}
-
-interface ImageInfo {
-  url: string;
-  name: string;
-  width: number;
-  height: number;
-}
 
 const ImageList: React.FC<ImageListProps> = ({ onImageSelect, selectedImage, setImages }) => {
   const [images, setLocalImages] = useState<ImageInfo[]>([]);

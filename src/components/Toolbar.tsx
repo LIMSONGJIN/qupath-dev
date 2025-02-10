@@ -4,11 +4,8 @@ import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ZoomOutIcon from "@mui/icons-material/ZoomOut";
 import HomeIcon from "@mui/icons-material/Home";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
-import OpenSeadragon from "openseadragon";
+import { ToolbarProps } from "../types/toolbar";
 
-interface ToolbarProps {
-  viewer: OpenSeadragon.Viewer;
-}
 
 const Toolbar: React.FC<ToolbarProps> = ({ viewer }) => {
   return (

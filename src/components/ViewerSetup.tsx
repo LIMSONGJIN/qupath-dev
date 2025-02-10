@@ -1,13 +1,6 @@
 import React, { useEffect } from "react";
 import OpenSeadragon from "openseadragon";
-
-interface ViewerSetupProps {
-  imageUrl: string;
-  viewerRef: React.MutableRefObject<OpenSeadragon.Viewer | null>;
-  setIsViewerReady: (ready: boolean) => void;
-  setImageWidth: (width: number) => void;
-  setIsToolbarVisible: (visible: boolean) => void;
-}
+import { ViewerSetupProps } from "../types/viewersetup";
 
 const ViewerSetup: React.FC<ViewerSetupProps> = ({
   imageUrl,
@@ -26,7 +19,7 @@ const ViewerSetup: React.FC<ViewerSetupProps> = ({
           type: "image",
           url: imageUrl,
         },
-        showNavigator: true,
+        showNavigator: false,
         showNavigationControl: false,
         defaultZoomLevel: 0.9,
         visibilityRatio: 0,

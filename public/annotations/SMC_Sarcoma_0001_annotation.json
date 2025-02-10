@@ -1,0 +1,34 @@
+{
+  "annotations": [
+    {
+      "id": "316343c7-adf6-4784-b543-ab0f95ddcbe9",
+      "bbox": [
+        1494,
+        1757,
+        625,
+        650
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7a3cd10f-0355-479b-9c84-9d607f51afb5",
+      "bbox": [
+        1275,
+        2670,
+        875,
+        569
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "46ef3917-56d4-4902-bfd2-1eb322955388",
+      "bbox": [
+        1794,
+        713,
+        1125,
+        575
+      ],
+      "class": "Unclassified"
+    }
+  ]
+}

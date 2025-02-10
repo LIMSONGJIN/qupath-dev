@@ -3,18 +3,10 @@ import ViewerSetup from "./ViewerSetup";
 import AnnotationRenderer from "./AnnotationRenderer";
 import Toolbar from "./Toolbar";
 import Scalebar from "./ScaleBar";
+import BBoxCreator from "./BBoxCreator";
 import OpenSeadragon from "openseadragon";
+import { ImageViewerProps } from "../types/imageviewer";
 
-interface Annotation {
-  id: string;
-  bbox: [number, number, number, number];
-  class: string;
-}
-
-interface ImageViewerProps {
-  imageUrl: string;
-  annotations: Annotation[];
-}
 
 const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
   const viewerRef = useRef<OpenSeadragon.Viewer | null>(null);
@@ -24,6 +16,13 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
   const [selectedSide, setSelectedSide] = useState<{ id: string; side: string } | null>(null);
   const [isToolbarVisible, setIsToolbarVisible] = useState(true);
 
+    // 파일 이름 추출 함수
+    const extractFileName = (url: string): string => {
+      const parts = url.split('/');
+      return parts[parts.length - 1].split('.')[0]; // 확장자를 제거한 파일 이름 반환
+    };
+  
+    const imageFileName = extractFileName(imageUrl);
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <ViewerSetup
@@ -34,18 +33,18 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
         setIsToolbarVisible={setIsToolbarVisible}
       />
 
-      {isViewerReady && (
+      {isViewerReady && viewerRef.current && (
         <>
           <AnnotationRenderer
             annotations={annotations}
-            viewer={viewerRef.current!}
+            viewer={viewerRef.current}
             selectedAnnotation={selectedAnnotation}
             setSelectedAnnotation={setSelectedAnnotation}
-            selectedSide={selectedSide}             
-            setSelectedSide={setSelectedSide}       
+            selectedSide={selectedSide}
+            setSelectedSide={setSelectedSide}
           />
           <Scalebar
-            viewer={viewerRef.current!}
+            viewer={viewerRef.current}
             minWidthPx={200}
             location="BOTTOM_RIGHT"
             color="red"
@@ -55,7 +54,8 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
             barThickness={6}
             imageWidth={imageWidth}
           />
-          {isToolbarVisible && <Toolbar viewer={viewerRef.current!} />}
+          <BBoxCreator viewer={viewerRef.current}  imageFileName={imageFileName}/>
+          {isToolbarVisible && <Toolbar viewer={viewerRef.current} />}
         </>
       )}
     </div>

@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-interface ClassInfo {
-  id: number;
-  name: string;
-  color: string;
-  count: number;
-}
-
-interface ClassManagerProps {
-  selectedImageName: string;
-}
+import { ClassInfo, ClassManagerProps } from "../types/classmanager";
 
 // 기본 클래스 목록
 const defaultClasses: ClassInfo[] = [

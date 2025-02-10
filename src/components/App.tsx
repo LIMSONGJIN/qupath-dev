@@ -1,19 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ImageList from "./ImageList";
 import ImageViewer from "./ImageViewer";
-import Toolbar from "./Toolbar";
 import ClassManager from "./ClassManager";
-
-interface ImageInfo {
-  url: string;
-  name: string;
-}
-
-interface Annotation {
-  id: string;
-  bbox: [number, number, number, number]; // [centerX, centerY, width, height]
-  class: string;
-}
+import { ImageInfo, Annotation } from "../types/app";
 
 function App() {
   const [selectedImage, setSelectedImage] = useState<string>("");
@@ -25,7 +14,6 @@ function App() {
   const handleImageSelect = (image: string, name: string) => {
     setSelectedImage(image);
     setSelectedImageName(name);
-
     // 선택한 이미지 정보를 로컬 스토리지에 저장
     localStorage.setItem("selectedImage", image);
     localStorage.setItem("selectedImageName", name);

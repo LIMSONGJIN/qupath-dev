@@ -1,24 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import OpenSeadragon from "openseadragon";
-
-interface Annotation {
-  id: string;
-  bbox: [number, number, number, number];
-  class: string;
-}
-
-interface AnnotationRendererProps {
-  annotations: Annotation[];
-  viewer: OpenSeadragon.Viewer;
-  selectedAnnotation: string | null;
-  setSelectedAnnotation: (id: string | null) => void;
-  selectedSide: { id: string; side: string } | null;
-  setSelectedSide: (side: { id: string; side: string } | null) => void;
-}
-
-interface CustomOSDEvent extends OpenSeadragon.OSDEvent<any> {
-  position: OpenSeadragon.Point;
-}
+import { AnnotationRendererProps, CustomOSDEvent} from "../types/annotationrenderer";
 
 const classColors: Record<string, string> = {
   "Unclassified": "#FF0000", // 빨강색
@@ -68,7 +50,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
 
       let clickedAnnotationId: string | null = null;
       let clickedSide: string | null = null;
-      const borderTolerance = 4;
+      const borderTolerance = 2;
 
       // annotation 클릭 여부 확인
       annotations.forEach(({ id, bbox }) => {

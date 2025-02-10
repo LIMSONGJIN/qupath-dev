@@ -1,7 +1,8 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
+const fs = require("fs");
 
-const isDev = !app.isPackaged; // 개발 모드와 프로덕션 모드 구분
+const isDev = !app.isPackaged;
 
 let mainWindow;
 
@@ -10,25 +11,36 @@ function createWindow() {
     width: 1600,
     height: 900,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"), // Preload 스크립트 연결
-      contextIsolation: true, // 보안 강화
-      enableRemoteModule: false, // Remote 사용 비활성화
+      preload: path.join(__dirname, "preload.js"),
+      contextIsolation: true,
+      enableRemoteModule: false,
     },
   });
 
   if (isDev) {
-    mainWindow.loadURL("http://localhost:5173"); // Vite 개발 서버 URL
+    mainWindow.loadURL("http://localhost:5173");
   } else {
-    mainWindow.loadFile(path.join(__dirname, "dist", "index.html")); // 빌드된 React 앱 로드
+    mainWindow.loadFile(path.join(__dirname, "dist", "index.html"));
   }
 
-  // 개발자 도구 자동 열기 (개발 환경에서만)
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
 }
 
-// 앱이 준비되었을 때 실행
+// IPC 이벤트를 통해 JSON 파일 읽고 쓰기 처리
+ipcMain.handle("save-annotations", async (event, { fileName, data }) => {
+  const filePath = path.join(__dirname, "public", "annotations", `${fileName}.json`);
+
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    return { success: true };
+  } catch (error) {
+    console.error("Error saving annotations:", error);
+    return { success: false, error: error.message };
+  }
+});
+
 app.whenReady().then(() => {
   createWindow();
 
@@ -39,7 +51,6 @@ app.whenReady().then(() => {
   });
 });
 
-// 모든 창이 닫혔을 때 앱 종료
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
