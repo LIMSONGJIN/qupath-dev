@@ -2,7 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import OpenSeadragon from "openseadragon";
 import { Annotation, BBoxCreatorProps, CustomMouseTrackerEvent } from "../types/bboxcreator";
 
-const BBoxCreator: React.FC<BBoxCreatorProps> = ({ viewer, imageFileName }) => {
+const BBoxCreator: React.FC<BBoxCreatorProps & { setSelectedAnnotation: (id: string) => void }> = ({
+  viewer,
+  imageFileName,
+  setSelectedAnnotation,
+}) => {
   const [annotations, setAnnotations] = useState<Annotation[]>([]);
   const [selectionMode, setSelectionMode] = useState(false);
   const dragRef = useRef<{ startImagePos: OpenSeadragon.Point; overlayElement: HTMLDivElement } | null>(null);
@@ -34,11 +38,10 @@ const BBoxCreator: React.FC<BBoxCreatorProps> = ({ viewer, imageFileName }) => {
         annotations: updatedAnnotations,
       });
 
-      if (!response.success) {
-        throw new Error(response.error || "Failed to save annotations.");
-      }
+      if (!response.success) throw new Error("Failed to save annotations.");
 
       console.log("Annotation saved successfully!");
+      setSelectedAnnotation(newAnnotation.id); // 새로 추가된 박스를 선택 상태로 설정
     } catch (error) {
       console.error("Error saving annotation:", error);
     }

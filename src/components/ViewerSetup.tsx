@@ -34,7 +34,7 @@ const ViewerSetup: React.FC<ViewerSetupProps> = ({
       viewer.addHandler('canvas-key', (event: any) => {
         const key = event.originalEvent.key.toLowerCase();
 
-        if (['w', 'a', 's', 'd', 'r'].includes(key)) {
+        if (['w', 'a', 's', 'd', 'r', 'f'].includes(key)) {
             event.preventDefault();  // 기본 동작 차단
             event.stopPropagation(); // 이벤트 전파 중지
         }

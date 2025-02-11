@@ -165,8 +165,12 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
             barThickness={6}
             imageWidth={imageWidth}
           />
-          <BBoxCreator viewer={viewerRef.current} imageFileName={imageFileName} />
-          {isToolbarVisible && <Toolbar viewer={viewerRef.current} />}
+          <BBoxCreator
+            viewer={viewerRef.current}
+            imageFileName={imageFileName}
+            setSelectedAnnotation={setSelectedAnnotation}  // 선택 상태 전달
+          />         
+           {isToolbarVisible && <Toolbar viewer={viewerRef.current} />}
         </>
       )}
     </div>

@@ -1,22 +1,82 @@
 {
   "annotations": [
     {
-      "id": "a00c3b3f-f979-4ee6-9015-67f56a360503",
+      "id": "d136b729-984d-401e-aeb3-8bced2c833ba",
       "bbox": [
-        2386,
-        2879,
-        428,
-        465
+        1674,
+        1263,
+        564,
+        688
       ],
       "class": "Unclassified"
     },
     {
-      "id": "dd675cd9-283f-450c-9186-a51c9eefdbc9",
+      "id": "8817ae35-fd60-40bb-bd24-1fd884b3fcfd",
       "bbox": [
-        2701,
-        1109,
-        660,
-        473
+        1156,
+        2356,
+        509,
+        621
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e5b8ec33-19ff-43ff-b2a4-d3988cb450bc",
+      "bbox": [
+        2960,
+        2826,
+        123,
+        177
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b37cb1ec-70af-4128-8359-5d6a85204f75",
+      "bbox": [
+        2258,
+        2510,
+        285,
+        869
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "4a45b3be-babd-4d74-a23e-4e8e913b42f8",
+      "bbox": [
+        3795,
+        3576,
+        186,
+        357
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "373455a9-a1c6-4dbb-bdae-78933b75e5c8",
+      "bbox": [
+        613,
+        1387,
+        378,
+        507
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8f7e9532-8367-4d23-b856-4171836e0a67",
+      "bbox": [
+        1938,
+        512,
+        1609,
+        274
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "69bf9ba3-0cc7-4ba1-b75e-04e0ae18c6d2",
+      "bbox": [
+        3185,
+        1258,
+        492,
+        781
       ],
       "class": "Unclassified"
     }
