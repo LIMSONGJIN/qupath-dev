@@ -81,85 +81,9 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedAnnotation, annotations]);
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (!selectedAnnotation || !["w", "a", "s", "d"].includes(event.key.toLowerCase())) {
-        return;
-      }
+
   
-      // OpenSeadragon의 기본 동작 막기
-      event.preventDefault();
-      event.stopPropagation();  // 이벤트 전파 방지
-  
-      const directionVectors: Record<string, [number, number]> = {
-        w: [0, -1],
-        s: [0, 1],
-        a: [-1, 0],
-        d: [1, 0],
-      };
-  
-      const alpha = 1;
-      const currentAnnotation = annotations.find(annotation => annotation.id === selectedAnnotation);
-  
-      if (!currentAnnotation) return;
-  
-      const [cx, cy, cWidth, cHeight] = currentAnnotation.bbox;
-      const currentCenter = { x: cx + cWidth / 2, y: cy + cHeight / 2 };
-      const direction = directionVectors[event.key.toLowerCase()];
-  
-      let closestCandidate: string | null = null;
-      let closestDistance = Infinity;
-  
-      annotations.forEach(({ id, bbox }) => {
-        if (id === selectedAnnotation) return;
-  
-        const [bx, by, bWidth, bHeight] = bbox;
-        const candidateCenter = { x: bx + bWidth / 2, y: by + bHeight / 2 };
-  
-        const vectorU = {
-          x: candidateCenter.x - currentCenter.x,
-          y: candidateCenter.y - currentCenter.y,
-        };
-        const euclideanDistance = Math.sqrt(vectorU.x ** 2 + vectorU.y ** 2);
-  
-        const normalizedD = {
-          x: direction[0],
-          y: direction[1],
-        };
-        const dotProduct = vectorU.x * normalizedD.x + vectorU.y * normalizedD.y;
-        const projectedVector = {
-          x: dotProduct * normalizedD.x,
-          y: dotProduct * normalizedD.y,
-        };
-        const offsetVector = {
-          x: vectorU.x - projectedVector.x,
-          y: vectorU.y - projectedVector.y,
-        };
-        const offsetDistance = Math.sqrt(offsetVector.x ** 2 + offsetVector.y ** 2);
-  
-        const distanceScore = euclideanDistance + alpha * offsetDistance;
-  
-        const angleCos = dotProduct / (euclideanDistance || 1);
-        if (angleCos >= Math.cos(Math.PI / 4) && distanceScore < closestDistance) {
-          closestDistance = distanceScore;
-          closestCandidate = id;
-        }
-      });
-  
-      if (closestCandidate) {
-        setSelectedAnnotation(closestCandidate);
-        setSelectedSide(null);
-        setSelectedClass(null);
-      }
-    };
-  
-    // 이벤트 등록
-    window.addEventListener("keydown", handleKeyDown, true);  // 캡처 단계에서 이벤트 처리
-    return () => window.removeEventListener("keydown", handleKeyDown, true);
-  }, [annotations, selectedAnnotation, setSelectedAnnotation, setSelectedSide, setSelectedClass]);
-  
-  
-  useEffect(() => {
+useEffect(() => {
     const handleCanvasDoubleClick = (event: CustomOSDEvent) => {
       const viewportPoint = viewer.viewport.pointFromPixel(event.position);
       const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
@@ -168,6 +92,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
       let clickedSide: string | null = null;
       const borderTolerance = 2;
 
+      // 주석의 박스 내 클릭 여부 및 어느 면이 클릭되었는지 확인
       annotations.forEach(({ id, bbox }) => {
         const [x, y, width, height] = bbox;
 
@@ -186,9 +111,37 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
         }
       });
 
+      // 클릭된 주석이 없을 경우 중앙과 가장 가까운 주석 선택
+      if (!clickedAnnotationId) {
+        const viewportCenter = viewer.viewport.getCenter();
+        const imageCenter = viewer.viewport.viewportToImageCoordinates(viewportCenter);
+
+        let closestAnnotationId: string | null = null;
+        let closestDistance = Infinity;
+
+        annotations.forEach(({ id, bbox }) => {
+          const [x, y, width, height] = bbox;
+          const centerX = x + width / 2;
+          const centerY = y + height / 2;
+
+          const distance = Math.sqrt(
+            (centerX - imageCenter.x) ** 2 + (centerY - imageCenter.y) ** 2
+          );
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestAnnotationId = id;
+          }
+        });
+
+        clickedAnnotationId = closestAnnotationId;
+      }
+
+      // 주석 선택 로직
       if (clickedAnnotationId) {
         if (selectedAnnotation === clickedAnnotationId) {
           if (clickedSide) {
+            // 클릭된 면이 선택된 상태와 동일하면 선택 해제, 그렇지 않으면 선택 상태 업데이트
             if (selectedSide?.id === clickedAnnotationId && selectedSide.side === clickedSide) {
               setSelectedSide(null);
             } else {
@@ -202,6 +155,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
           setSelectedSide(null);
         }
       } else {
+        // 선택 해제
         setSelectedAnnotation(null);
         setSelectedSide(null);
         setSelectedClass(null);
@@ -214,11 +168,45 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
         location: new OpenSeadragon.Rect(0, 0, 1, 1),
       });
     }
+
     viewer.addHandler("canvas-double-click", handleCanvasDoubleClick);
 
     return () => viewer.removeHandler("canvas-double-click", handleCanvasDoubleClick);
-  }, [annotations, selectedAnnotation, selectedSide, setSelectedAnnotation, setSelectedSide]);
+  }, [annotations, selectedAnnotation, selectedSide, setSelectedAnnotation, setSelectedSide, setSelectedClass, viewer]);
 
+  useEffect(() => {
+    if (annotations.length > 0 && viewer && !selectedAnnotation) {
+      // 뷰어 중앙 좌표 가져오기
+      const viewportCenter = viewer.viewport.getCenter();
+      const imageCenter = viewer.viewport.viewportToImageCoordinates(viewportCenter);
+  
+      console.log("Initial image center point:", imageCenter);
+  
+      let closestAnnotationId: string | null = null;
+      let closestDistance = Infinity;
+  
+      // 각 주석의 좌표와 중앙 좌표 간 거리 비교
+      annotations.forEach(({ id, bbox }) => {
+        const [x, y] = bbox;  // bbox 시작 좌표
+  
+        // 이미지 중앙 좌표와 해당 박스 좌표 간 거리 계산
+        const distance = Math.sqrt(
+          (x - imageCenter.x) ** 2 + (y - imageCenter.y) ** 2
+        );
+  
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestAnnotationId = id;
+        }
+      });
+  
+      // 가장 가까운 주석을 선택
+      if (closestAnnotationId) {
+        setSelectedAnnotation(closestAnnotationId);
+        setSelectedSide(null);
+      }
+    }
+  }, [annotations, viewer, selectedAnnotation, setSelectedAnnotation]);
   const viewport = viewer.viewport;
 
   return (
