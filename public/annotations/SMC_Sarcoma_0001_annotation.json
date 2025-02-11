@@ -1,16 +1,6 @@
 {
   "annotations": [
     {
-      "id": "f08dab3b-65c5-4698-83cf-696f4ba457c1",
-      "bbox": [
-        1275,
-        1682,
-        988,
-        788
-      ],
-      "class": "Unclassified"
-    },
-    {
       "id": "a00c3b3f-f979-4ee6-9015-67f56a360503",
       "bbox": [
         2386,

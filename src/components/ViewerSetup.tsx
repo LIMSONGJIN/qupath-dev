@@ -30,7 +30,15 @@ const ViewerSetup: React.FC<ViewerSetupProps> = ({
         springStiffness: 7.0,
         zoomPerClick: 1,
       });
+      // 키보드 입력을 제어하는 핸들러 추가
+      viewer.addHandler('canvas-key', (event: any) => {
+        const key = event.originalEvent.key.toLowerCase();
 
+        if (['w', 'a', 's', 'd', 'r'].includes(key)) {
+            event.preventDefault();  // 기본 동작 차단
+            event.stopPropagation(); // 이벤트 전파 중지
+        }
+      });
       viewer.addHandler("open", () => {
         const tiledImage = viewer.world.getItemAt(0);
         if (tiledImage) {

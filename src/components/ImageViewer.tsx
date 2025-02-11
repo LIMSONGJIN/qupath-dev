@@ -59,7 +59,8 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (!["w", "a", "s", "d"].includes(e.key.toLowerCase())) return;
-  
+      e.preventDefault();  // 기본 동작 막기
+      e.stopPropagation(); // 이벤트 전파 중지
       // 키 입력이 감지되면 초기 선택 상태를 무시하도록 설정
       setInitialSelectionDone(true);
   
