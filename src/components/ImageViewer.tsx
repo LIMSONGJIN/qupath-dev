@@ -8,7 +8,7 @@ import OpenSeadragon from "openseadragon";
 import { ImageViewerProps } from "../types/imageviewer";
 
 
-const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
+const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnnotations }) => {
   const viewerRef = useRef<OpenSeadragon.Viewer | null>(null);
   const [isViewerReady, setIsViewerReady] = useState(false);
   const [imageWidth, setImageWidth] = useState(0);
@@ -37,11 +37,13 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations }) => {
         <>
           <AnnotationRenderer
             annotations={annotations}
+            setAnnotations={setAnnotations}
             viewer={viewerRef.current}
             selectedAnnotation={selectedAnnotation}
             setSelectedAnnotation={setSelectedAnnotation}
             selectedSide={selectedSide}
             setSelectedSide={setSelectedSide}
+            imageFileName={imageFileName}
           />
           <Scalebar
             viewer={viewerRef.current}

@@ -1,22 +1,32 @@
 {
   "annotations": [
     {
-      "id": "316343c7-adf6-4784-b543-ab0f95ddcbe9",
+      "id": "f08dab3b-65c5-4698-83cf-696f4ba457c1",
       "bbox": [
-        1494,
-        1757,
-        625,
-        650
+        1275,
+        1682,
+        988,
+        788
       ],
       "class": "Unclassified"
     },
     {
-      "id": "aede877e-23b0-49b1-b187-9a472a288f3f",
+      "id": "a00c3b3f-f979-4ee6-9015-67f56a360503",
       "bbox": [
-        2882,
-        1982,
-        681,
-        1006
+        2386,
+        2879,
+        428,
+        465
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "dd675cd9-283f-450c-9186-a51c9eefdbc9",
+      "bbox": [
+        2701,
+        1109,
+        660,
+        473
       ],
       "class": "Unclassified"
     }

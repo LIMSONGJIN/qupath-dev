@@ -1,35 +1,65 @@
 import React, { useEffect, useRef, useState } from "react";
 import OpenSeadragon from "openseadragon";
-import { AnnotationRendererProps, CustomOSDEvent} from "../types/annotationrenderer";
+import { AnnotationRendererProps, CustomOSDEvent } from "../types/annotationrenderer";
 
 const classColors: Record<string, string> = {
-  "Unclassified": "#FF0000", // 빨강색
-  "Class 1": "#0072B2",       // 진한 파랑색
-  "Class 2": "#56B4E9",       // 하늘색
-  "Class 3": "#90EE90",       // 연두색
-  "Class 4": "#009E73",       // 청록색
-  "Class 5": "#E69F00",       // 주황색
-  "Class 6": "#D55E00",       // 주홍색
-  "Class 7": "#CC79A7",       // 핑크색
-  "Class 8": "#4B0082",       // 남보라색
-  "Class 9": "#CCCCCC",       // 연회색
+  "Unclassified": "#FF0000",
+  "Class 1": "#0072B2",
+  "Class 2": "#56B4E9",
+  "Class 3": "#90EE90",
+  "Class 4": "#009E73",
+  "Class 5": "#E69F00",
+  "Class 6": "#D55E00",
+  "Class 7": "#CC79A7",
+  "Class 8": "#4B0082",
+  "Class 9": "#CCCCCC",
 };
 
 const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   annotations,
+  setAnnotations, // 상태 업데이트를 위한 함수 추가
   viewer,
   selectedAnnotation,
   setSelectedAnnotation,
   selectedSide,
   setSelectedSide,
+  imageFileName,  // 이미지 파일 이름 추가
 }) => {
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
 
+
+  // 삭제 기능
+  const deleteAnnotation = async (id: string) => {
+    if (!window.confirm("Are you sure you want to delete this annotation?")) {
+      return;  // 사용자가 취소하면 삭제하지 않음
+    }
+  
+    // 상태에서 주석 삭제
+    const updatedAnnotations = annotations.filter(annotation => annotation.id !== id);
+    setAnnotations(updatedAnnotations);
+  
+    try {
+      console.log("Saving updated annotations...");
+      const response = await window.api.saveAnnotations(`${imageFileName}_annotation`, {
+        annotations: updatedAnnotations,
+      });
+  
+      if (!response.success) {
+        throw new Error(response.error || "Failed to save updated annotations.");
+      }
+  
+      console.log(`Annotation with ID ${id} deleted and saved successfully!`);
+      location.reload();  // 페이지 새로고침
+    } catch (error) {
+      console.error("Error deleting annotation:", error);
+    }
+  };
+  
   useEffect(() => {
-    // Alt + 숫자 키로 클래스 선택 기능 추가
+    // 키보드 이벤트 핸들러
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.altKey) {
+      if (event.ctrlKey) {
         const key = event.key;
         if (key === "0") {
           setSelectedClass("Unclassified");
@@ -37,12 +67,98 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
           setSelectedClass(`Class ${key}`);
         }
       }
+  
+      // Delete 키를 눌렀을 때 동작 추가
+      if (event.key === "Delete" && selectedAnnotation) {
+        console.log(`Delete key pressed for annotation: ${selectedAnnotation}`);
+        deleteAnnotation(selectedAnnotation);  // 선택된 주석 삭제
+        setSelectedAnnotation(null);           // 선택 해제
+        setSelectedSide(null);
+        setSelectedClass(null);
+      }
     };
-
+  
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
+  }, [selectedAnnotation, annotations]);
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!selectedAnnotation || !["w", "a", "s", "d"].includes(event.key.toLowerCase())) {
+        return;
+      }
+  
+      // OpenSeadragon의 기본 동작 막기
+      event.preventDefault();
+      event.stopPropagation();  // 이벤트 전파 방지
+  
+      const directionVectors: Record<string, [number, number]> = {
+        w: [0, -1],
+        s: [0, 1],
+        a: [-1, 0],
+        d: [1, 0],
+      };
+  
+      const alpha = 1;
+      const currentAnnotation = annotations.find(annotation => annotation.id === selectedAnnotation);
+  
+      if (!currentAnnotation) return;
+  
+      const [cx, cy, cWidth, cHeight] = currentAnnotation.bbox;
+      const currentCenter = { x: cx + cWidth / 2, y: cy + cHeight / 2 };
+      const direction = directionVectors[event.key.toLowerCase()];
+  
+      let closestCandidate: string | null = null;
+      let closestDistance = Infinity;
+  
+      annotations.forEach(({ id, bbox }) => {
+        if (id === selectedAnnotation) return;
+  
+        const [bx, by, bWidth, bHeight] = bbox;
+        const candidateCenter = { x: bx + bWidth / 2, y: by + bHeight / 2 };
+  
+        const vectorU = {
+          x: candidateCenter.x - currentCenter.x,
+          y: candidateCenter.y - currentCenter.y,
+        };
+        const euclideanDistance = Math.sqrt(vectorU.x ** 2 + vectorU.y ** 2);
+  
+        const normalizedD = {
+          x: direction[0],
+          y: direction[1],
+        };
+        const dotProduct = vectorU.x * normalizedD.x + vectorU.y * normalizedD.y;
+        const projectedVector = {
+          x: dotProduct * normalizedD.x,
+          y: dotProduct * normalizedD.y,
+        };
+        const offsetVector = {
+          x: vectorU.x - projectedVector.x,
+          y: vectorU.y - projectedVector.y,
+        };
+        const offsetDistance = Math.sqrt(offsetVector.x ** 2 + offsetVector.y ** 2);
+  
+        const distanceScore = euclideanDistance + alpha * offsetDistance;
+  
+        const angleCos = dotProduct / (euclideanDistance || 1);
+        if (angleCos >= Math.cos(Math.PI / 4) && distanceScore < closestDistance) {
+          closestDistance = distanceScore;
+          closestCandidate = id;
+        }
+      });
+  
+      if (closestCandidate) {
+        setSelectedAnnotation(closestCandidate);
+        setSelectedSide(null);
+        setSelectedClass(null);
+      }
+    };
+  
+    // 이벤트 등록
+    window.addEventListener("keydown", handleKeyDown, true);  // 캡처 단계에서 이벤트 처리
+    return () => window.removeEventListener("keydown", handleKeyDown, true);
+  }, [annotations, selectedAnnotation, setSelectedAnnotation, setSelectedSide, setSelectedClass]);
+  
+  
   useEffect(() => {
     const handleCanvasDoubleClick = (event: CustomOSDEvent) => {
       const viewportPoint = viewer.viewport.pointFromPixel(event.position);
@@ -52,7 +168,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
       let clickedSide: string | null = null;
       const borderTolerance = 2;
 
-      // annotation 클릭 여부 확인
       annotations.forEach(({ id, bbox }) => {
         const [x, y, width, height] = bbox;
 
@@ -72,7 +187,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
       });
 
       if (clickedAnnotationId) {
-        // 클릭한 annotation이 이미 선택된 경우 처리
         if (selectedAnnotation === clickedAnnotationId) {
           if (clickedSide) {
             if (selectedSide?.id === clickedAnnotationId && selectedSide.side === clickedSide) {
@@ -84,15 +198,13 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
             setSelectedSide(null);
           }
         } else {
-          // 새로운 annotation 선택
           setSelectedAnnotation(clickedAnnotationId);
           setSelectedSide(null);
         }
       } else {
-        // annotation 외부를 클릭한 경우: 전체 선택 해제
         setSelectedAnnotation(null);
         setSelectedSide(null);
-        setSelectedClass(null); // 선택된 클래스도 해제
+        setSelectedClass(null);
       }
     };
 
@@ -134,7 +246,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
               pointerEvents: "none",
             }}
           >
-            {/* 빨간 실선 테두리 */}
             <div
               style={{
                 position: "absolute",
@@ -145,7 +256,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
               }}
             ></div>
 
-            {/* 노란색 점선 테두리 (클래스 또는 개별 선택 시) */}
             {(isSelectedClass || isSelected) && (
               <div
                 style={{
@@ -158,7 +268,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
               ></div>
             )}
 
-            {/* 클릭 가능한 모서리 영역 */}
             {isSelected && (
               <>
                 {["top", "bottom", "left", "right"].map((side) => {

@@ -7,4 +7,5 @@ export interface Annotation {
 export interface ImageViewerProps {
     imageUrl: string;
     annotations: Annotation[];
+    setAnnotations: React.Dispatch<React.SetStateAction<Annotation[]>>;  // 상태 업데이트 함수
   }

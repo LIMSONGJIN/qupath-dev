@@ -65,7 +65,7 @@ function App() {
 
         <div style={{ flex: 2, backgroundColor: "#000", position: "relative", overflow: "hidden" }}>
           {selectedImage ? (
-            <ImageViewer imageUrl={selectedImage} annotations={annotations} />
+            <ImageViewer imageUrl={selectedImage} annotations={annotations} setAnnotations={setAnnotations}/>
           ) : (
             <div style={{ color: "white", textAlign: "center", marginTop: "20px" }}>이미지를 선택하세요</div>
           )}
