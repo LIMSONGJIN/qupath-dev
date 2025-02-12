@@ -11,92 +11,63 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
   const viewerRef = useRef<OpenSeadragon.Viewer | null>(null);
   const [isViewerReady, setIsViewerReady] = useState(false);
   const [imageWidth, setImageWidth] = useState(0);
-  const [selectedAnnotation, setSelectedAnnotation] = useState<string | null>(null);
+  const [selectedAnnotations, setSelectedAnnotations] = useState<string[]>([]);
   const [selectedSide, setSelectedSide] = useState<{ id: string; side: string } | null>(null);
   const [isToolbarVisible, setIsToolbarVisible] = useState(true);
   const [initialSelectionDone, setInitialSelectionDone] = useState(false);
 
   const imageFileName = imageUrl.split('/').pop()?.split('.')[0] || '';
-
+  const lastSelectedAnnotationRef = useRef<string | null>(null); // 🔥 마지막으로 선택된 어노테이션 저장
 
   useEffect(() => {
     // 이미지가 변경될 때마다 초기 선택 상태를 리셋
     setInitialSelectionDone(false);
+    setSelectedAnnotations([]);
   }, [imageUrl]);
-  
-  useEffect(() => {
-    if (!initialSelectionDone && annotations.length > 0 && viewerRef.current) {
-      // 뷰어 중앙 좌표 가져오기
-      const viewportCenter = viewerRef.current.viewport.getCenter();
-      const imageCenter = viewerRef.current.viewport.viewportToImageCoordinates(viewportCenter);
-  
-      let closestAnnotationId: string | null = null;
-      let closestDistance = Infinity;
-  
-      // 주석 중 가장 가까운 주석을 선택
-      annotations.forEach(({ id, bbox }) => {
-        const [x, y, width, height] = bbox;
-        const centerX = x + width / 2;
-        const centerY = y + height / 2;
-  
-        const distance = Math.sqrt(
-          (centerX - imageCenter.x) ** 2 + (centerY - imageCenter.y) ** 2
-        );
-  
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestAnnotationId = id;
-        }
-      });
-  
-      if (closestAnnotationId) {
-        setSelectedAnnotation(closestAnnotationId);
-      }
-    }
-  }, [annotations, viewerRef.current, initialSelectionDone]);
-  
-  // 사용자 키 입력 이벤트로 주석 탐색 기능 추가
+
+
+  // 키보드 입력 이벤트 처리
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (!["w", "a", "s", "d"].includes(e.key.toLowerCase())) return;
-      e.preventDefault();  // 기본 동작 막기
-      e.stopPropagation(); // 이벤트 전파 중지
-      // 키 입력이 감지되면 초기 선택 상태를 무시하도록 설정
+      e.preventDefault();
+      e.stopPropagation();
+
       setInitialSelectionDone(true);
-  
-      if (!viewerRef.current || !selectedAnnotation) return;
-  
-      // 방향 벡터 정의
+
+      if (!viewerRef.current || selectedAnnotations.length === 0) return;
+
+      const currentAnnotationId = selectedAnnotations[0]; // 첫 번째 선택된 주석 기준으로 이동
+      const currentAnnotation = annotations.find((annotation) => annotation.id === currentAnnotationId);
+      if (!currentAnnotation) return;
+
       const directionVectors: Record<string, [number, number]> = {
         w: [0, -1],  // 위쪽
         s: [0, 1],   // 아래쪽
         a: [-1, 0],  // 왼쪽
         d: [1, 0],   // 오른쪽
       };
-  
+
       const alpha = 1;
-      const currentAnnotation = annotations.find((annotation) => annotation.id === selectedAnnotation);
-      if (!currentAnnotation) return;
-  
       const [cx, cy, cWidth, cHeight] = currentAnnotation.bbox;
       const currentCenter = { x: cx + cWidth / 2, y: cy + cHeight / 2 };
       const direction = directionVectors[e.key.toLowerCase()];
-  
+
       let closestCandidate: string | null = null;
       let closestDistance = Infinity;
-  
+
       annotations.forEach(({ id, bbox }) => {
-        if (id === selectedAnnotation) return;
-  
+        if (selectedAnnotations.includes(id)) return;
+
         const [bx, by, bWidth, bHeight] = bbox;
         const candidateCenter = { x: bx + bWidth / 2, y: by + bHeight / 2 };
-  
+
         const vectorU = {
           x: candidateCenter.x - currentCenter.x,
           y: candidateCenter.y - currentCenter.y,
         };
         const euclideanDistance = Math.sqrt(vectorU.x ** 2 + vectorU.y ** 2);
-  
+
         const normalizedD = {
           x: direction[0],
           y: direction[1],
@@ -111,26 +82,58 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
           y: vectorU.y - projectedVector.y,
         };
         const offsetDistance = Math.sqrt(offsetVector.x ** 2 + offsetVector.y ** 2);
-  
+
         const distanceScore = euclideanDistance + alpha * offsetDistance;
-  
+
         const angleCos = dotProduct / (euclideanDistance || 1);
         if (angleCos >= Math.cos(Math.PI / 4) && distanceScore < closestDistance) {
           closestDistance = distanceScore;
           closestCandidate = id;
         }
       });
-  
+
       if (closestCandidate) {
-        setSelectedAnnotation(closestCandidate);
+        setSelectedAnnotations([closestCandidate]);
         setSelectedSide(null);
       }
     };
-  
+
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [annotations, selectedAnnotation]);
+  }, [annotations, selectedAnnotations]);
+
+
+  useEffect(() => {
+    if (!isViewerReady || !viewerRef.current || annotations.length === 0) return;
   
+  
+    let closestAnnotationId: string | null = null;
+    let closestDistance = Infinity;
+  
+    annotations.forEach(({ id, bbox }) => {
+      const [x, y, width, height] = bbox;
+      const annotationCenterX = x + width / 2;
+      const annotationCenterY = y + height / 2;
+  
+      const distance = Math.sqrt(annotationCenterX ** 2 + annotationCenterY ** 2);
+  
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestAnnotationId = id;
+      }
+    });
+  
+    if (closestAnnotationId && lastSelectedAnnotationRef.current !== closestAnnotationId) {
+  
+      setSelectedAnnotations([closestAnnotationId]);
+      setSelectedSide(null);
+      lastSelectedAnnotationRef.current = closestAnnotationId;
+    }
+  }, [imageUrl, annotations, isViewerReady]); // 🔥 어노테이션이 업데이트될 때도 실행됨!
+  
+  
+  
+    
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
@@ -148,8 +151,8 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
             annotations={annotations}
             setAnnotations={setAnnotations}
             viewer={viewerRef.current}
-            selectedAnnotation={selectedAnnotation}
-            setSelectedAnnotation={setSelectedAnnotation}
+            selectedAnnotations={selectedAnnotations}  // 배열 형태로 변경된 상태 전달
+            setSelectedAnnotations={setSelectedAnnotations}
             selectedSide={selectedSide}
             setSelectedSide={setSelectedSide}
             imageFileName={imageFileName}
@@ -168,9 +171,9 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
           <BBoxCreator
             viewer={viewerRef.current}
             imageFileName={imageFileName}
-            setSelectedAnnotation={setSelectedAnnotation}  // 선택 상태 전달
-          />         
-           {isToolbarVisible && <Toolbar viewer={viewerRef.current} />}
+            setSelectedAnnotations={setSelectedAnnotations}  // 선택 상태 전달
+          />
+          {isToolbarVisible && <Toolbar viewer={viewerRef.current} />}
         </>
       )}
     </div>

@@ -2,10 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 import OpenSeadragon from "openseadragon";
 import { Annotation, BBoxCreatorProps, CustomMouseTrackerEvent } from "../types/bboxcreator";
 
-const BBoxCreator: React.FC<BBoxCreatorProps & { setSelectedAnnotation: (id: string) => void }> = ({
+const BBoxCreator: React.FC<BBoxCreatorProps & { setSelectedAnnotations: (ids: string[]) => void }> = ({
   viewer,
   imageFileName,
-  setSelectedAnnotation,
+  setSelectedAnnotations,
 }) => {
   const [annotations, setAnnotations] = useState<Annotation[]>([]);
   const [selectionMode, setSelectionMode] = useState(false);
@@ -32,16 +32,16 @@ const BBoxCreator: React.FC<BBoxCreatorProps & { setSelectedAnnotation: (id: str
   const saveAnnotations = async (newAnnotation: Annotation) => {
     const updatedAnnotations = [...annotations, newAnnotation];
     setAnnotations(updatedAnnotations);
-
+  
     try {
       const response = await window.api.saveAnnotations(`${imageFileName}_annotation`, {
         annotations: updatedAnnotations,
       });
-
+  
       if (!response.success) throw new Error("Failed to save annotations.");
-
+  
       console.log("Annotation saved successfully!");
-      setSelectedAnnotation(newAnnotation.id); // 새로 추가된 박스를 선택 상태로 설정
+      setSelectedAnnotations([newAnnotation.id]); // 🔥 배열 형태로 업데이트
     } catch (error) {
       console.error("Error saving annotation:", error);
     }
@@ -53,7 +53,7 @@ const BBoxCreator: React.FC<BBoxCreatorProps & { setSelectedAnnotation: (id: str
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'n' || event.key === 'N') {
+      if (event.key === 'r' || event.key === 'R') {
         document.body.style.cursor = 'crosshair';
         setSelectionMode(true);
         viewer.setMouseNavEnabled(false);
