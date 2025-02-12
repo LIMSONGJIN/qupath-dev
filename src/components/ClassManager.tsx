@@ -1,71 +1,91 @@
-import React, { useEffect, useState } from "react";
-import { ClassInfo, ClassManagerProps } from "../types/classmanager";
-
-// 기본 클래스 목록
-const defaultClasses: ClassInfo[] = [
-  { id: 0, name: "Unclassified", color: "#FF0000", count: 0 },
-  { id: 1, name: "Class 1", color: "#0072B2", count: 0 },
-  { id: 2, name: "Class 2", color: "#56B4E9", count: 0 },
-  { id: 3, name: "Class 3", color: "#90EE90", count: 0 },
-  { id: 4, name: "Class 4", color: "#009E73", count: 0 },
-  { id: 5, name: "Class 5", color: "#E69F00", count: 0 },
-  { id: 6, name: "Class 6", color: "#D55E00", count: 0 },
-  { id: 7, name: "Class 7", color: "#CC79A7", count: 0 },
-  { id: 8, name: "Class 8", color: "#4B0082", count: 0 },
-  { id: 9, name: "Class 9", color: "#CCCCCC", count: 0 },
-];
+import React, { useEffect, useState } from 'react';
+import { ClassInfo, ClassManagerProps } from '../types/classmanager';
 
 const ClassManager: React.FC<ClassManagerProps> = ({ selectedImageName }) => {
-  const [classes, setClasses] = useState<ClassInfo[]>(defaultClasses);
+  const [classes, setClasses] = useState<ClassInfo[]>([]);
+  const [classCounts, setClassCounts] = useState<Record<string, number>>({});
 
   useEffect(() => {
     if (!selectedImageName) return;
 
-    const jsonFilePath = `/public/annotations/${selectedImageName.replace(".png", "_annotation.json")}`;
-
-    const loadAnnotations = async () => {
-      try {
-        const response = await fetch(jsonFilePath);
-        const data = await response.json();
-
-        // annotations 배열에서 클래스별 개수 계산
-        const classCounts: Record<string, number> = {};
-        data.annotations.forEach((annotation: any) => {
-          const className = annotation.class || "Unclassified";
-          classCounts[className] = (classCounts[className] || 0) + 1;
-        });
-
-        // 기본 클래스 목록을 기반으로 개수를 업데이트
-        const updatedClasses = defaultClasses.map((cls) => ({
-          ...cls,
-          count: classCounts[cls.name] || 0, // 해당 클래스가 없으면 0으로 표시
-        }));
-
-        setClasses(updatedClasses);
-      } catch (error) {
-        console.error("Failed to load annotation JSON:", error);
+    // 클래스 목록 불러오기
+    const fetchClasses = async () => {
+      const response = await window.api.getClasses();
+      if (response.success) {
+        setClasses(response.classes);
       }
     };
 
-    loadAnnotations();
+    // 선택된 이미지의 어노테이션 개수 불러오기
+    const updateClassCounts = async () => {
+      const response = await window.api.getAnnotationsCounts(selectedImageName.replace('.png', ''));
+      if (response.success) {
+        setClassCounts(response.classCounts);
+      }
+    };
+
+    fetchClasses();
+    updateClassCounts();
+
+    // 1초마다 어노테이션 개수 업데이트
+    const interval = setInterval(updateClassCounts, 1000);
+
+    return () => clearInterval(interval);
   }, [selectedImageName]);
 
+  // 클래스 이름 변경 핸들러
+  const handleNameChange = (id: number, oldName: string, newName: string) => {
+    if (oldName === 'Unclassified') return; // Unclassified는 변경 금지
+
+    // 기존 클래스에서 이름 변경
+    const updatedClasses = classes.map((cls) => (cls.id === id ? { ...cls, name: newName } : cls));
+
+    setClasses(updatedClasses);
+    window.api.updateClasses(updatedClasses);
+    window.api.updateAnnotationsClassname(oldName, newName); // 어노테이션 내 클래스 이름 변경
+  };
+
+  // 클래스 색상 변경 핸들러
+  const handleColorChange = (id: number, newColor: string) => {
+    const updatedClasses = classes.map((cls) =>
+      cls.id === id ? { ...cls, color: newColor } : cls
+    );
+
+    setClasses(updatedClasses);
+    window.api.updateClasses(updatedClasses);
+  };
+
   return (
-    <div style={{ padding: "10px", backgroundColor: "#222", color: "#fff", borderRadius: "8px" }}>
-      <h3 style={{ marginBottom: "10px", textAlign: "center" }}>View Control</h3>
+    <div style={{ padding: '10px', backgroundColor: '#222', color: '#fff', borderRadius: '8px' }}>
+      <h3 style={{ textAlign: 'center' }}>Class Management</h3>
       {classes.map((cls) => (
-        <div key={cls.id} style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-          <div
+        <div key={cls.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+          {/* 클래스 이름 수정 (Unclassified는 비활성화) */}
+          <input
+            type="text"
+            value={cls.name}
+            disabled={cls.name === 'Unclassified'}
+            onChange={(e) => handleNameChange(cls.id, cls.name, e.target.value)}
             style={{
-              width: "20px",
-              height: "20px",
-              backgroundColor: cls.color,
-              borderRadius: "4px",
-              marginRight: "10px",
+              marginRight: '10px',
+              width: '100px',
+              backgroundColor: cls.name === 'Unclassified' ? '#555' : '#fff',
+              color: cls.name === 'Unclassified' ? '#aaa' : '#000',
             }}
-          ></div>
-          <span>{cls.name}</span>
-          <span style={{ marginLeft: "auto", fontWeight: "bold" }}>{cls.count}</span>
+          />
+
+          {/* 클래스 색상 변경 */}
+          <input
+            type="color"
+            value={cls.color}
+            onChange={(e) => handleColorChange(cls.id, e.target.value)}
+            style={{ marginRight: '10px' }}
+          />
+
+          {/* 어노테이션 개수 표시 */}
+          <span style={{ marginLeft: 'auto', fontWeight: 'bold' }}>
+            {classCounts[cls.name] || 0}
+          </span>
         </div>
       ))}
     </div>

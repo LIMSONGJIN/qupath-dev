@@ -1,5 +1,6 @@
-import tseslint from 'typescript-eslint';
+import prettier from 'eslint-config-prettier';
 import react from 'eslint-plugin-react';
+import tseslint from 'typescript-eslint';
 
 export default tseslint.config({
   languageOptions: {
@@ -14,5 +15,6 @@ export default tseslint.config({
   rules: {
     ...react.configs.recommended.rules,
     ...react.configs['jsx-runtime'].rules,
+    ...prettier.rules, // Prettier 설정 추가
   },
 });
