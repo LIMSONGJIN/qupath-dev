@@ -1,82 +1,12 @@
 {
   "annotations": [
     {
-      "id": "a1f0c844-27ae-4581-9a84-5594998f540a",
+      "id": "116e30b3-cb0f-4b8d-8435-ca98778f231a",
       "bbox": [
-        1191,
-        1276,
-        1296,
-        1166
-      ],
-      "class": "Unclassified"
-    },
-    {
-      "id": "9484b088-cac4-4293-ac8e-5a997480038a",
-      "bbox": [
-        2640,
-        2961,
-        810,
-        859
-      ],
-      "class": "Unclassified"
-    },
-    {
-      "id": "e12abd28-2831-4aca-b41a-54f438dddd52",
-      "bbox": [
-        3013,
-        814,
-        737,
-        535
-      ],
-      "class": "Unclassified"
-    },
-    {
-      "id": "fb56cda8-b752-4fb2-8d1f-19d8ce2455c4",
-      "bbox": [
-        899,
-        2904,
-        737,
-        607
-      ],
-      "class": "Unclassified"
-    },
-    {
-      "id": "c9878b16-087e-426e-877f-7c616431bdf2",
-      "bbox": [
-        567,
-        304,
-        1215,
-        421
-      ],
-      "class": "Class 1"
-    },
-    {
-      "id": "c9fa8af7-84da-4a12-993c-5fe1ad2919f6",
-      "bbox": [
-        3264,
-        1705,
-        502,
-        729
-      ],
-      "class": "Class 3"
-    },
-    {
-      "id": "02b774d9-d247-42ce-bae9-fc636a482a02",
-      "bbox": [
-        2333,
-        345,
-        316,
-        292
-      ],
-      "class": "Unclassified"
-    },
-    {
-      "id": "0d7e0842-e59b-4f8b-b257-d3bb73fb12dd",
-      "bbox": [
-        826,
-        1082,
-        316,
-        1361
+        1760,
+        1601,
+        511,
+        509
       ],
       "class": "Unclassified"
     }

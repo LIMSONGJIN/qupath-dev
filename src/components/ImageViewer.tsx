@@ -14,14 +14,12 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
   const [selectedAnnotations, setSelectedAnnotations] = useState<string[]>([]);
   const [selectedSide, setSelectedSide] = useState<{ id: string; side: string } | null>(null);
   const [isToolbarVisible, setIsToolbarVisible] = useState(true);
-  const [initialSelectionDone, setInitialSelectionDone] = useState(false);
 
   const imageFileName = imageUrl.split('/').pop()?.split('.')[0] || '';
   const lastSelectedAnnotationRef = useRef<string | null>(null); // 🔥 마지막으로 선택된 어노테이션 저장
 
   useEffect(() => {
     // 이미지가 변경될 때마다 초기 선택 상태를 리셋
-    setInitialSelectionDone(false);
     setSelectedAnnotations([]);
   }, [imageUrl]);
 
@@ -33,7 +31,6 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
       e.preventDefault();
       e.stopPropagation();
 
-      setInitialSelectionDone(true);
 
       if (!viewerRef.current || selectedAnnotations.length === 0) return;
 
