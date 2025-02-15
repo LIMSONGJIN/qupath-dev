@@ -39,6 +39,22 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   const [classColors, setClassColors] = useState<Record<string, string>>({});
   const [classVisibility, setClassVisibility] = useState<Record<string, boolean>>({});
   const [showOnlyUnclassified, setShowOnlyUnclassified] = useState(false);
+  useEffect(() => {
+    window.api.onAnnotationsUpdated((data) => {
+      console.log('🔄 Received annotation update from backend:', data);
+
+      setAnnotations((prevAnnotations) =>
+        prevAnnotations.map((a) => {
+          const updatedAnnotation = data.annotations.find((ann) => ann.id === a.id);
+          return updatedAnnotation ? updatedAnnotation : a;
+        })
+      );
+    });
+
+    return () => {
+      window.api.onAnnotationsUpdated(() => {}); // 리스너 정리
+    };
+  }, []);
 
   // 초기화: 모든 클래스를 기본적으로 표시
   useEffect(() => {
@@ -116,56 +132,79 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   }, []);
 
   const handleMouseDown = (event: CustomOSDEvent) => {
+    if (selectedAnnotations.length !== 1) return;
+
     const viewportPoint = viewer.viewport.pointFromPixel(event.position);
     const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
 
-    let clickedAnnotation: Annotation | null = null;
+    const selectedId = selectedAnnotations[0];
+    const selectedAnnotation = annotations.find((annotation) => annotation.id === selectedId);
+    if (!selectedAnnotation) return;
 
-    annotations.forEach((annotation) => {
-      const [x, y, width, height] = annotation.bbox;
-      if (
-        imagePoint.x >= x &&
-        imagePoint.x <= x + width &&
-        imagePoint.y >= y &&
-        imagePoint.y <= y + height
-      ) {
-        clickedAnnotation = annotation;
-      }
+    // 클릭한 위치가 BBox 내부에 있는지 확인
+    const [x, y, width, height] = selectedAnnotation.bbox;
+    const isInsideBBox =
+      imagePoint.x >= x &&
+      imagePoint.x <= x + width &&
+      imagePoint.y >= y &&
+      imagePoint.y <= y + height;
+
+    if (!isInsideBBox) return; // BBox 내부에서만 드래그 가능
+
+    setIsDragging(true);
+    setDragStart(imagePoint);
+    setDragOffset({
+      x: imagePoint.x - x,
+      y: imagePoint.y - y,
     });
 
-    if (clickedAnnotation && selectedAnnotations.includes(clickedAnnotation.id)) {
-      setIsDragging(true);
-      setDragStart(imagePoint);
-      setDragOffset({
-        x: imagePoint.x - clickedAnnotation.bbox[0],
-        y: imagePoint.y - clickedAnnotation.bbox[1],
-      });
+    console.log('✅ Drag Start Inside BBox', { x: imagePoint.x, y: imagePoint.y });
 
-      // ✅ OpenSeadragon Pan 기능 비활성화
-      viewer.panVertical = false;
-      viewer.panHorizontal = false;
-      viewer.gestureSettingsMouse.flickEnabled = false;
-    }
+    // ✅ BBox 내부에서만 OpenSeadragon Pan 비활성화
+    viewer.panVertical = false;
+    viewer.panHorizontal = false;
+    viewer.gestureSettingsMouse.flickEnabled = false;
   };
 
   const handleMouseMove = (event: CustomOSDEvent) => {
-    if (!isDragging || !dragStart || !dragOffset) return;
+    if (!isDragging || !dragStart || !dragOffset || selectedAnnotations.length !== 1) return;
+
+    // ✅ 드래그 중에는 선택 변경 방지
+    if (isDragging) {
+      event.stopPropagation();
+    }
 
     const viewportPoint = viewer.viewport.pointFromPixel(event.position);
     const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
 
+    const selectedId = selectedAnnotations[0];
+    const selectedAnnotation = annotations.find((annotation) => annotation.id === selectedId);
+    if (!selectedAnnotation) return;
+
+    let newX = imagePoint.x - dragOffset.x;
+    let newY = imagePoint.y - dragOffset.y;
+
+    // ✅ 다른 주석과 겹치는지 확인
+    const isOverlapping = annotations.some(({ id, bbox }) => {
+      if (id === selectedId) return false;
+      const [x, y, width, height] = bbox;
+      return !(
+        newX + selectedAnnotation.bbox[2] < x ||
+        newX > x + width ||
+        newY + selectedAnnotation.bbox[3] < y ||
+        newY > y + height
+      );
+    });
+
+    if (isOverlapping) {
+      console.log('❌ 이동 중 다른 annotation과 겹칩니다.');
+      return;
+    }
+
     setAnnotations((prevAnnotations) =>
       prevAnnotations.map((annotation) =>
-        selectedAnnotations.includes(annotation.id)
-          ? {
-              ...annotation,
-              bbox: [
-                imagePoint.x - dragOffset.x, // 클릭한 위치 기준으로 이동
-                imagePoint.y - dragOffset.y,
-                annotation.bbox[2],
-                annotation.bbox[3],
-              ],
-            }
+        annotation.id === selectedId
+          ? { ...annotation, bbox: [newX, newY, annotation.bbox[2], annotation.bbox[3]] }
           : annotation
       )
     );
@@ -173,56 +212,139 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     setDragStart(imagePoint);
   };
 
-  const handleMouseUp = async () => {
+  const handleMouseUp = async (event: CustomOSDEvent) => {
+    if (!isDragging || selectedAnnotations.length !== 1) return;
+
     setIsDragging(false);
     setDragStart(null);
     setDragOffset(null);
 
-    // ✅ OpenSeadragon Pan 기능 다시 활성화
     viewer.panVertical = true;
     viewer.panHorizontal = true;
     viewer.gestureSettingsMouse.flickEnabled = true;
 
-    // ✅ 이동한 좌표 최신화 후 JSON 저장
-    const updatedAnnotations = annotations.map((annotation) =>
-      selectedAnnotations.includes(annotation.id)
-        ? {
-            ...annotation,
-            bbox: [
-              annotation.bbox[0], // 새로운 X 좌표
-              annotation.bbox[1], // 새로운 Y 좌표
-              annotation.bbox[2], // 너비 유지
-              annotation.bbox[3], // 높이 유지
-            ],
-          }
-        : annotation
-    );
+    const viewportPoint = viewer.viewport.pointFromPixel(event.position);
+    const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
+
+    const selectedId = selectedAnnotations[0];
+    const updatedAnnotation = annotations.find((annotation) => annotation.id === selectedId);
+    if (!updatedAnnotation) return;
+
+    const finalUpdatedAnnotation = {
+      ...updatedAnnotation,
+      bbox: [
+        imagePoint.x - (dragOffset?.x || 0),
+        imagePoint.y - (dragOffset?.y || 0),
+        updatedAnnotation.bbox[2],
+        updatedAnnotation.bbox[3],
+      ],
+    };
 
     try {
-      const response = await window.api.saveAnnotations(`${imageFileName}_annotation`, {
-        annotations: updatedAnnotations,
-      });
+      await window.api.updateAnnotationBbox(`${imageFileName}_annotation`, finalUpdatedAnnotation);
+      console.log('✅ Annotation updated successfully');
 
-      if (!response.success) {
-        throw new Error(response.error || 'Failed to save updated annotations.');
-      }
+      // ✅ 직접 상태 업데이트하여 UI 즉시 반영
+      setAnnotations((prevAnnotations) =>
+        prevAnnotations.map((annotation) =>
+          annotation.id === selectedId ? finalUpdatedAnnotation : annotation
+        )
+      );
     } catch (error) {
-      console.error('Error updating annotation positions:', error);
+      console.error('Error updating annotation position:', error);
     }
   };
+
+  const handleCanvasDoubleClick = (event: CustomOSDEvent) => {
+    if (isDragging) return; // ✅ 드래그 중에는 실행 안됨
+
+    const viewportPoint = viewer.viewport.pointFromPixel(event.position);
+    const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
+
+    let clickedAnnotationId: string | null = null;
+    let clickedSide: string | null = null;
+    const borderTolerance = 2;
+
+    annotations.forEach(({ id, bbox }) => {
+      if (selectedAnnotations.includes(id)) return; // ✅ 이미 선택된 주석이면 무시
+
+      const [x, y, width, height] = bbox;
+      if (
+        imagePoint.x >= x - borderTolerance &&
+        imagePoint.x <= x + width + borderTolerance &&
+        imagePoint.y >= y - borderTolerance &&
+        imagePoint.y <= y + height + borderTolerance
+      ) {
+        clickedAnnotationId = id;
+        if (Math.abs(imagePoint.y - y) <= borderTolerance) clickedSide = 'top';
+        else if (Math.abs(imagePoint.y - (y + height)) <= borderTolerance) clickedSide = 'bottom';
+        else if (Math.abs(imagePoint.x - x) <= borderTolerance) clickedSide = 'left';
+        else if (Math.abs(imagePoint.x - (x + width)) <= borderTolerance) clickedSide = 'right';
+      }
+    });
+
+    if (clickedAnnotationId) {
+      setSelectedAnnotations([clickedAnnotationId]); // ✅ 새롭게 선택된 것만 반영
+      setSelectedSide(clickedSide ? { id: clickedAnnotationId, side: clickedSide } : null);
+    } else {
+      setSelectedAnnotations([]); // 선택 해제
+      setSelectedSide(null);
+    }
+  };
+
+  // ✅ ALT + 클릭 (다중 선택 유지)
+  const handleCanvasAltClick = (event: CustomOSDEvent) => {
+    if (isDragging) return; // ✅ 드래그 중이면 실행 안됨
+    if (!event.originalEvent.altKey) return; // Alt 키가 없으면 실행 안 함
+    const viewportPoint = viewer.viewport.pointFromPixel(event.position);
+    const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
+
+    let clickedAnnotationId: string | null = null;
+    const borderTolerance = 2;
+
+    annotations.forEach(({ id, bbox }) => {
+      const [x, y, width, height] = bbox;
+
+      if (
+        imagePoint.x >= x - borderTolerance &&
+        imagePoint.x <= x + width + borderTolerance &&
+        imagePoint.y >= y - borderTolerance &&
+        imagePoint.y <= y + height + borderTolerance
+      ) {
+        clickedAnnotationId = id;
+      }
+    });
+
+    if (clickedAnnotationId) {
+      setSelectedAnnotations((prevSelected) => {
+        if (prevSelected.includes(clickedAnnotationId)) {
+          return prevSelected.filter((id) => id !== clickedAnnotationId); // 🔥 이미 선택된 경우 해제
+        } else {
+          return [...prevSelected, clickedAnnotationId]; // 🔥 Alt + 클릭 시 다중 선택
+        }
+      });
+      setSelectedSide(null);
+    }
+  };
+
+  // ✅ OpenSeadragon 이벤트 핸들러 적용
   useEffect(() => {
     if (!viewer) return;
 
     viewer.addHandler('canvas-press', handleMouseDown);
     viewer.addHandler('canvas-drag', handleMouseMove);
     viewer.addHandler('canvas-release', handleMouseUp);
+    viewer.addHandler('canvas-double-click', handleCanvasDoubleClick); // 🔥 더블클릭으로 선택
+    viewer.addHandler('canvas-press', handleCanvasAltClick); // 🔥 Alt + 클릭으로 다중 선택
 
     return () => {
       viewer.removeHandler('canvas-press', handleMouseDown);
       viewer.removeHandler('canvas-drag', handleMouseMove);
       viewer.removeHandler('canvas-release', handleMouseUp);
+      viewer.removeHandler('canvas-double-click', handleCanvasDoubleClick);
+      viewer.removeHandler('canvas-press', handleCanvasAltClick);
     };
-  }, [viewer, annotations]);
+  }, [viewer, annotations, selectedAnnotations]);
 
   // alt키 제어
   useEffect(() => {
@@ -307,97 +429,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [selectedAnnotations, annotations, imageFileName]);
-
-  useEffect(() => {
-    // 더블클릭(단일 선택)
-    const handleCanvasDoubleClick = (event: CustomOSDEvent) => {
-      const viewportPoint = viewer.viewport.pointFromPixel(event.position);
-      const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
-
-      let clickedAnnotationId: string | null = null;
-      let clickedSide: string | null = null;
-      const borderTolerance = 2;
-
-      // 클릭된 주석 찾기
-      annotations.forEach(({ id, bbox }) => {
-        const [x, y, width, height] = bbox;
-
-        if (
-          imagePoint.x >= x - borderTolerance &&
-          imagePoint.x <= x + width + borderTolerance &&
-          imagePoint.y >= y - borderTolerance &&
-          imagePoint.y <= y + height + borderTolerance
-        ) {
-          clickedAnnotationId = id;
-
-          if (Math.abs(imagePoint.y - y) <= borderTolerance) clickedSide = 'top';
-          else if (Math.abs(imagePoint.y - (y + height)) <= borderTolerance) clickedSide = 'bottom';
-          else if (Math.abs(imagePoint.x - x) <= borderTolerance) clickedSide = 'left';
-          else if (Math.abs(imagePoint.x - (x + width)) <= borderTolerance) clickedSide = 'right';
-        }
-      });
-
-      if (clickedAnnotationId) {
-        setSelectedAnnotations([clickedAnnotationId]); // 🔥 단일 선택만 허용
-        setSelectedSide(clickedSide ? { id: clickedAnnotationId, side: clickedSide } : null);
-      } else {
-        // 선택 해제
-        setSelectedAnnotations([]);
-        setSelectedSide(null);
-      }
-    };
-
-    // Alt + 클릭 (다중 선택)
-    const handleCanvasClick = (event: CustomOSDEvent) => {
-      if (!event.originalEvent.altKey) return; // Alt 키가 없으면 실행 안 함
-
-      const viewportPoint = viewer.viewport.pointFromPixel(event.position);
-      const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
-
-      let clickedAnnotationId: string | null = null;
-      const borderTolerance = 2;
-
-      annotations.forEach(({ id, bbox }) => {
-        const [x, y, width, height] = bbox;
-
-        if (
-          imagePoint.x >= x - borderTolerance &&
-          imagePoint.x <= x + width + borderTolerance &&
-          imagePoint.y >= y - borderTolerance &&
-          imagePoint.y <= y + height + borderTolerance
-        ) {
-          clickedAnnotationId = id;
-        }
-      });
-
-      if (clickedAnnotationId) {
-        // @ts-ignore
-        setSelectedAnnotations((prevSelected: string[]) => {
-          if (prevSelected.includes(clickedAnnotationId!)) {
-            return prevSelected.filter((id: string) => id !== clickedAnnotationId); // 🔥 `id`의 타입 명시
-          } else {
-            return [...prevSelected, clickedAnnotationId];
-          }
-        });
-        setSelectedSide(null);
-      }
-    };
-
-    viewer.addHandler('canvas-double-click', handleCanvasDoubleClick);
-    viewer.addHandler('canvas-press', handleCanvasClick); // 🔥 Alt + 클릭 이벤트 추가
-
-    return () => {
-      viewer.removeHandler('canvas-double-click', handleCanvasDoubleClick);
-      viewer.removeHandler('canvas-press', handleCanvasClick);
-    };
-  }, [
-    annotations,
-    selectedAnnotations,
-    selectedSide,
-    setSelectedAnnotations,
-    setSelectedSide,
-    viewer,
-  ]);
 
   useEffect(() => {
     if (imageFileName !== lastImageFile) {
@@ -575,6 +606,86 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     document.addEventListener('keydown', handleShiftArrowKey);
     return () => document.removeEventListener('keydown', handleShiftArrowKey);
   }, [selectedSide, selectedAnnotations]);
+
+  useEffect(() => {
+    const handleShiftArrowKey = (event: KeyboardEvent) => {
+      if (!event.shiftKey || selectedAnnotations.length !== 1) return;
+
+      const validKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+      if (!validKeys.includes(event.key)) return;
+
+      event.preventDefault(); // 기본 동작 방지
+
+      if (selectedSide) {
+        // ✅ side가 선택된 상태에서는 크기 조절 실행
+        updateAnnotationBbox(event.key);
+      } else {
+        // ✅ side가 선택되지 않은 경우에는 BBox 이동 실행
+        moveSelectedAnnotation(event.key);
+      }
+    };
+
+    document.addEventListener('keydown', handleShiftArrowKey);
+    return () => document.removeEventListener('keydown', handleShiftArrowKey);
+  }, [selectedAnnotations, selectedSide]);
+
+  /**
+   * 🔹 Shift + 방향키로 선택된 BBox 이동 (selectedSide가 없을 때만 실행)
+   */
+  const moveSelectedAnnotation = (key: string) => {
+    if (!viewer || selectedAnnotations.length !== 1 || selectedSide) return;
+
+    const tiledImage = viewer.world.getItemAt(0);
+    if (!tiledImage) return;
+
+    const { x: imageWidth, y: imageHeight } = tiledImage.getContentSize(); // 이미지 크기
+    const moveStep = 1; // 1px 이동
+
+    setAnnotations((prevAnnotations) => {
+      return prevAnnotations.map((annotation) => {
+        if (!selectedAnnotations.includes(annotation.id)) return annotation;
+
+        const [x, y, width, height] = annotation.bbox;
+        let newX = x,
+          newY = y;
+
+        switch (key) {
+          case 'ArrowUp':
+            newY = Math.max(y - moveStep, 0);
+            break;
+          case 'ArrowDown':
+            newY = Math.min(y + moveStep, imageHeight - height);
+            break;
+          case 'ArrowLeft':
+            newX = Math.max(x - moveStep, 0);
+            break;
+          case 'ArrowRight':
+            newX = Math.min(x + moveStep, imageWidth - width);
+            break;
+          default:
+            return annotation;
+        }
+
+        const updatedAnnotation = { ...annotation, bbox: [newX, newY, width, height] };
+
+        // ✅ JSON 업데이트 요청
+        window.api
+          .moveAnnotation(`${imageFileName}`, updatedAnnotation)
+          .then((response) => {
+            if (response.success) {
+              console.log('✅ Annotation moved and saved:', updatedAnnotation);
+            } else {
+              console.error('❌ Failed to move annotation.');
+            }
+          })
+          .catch((error) => {
+            console.error('❌ Error moving annotation:', error);
+          });
+
+        return updatedAnnotation;
+      });
+    });
+  };
 
   return (
     <div

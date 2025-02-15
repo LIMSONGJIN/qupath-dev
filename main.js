@@ -170,6 +170,92 @@ ipcMain.handle('get-annotations-counts', async (event, fileName) => {
   }
 });
 
+// ✅ 어노테이션 bbox 업데이트 기능 추가
+ipcMain.handle('update-annotation-bbox', async (event, { fileName, annotation }) => {
+  const filePath = path.join(__dirname, 'public', 'annotations', `${fileName}.json`);
+
+  try {
+    let data = {};
+
+    if (fs.existsSync(filePath)) {
+      data = JSON.parse(fs.readFileSync(filePath, 'utf-8')) || {};
+    }
+
+    // ✅ 기본값 설정
+    if (!data.annotations) {
+      data.annotations = [];
+    }
+
+    // 기존 어노테이션 목록에서 ID가 일치하는 어노테이션의 bbox 업데이트
+    data.annotations = data.annotations.map((item) =>
+      item.id === annotation.id ? { ...item, bbox: annotation.bbox } : item
+    );
+
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+
+    // ✅ 변경 사항이 발생했음을 React에 알림
+    event.sender.send('annotations-updated', { fileName, annotations: data.annotations });
+
+    return { success: true };
+  } catch (error) {
+    console.error('❌ Error updating annotation bbox:', error);
+    return { success: false, error: error.message };
+  }
+});
+ipcMain.handle('move-annotation', async (event, { fileName, annotation }) => {
+  const actualFileName = `${fileName}_annotation.json`; // ✅ 파일명 형식 맞춤
+  const filePath = path.join(__dirname, 'public', 'annotations', actualFileName);
+
+  try {
+    console.log('📂 Trying to load annotation file:', filePath);
+
+    if (!fs.existsSync(filePath)) {
+      console.error('❌ File not found:', filePath);
+      return { success: false, error: 'File not found' };
+    }
+
+    let data = JSON.parse(fs.readFileSync(filePath, 'utf-8')) || {};
+
+    // ✅ 기본값 설정
+    if (!data.annotations || !Array.isArray(data.annotations)) {
+      console.warn('⚠ No annotations array found in file:', filePath);
+      return { success: false, error: 'Annotations array missing' };
+    }
+
+    console.log('🔍 Searching for annotation ID:', annotation.id);
+    let found = false;
+
+    data.annotations = data.annotations.map((item) => {
+      if (item.id === annotation.id) {
+        found = true;
+        console.log('✅ Found annotation! Updating bbox:', annotation.bbox);
+        return { ...item, bbox: annotation.bbox };
+      }
+      return item;
+    });
+
+    if (!found) {
+      console.error('❗ Annotation ID not found in JSON:', annotation.id);
+      console.log('📜 Current annotations:', data.annotations);
+      return { success: false, error: 'Annotation not found' };
+    }
+
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    console.log('✅ Annotation successfully updated in JSON:', annotation);
+
+    // ✅ React에 변경 사항 전달
+    event.sender.send('annotations-updated', {
+      fileName: actualFileName,
+      annotations: data.annotations,
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('❌ Error moving annotation:', error);
+    return { success: false, error: error.message };
+  }
+});
+
 app.whenReady().then(() => {
   createWindow();
 
