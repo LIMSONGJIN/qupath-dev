@@ -1,15 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
-import OpenSeadragon from "openseadragon";
-import { Annotation, BBoxCreatorProps, CustomMouseTrackerEvent } from "../types/bboxcreator";
+import OpenSeadragon from 'openseadragon';
+import React, { useEffect, useRef, useState } from 'react';
+import { Annotation, BBoxCreatorProps, CustomMouseTrackerEvent } from '../types/bboxcreator';
 
-const BBoxCreator: React.FC<BBoxCreatorProps & { setSelectedAnnotations: (ids: string[]) => void }> = ({
-  viewer,
-  imageFileName,
-  setSelectedAnnotations,
-}) => {
+const BBoxCreator: React.FC<
+  BBoxCreatorProps & { setSelectedAnnotations: (ids: string[]) => void }
+> = ({ viewer, imageFileName, setSelectedAnnotations }) => {
   const [annotations, setAnnotations] = useState<Annotation[]>([]);
   const [selectionMode, setSelectionMode] = useState(false);
-  const dragRef = useRef<{ startImagePos: OpenSeadragon.Point; overlayElement: HTMLDivElement } | null>(null);
+  const dragRef = useRef<{
+    startImagePos: OpenSeadragon.Point;
+    overlayElement: HTMLDivElement;
+  } | null>(null);
 
   const resetMode = () => {
     document.body.style.cursor = 'default';
@@ -25,25 +26,24 @@ const BBoxCreator: React.FC<BBoxCreatorProps & { setSelectedAnnotations: (ids: s
       const data = await response.json();
       setAnnotations(data.annotations || []);
     } catch (error) {
-      console.error("Error fetching annotations:", error);
+      console.error('Error fetching annotations:', error);
     }
   };
 
   const saveAnnotations = async (newAnnotation: Annotation) => {
     const updatedAnnotations = [...annotations, newAnnotation];
     setAnnotations(updatedAnnotations);
-  
+
     try {
       const response = await window.api.saveAnnotations(`${imageFileName}_annotation`, {
         annotations: updatedAnnotations,
       });
-  
-      if (!response.success) throw new Error("Failed to save annotations.");
-  
-      console.log("Annotation saved successfully!");
+
+      if (!response.success) throw new Error('Failed to save annotations.');
+
       setSelectedAnnotations([newAnnotation.id]); // 🔥 배열 형태로 업데이트
     } catch (error) {
-      console.error("Error saving annotation:", error);
+      console.error('Error saving annotation:', error);
     }
   };
 
@@ -82,7 +82,10 @@ const BBoxCreator: React.FC<BBoxCreatorProps & { setSelectedAnnotations: (ids: s
       overlayElement.style.background = 'rgba(255, 0, 0, 0.3)';
       overlayElement.style.border = '2px solid red';
       overlayElement.style.pointerEvents = 'none';
-      viewer.addOverlay(overlayElement, new OpenSeadragon.Rect(startImagePos.x, startImagePos.y, 0, 0));
+      viewer.addOverlay(
+        overlayElement,
+        new OpenSeadragon.Rect(startImagePos.x, startImagePos.y, 0, 0)
+      );
 
       dragRef.current = { startImagePos, overlayElement };
     };
@@ -135,7 +138,7 @@ const BBoxCreator: React.FC<BBoxCreatorProps & { setSelectedAnnotations: (ids: s
         const newAnnotation: Annotation = {
           id: crypto.randomUUID(),
           bbox: [Math.round(x1), Math.round(y1), Math.round(width), Math.round(height)],
-          class: "Unclassified",
+          class: 'Unclassified',
         };
 
         saveAnnotations(newAnnotation);
@@ -150,7 +153,7 @@ const BBoxCreator: React.FC<BBoxCreatorProps & { setSelectedAnnotations: (ids: s
     const mouseTracker = new OpenSeadragon.MouseTracker({
       element: viewer.element,
       pressHandler: handleCanvasPress,
-      dragHandler: handleCanvasMove,  // 드래그 중 박스 업데이트
+      dragHandler: handleCanvasMove, // 드래그 중 박스 업데이트
       releaseHandler: handleCanvasRelease,
     });
 
