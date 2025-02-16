@@ -207,8 +207,6 @@ ipcMain.handle('move-annotation', async (event, { fileName, annotation }) => {
   const filePath = path.join(__dirname, 'public', 'annotations', actualFileName);
 
   try {
-    console.log('📂 Trying to load annotation file:', filePath);
-
     if (!fs.existsSync(filePath)) {
       console.error('❌ File not found:', filePath);
       return { success: false, error: 'File not found' };
@@ -222,13 +220,11 @@ ipcMain.handle('move-annotation', async (event, { fileName, annotation }) => {
       return { success: false, error: 'Annotations array missing' };
     }
 
-    console.log('🔍 Searching for annotation ID:', annotation.id);
     let found = false;
 
     data.annotations = data.annotations.map((item) => {
       if (item.id === annotation.id) {
         found = true;
-        console.log('✅ Found annotation! Updating bbox:', annotation.bbox);
         return { ...item, bbox: annotation.bbox };
       }
       return item;
@@ -236,12 +232,10 @@ ipcMain.handle('move-annotation', async (event, { fileName, annotation }) => {
 
     if (!found) {
       console.error('❗ Annotation ID not found in JSON:', annotation.id);
-      console.log('📜 Current annotations:', data.annotations);
       return { success: false, error: 'Annotation not found' };
     }
 
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    console.log('✅ Annotation successfully updated in JSON:', annotation);
 
     // ✅ React에 변경 사항 전달
     event.sender.send('annotations-updated', {

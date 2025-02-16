@@ -2,19 +2,6 @@ import OpenSeadragon from 'openseadragon';
 import React, { useEffect, useRef, useState } from 'react';
 import { Annotation, AnnotationRendererProps, CustomOSDEvent } from '../types/annotationrenderer';
 
-const classColors: Record<string, string> = {
-  Unclassified: '#FF0000',
-  'Class 1': '#0072B2',
-  'Class 2': '#56B4E9',
-  'Class 3': '#90EE90',
-  'Class 4': '#009E73',
-  'Class 5': '#E69F00',
-  'Class 6': '#D55E00',
-  'Class 7': '#CC79A7',
-  'Class 8': '#4B0082',
-  'Class 9': '#CCCCCC',
-};
-
 const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   annotations,
   setAnnotations,
@@ -41,8 +28,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   const [showOnlyUnclassified, setShowOnlyUnclassified] = useState(false);
   useEffect(() => {
     window.api.onAnnotationsUpdated((data) => {
-      console.log('🔄 Received annotation update from backend:', data);
-
       setAnnotations((prevAnnotations) =>
         prevAnnotations.map((a) => {
           const updatedAnnotation = data.annotations.find((ann) => ann.id === a.id);
@@ -141,7 +126,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     const selectedAnnotation = annotations.find((annotation) => annotation.id === selectedId);
     if (!selectedAnnotation) return;
 
-    // 클릭한 위치가 BBox 내부에 있는지 확인
     const [x, y, width, height] = selectedAnnotation.bbox;
     const isInsideBBox =
       imagePoint.x >= x &&
@@ -149,7 +133,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
       imagePoint.y >= y &&
       imagePoint.y <= y + height;
 
-    if (!isInsideBBox) return; // BBox 내부에서만 드래그 가능
+    if (!isInsideBBox) return;
 
     setIsDragging(true);
     setDragStart(imagePoint);
@@ -158,9 +142,8 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
       y: imagePoint.y - y,
     });
 
-    console.log('✅ Drag Start Inside BBox', { x: imagePoint.x, y: imagePoint.y });
+    setSelectedAnnotations([selectedId]);
 
-    // ✅ BBox 내부에서만 OpenSeadragon Pan 비활성화
     viewer.panVertical = false;
     viewer.panHorizontal = false;
     viewer.gestureSettingsMouse.flickEnabled = false;
@@ -169,10 +152,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   const handleMouseMove = (event: CustomOSDEvent) => {
     if (!isDragging || !dragStart || !dragOffset || selectedAnnotations.length !== 1) return;
 
-    // ✅ 드래그 중에는 선택 변경 방지
-    if (isDragging) {
-      event.stopPropagation();
-    }
+    event.stopPropagation();
 
     const viewportPoint = viewer.viewport.pointFromPixel(event.position);
     const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
@@ -181,10 +161,17 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     const selectedAnnotation = annotations.find((annotation) => annotation.id === selectedId);
     if (!selectedAnnotation) return;
 
-    let newX = imagePoint.x - dragOffset.x;
-    let newY = imagePoint.y - dragOffset.y;
+    const tiledImage = viewer.world.getItemAt(0);
+    if (!tiledImage) return;
 
-    // ✅ 다른 주석과 겹치는지 확인
+    const { x: imageWidth, y: imageHeight } = tiledImage.getContentSize();
+
+    let newX = Math.round(imagePoint.x - dragOffset.x);
+    let newY = Math.round(imagePoint.y - dragOffset.y);
+
+    newX = Math.max(0, Math.min(newX, imageWidth - selectedAnnotation.bbox[2]));
+    newY = Math.max(0, Math.min(newY, imageHeight - selectedAnnotation.bbox[3]));
+
     const isOverlapping = annotations.some(({ id, bbox }) => {
       if (id === selectedId) return false;
       const [x, y, width, height] = bbox;
@@ -196,20 +183,9 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
       );
     });
 
-    if (isOverlapping) {
-      console.log('❌ 이동 중 다른 annotation과 겹칩니다.');
-      return;
-    }
+    if (isOverlapping) return;
 
-    setAnnotations((prevAnnotations) =>
-      prevAnnotations.map((annotation) =>
-        annotation.id === selectedId
-          ? { ...annotation, bbox: [newX, newY, annotation.bbox[2], annotation.bbox[3]] }
-          : annotation
-      )
-    );
-
-    setDragStart(imagePoint);
+    setSelectedAnnotations([selectedId]);
   };
 
   const handleMouseUp = async (event: CustomOSDEvent) => {
@@ -230,11 +206,28 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     const updatedAnnotation = annotations.find((annotation) => annotation.id === selectedId);
     if (!updatedAnnotation) return;
 
+    const tiledImage = viewer.world.getItemAt(0);
+    if (!tiledImage) return;
+
+    const { x: imageWidth, y: imageHeight } = tiledImage.getContentSize();
+
     const finalUpdatedAnnotation = {
       ...updatedAnnotation,
       bbox: [
-        imagePoint.x - (dragOffset?.x || 0),
-        imagePoint.y - (dragOffset?.y || 0),
+        Math.max(
+          0,
+          Math.min(
+            Math.round(imagePoint.x - (dragOffset?.x || 0)),
+            imageWidth - updatedAnnotation.bbox[2]
+          )
+        ),
+        Math.max(
+          0,
+          Math.min(
+            Math.round(imagePoint.y - (dragOffset?.y || 0)),
+            imageHeight - updatedAnnotation.bbox[3]
+          )
+        ),
         updatedAnnotation.bbox[2],
         updatedAnnotation.bbox[3],
       ],
@@ -242,14 +235,18 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
 
     try {
       await window.api.updateAnnotationBbox(`${imageFileName}_annotation`, finalUpdatedAnnotation);
-      console.log('✅ Annotation updated successfully');
 
-      // ✅ 직접 상태 업데이트하여 UI 즉시 반영
       setAnnotations((prevAnnotations) =>
         prevAnnotations.map((annotation) =>
           annotation.id === selectedId ? finalUpdatedAnnotation : annotation
         )
       );
+
+      setSelectedAnnotations([selectedId]);
+
+      setTimeout(() => {
+        setSelectedAnnotations([selectedId]);
+      }, 1);
     } catch (error) {
       console.error('Error updating annotation position:', error);
     }
@@ -640,7 +637,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
 
     const { x: imageWidth, y: imageHeight } = tiledImage.getContentSize(); // 이미지 크기
     const moveStep = 1; // 1px 이동
-
+    // @ts-ignore
     setAnnotations((prevAnnotations) => {
       return prevAnnotations.map((annotation) => {
         if (!selectedAnnotations.includes(annotation.id)) return annotation;
@@ -668,17 +665,16 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
 
         const updatedAnnotation = { ...annotation, bbox: [newX, newY, width, height] };
 
-        // ✅ JSON 업데이트 요청
+        // @ts-ignore
         window.api
           .moveAnnotation(`${imageFileName}`, updatedAnnotation)
-          .then((response) => {
+          .then((response: { success: any }) => {
             if (response.success) {
-              console.log('✅ Annotation moved and saved:', updatedAnnotation);
             } else {
               console.error('❌ Failed to move annotation.');
             }
           })
-          .catch((error) => {
+          .catch((error: any) => {
             console.error('❌ Error moving annotation:', error);
           });
 
