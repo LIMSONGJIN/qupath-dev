@@ -1,4504 +1,4504 @@
 {
-    "annotations": [
-        {
-            "id": "e41f6370-9a16-40a1-9f71-eedc99e79d1c",
-            "bbox": [
-                471,
-                459,
-                7,
-                6
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c693e145-880f-427f-ada3-7f0f2a8fbe98",
-            "bbox": [
-                428,
-                179,
-                8,
-                7
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ca0dfa54-e9e4-4c73-8a50-396624dd0e56",
-            "bbox": [
-                421,
-                399,
-                9,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ef92d2cd-c7f7-4158-be3f-95daab7d82e0",
-            "bbox": [
-                487,
-                508,
-                13,
-                4
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "93e681a3-4fae-4ae8-b8fb-6d814e7e04a3",
-            "bbox": [
-                332,
-                343,
-                9,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f0239b99-c5dd-447d-9d42-fecfe68c1fc1",
-            "bbox": [
-                418,
-                346,
-                13,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d212f82b-2a05-421a-8fb3-cb5cb72b6793",
-            "bbox": [
-                491,
-                496,
-                7,
-                6
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3e4e1063-8c03-4303-8b1b-2e9f83edd6e4",
-            "bbox": [
-                467,
-                490,
-                10,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "25c94ac8-ab21-48d7-bbab-5b9a5f14303d",
-            "bbox": [
-                338,
-                305,
-                7,
-                6
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "1a058e92-b57f-4871-b8a8-37112869fccf",
-            "bbox": [
-                506,
-                503,
-                5,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8b1caa64-2bb1-4029-aec0-961648cf6e0c",
-            "bbox": [
-                484,
-                89,
-                9,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a6ab3b4f-bee9-4bcf-b06e-49fb2cb5fcce",
-            "bbox": [
-                437,
-                236,
-                8,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "1458a656-76ff-43c6-ae88-166e4a410397",
-            "bbox": [
-                461,
-                344,
-                9,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5b7bf5d7-9a60-4a2e-b441-34938d9d34ee",
-            "bbox": [
-                397,
-                299,
-                11,
-                8
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "fc666f07-dc03-4013-bb2a-950d98b3438e",
-            "bbox": [
-                468,
-                114,
-                10,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "cd6d7f94-5096-4f91-8f4e-b0d8d5305164",
-            "bbox": [
-                444,
-                404,
-                13,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e1372d57-a3f9-4670-aa09-24702e03d3dd",
-            "bbox": [
-                150,
-                350,
-                8,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "92c63f23-03a6-46b9-b132-ed0668092a52",
-            "bbox": [
-                448,
-                192,
-                15,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "02f3a2c6-e71d-455e-a99c-22fced42bf01",
-            "bbox": [
-                386,
-                108,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "838eb255-4399-4e8e-854d-f32e92026470",
-            "bbox": [
-                400,
-                2,
-                11,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "bf7f484b-06cc-4dc7-bcc2-6b63b9883f7d",
-            "bbox": [
-                188,
-                22,
-                8,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "30a04fda-bf16-4745-85ed-95e9d1e0551c",
-            "bbox": [
-                399,
-                186,
-                19,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3134e9c0-d321-4feb-842a-c1a3928626a7",
-            "bbox": [
-                195,
-                163,
-                13,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e09b23fd-2831-41fb-b62d-6d4fe4f69e73",
-            "bbox": [
-                345,
-                456,
-                7,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f26d5a78-71c1-4a60-acfe-2ccf327b45b0",
-            "bbox": [
-                397,
-                34,
-                8,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8df010d1-8897-49d9-add8-e816b179f0cc",
-            "bbox": [
-                443,
-                218,
-                9,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "6e725197-8159-410d-a616-640f27d95455",
-            "bbox": [
-                488,
-                96,
-                10,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "4040cdc0-5728-4960-b497-a46d4394f9c5",
-            "bbox": [
-                502,
-                25,
-                9,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "2b0317ed-c819-41c0-a414-e51e29ac4d38",
-            "bbox": [
-                404,
-                326,
-                10,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8b16498b-17a3-4a09-9b9b-20796b813fa5",
-            "bbox": [
-                463,
-                322,
-                6,
-                8
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "20422722-ad98-4792-b211-59c0c5d62011",
-            "bbox": [
-                396,
-                210,
-                7,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "cbfd5dae-6fce-499a-abc9-62a0259d0085",
-            "bbox": [
-                505,
-                483,
-                6,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "822f977d-3dc5-4999-a9a2-18947756d42f",
-            "bbox": [
-                311,
-                277,
-                11,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b69718e7-376b-429e-8d22-c4ce7f382943",
-            "bbox": [
-                324,
-                332,
-                9,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "4ef5172a-58d6-467f-bbc5-6d47367fb8ad",
-            "bbox": [
-                447,
-                1,
-                14,
-                4
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3efccdb9-1907-410b-a878-4ca5e712ab36",
-            "bbox": [
-                208,
-                1,
-                8,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "018a83ce-2f6c-47c9-b25a-94da982f395c",
-            "bbox": [
-                466,
-                36,
-                16,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "052f5722-e38d-40fd-957c-361f1d7abaad",
-            "bbox": [
-                465,
-                334,
-                9,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0d6c76de-0fff-462b-a38d-f42712230284",
-            "bbox": [
-                505,
-                351,
-                6,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ddba0c29-2753-4655-8a12-da3adf01da4c",
-            "bbox": [
-                447,
-                26,
-                11,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b42c5f6e-41b0-467c-8f79-f658b133e511",
-            "bbox": [
-                506,
-                463,
-                5,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f68cec4c-67d1-4df7-bb85-61e8ea2e56c2",
-            "bbox": [
-                498,
-                0,
-                13,
-                7
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8ca25320-24dc-42ca-a497-47cdb17710f0",
-            "bbox": [
-                327,
-                105,
-                7,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "00b4a30d-fcd2-4615-9953-3cc37ba29222",
-            "bbox": [
-                309,
-                73,
-                7,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5d455e56-e258-4f0a-8c4f-724749c410c9",
-            "bbox": [
-                475,
-                411,
-                11,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d7a8050f-c73e-4434-a988-de0eff3c97a8",
-            "bbox": [
-                429,
-                84,
-                19,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8d481b1e-4db6-41b9-bb04-7704cbd1860a",
-            "bbox": [
-                381,
-                119,
-                14,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "46319f49-8fc5-455d-a02f-48e0c7ce88a4",
-            "bbox": [
-                487,
-                2,
-                11,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7e9a4cf6-750d-4c91-9c6e-8821ccb02c05",
-            "bbox": [
-                380,
-                112,
-                14,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "de7d3ae6-4d8f-441d-8be2-e71f3529aa4e",
-            "bbox": [
-                315,
-                287,
-                12,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "54ea6b58-28a7-46f9-9baa-b8f7146786c1",
-            "bbox": [
-                504,
-                143,
-                7,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "776adcd8-0307-40d0-b497-4c89007b13f0",
-            "bbox": [
-                256,
-                475,
-                9,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3cb72442-652c-41c0-8d5a-94289c16ec1e",
-            "bbox": [
-                446,
-                59,
-                13,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "453804d6-73b5-4b4e-b985-afdcc9214057",
-            "bbox": [
-                492,
-                421,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "059b7ce6-8eb1-4546-bb27-e3415e0e21ad",
-            "bbox": [
-                405,
-                71,
-                22,
-                25
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8ca04d3b-b3f8-41c1-8fd3-e3fa795a634f",
-            "bbox": [
-                501,
-                491,
-                10,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "600a4039-f6fc-4b72-99a1-ee3bf001df5e",
-            "bbox": [
-                452,
-                283,
-                10,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3a78976b-516b-40f4-9554-66ca4c253bd0",
-            "bbox": [
-                426,
-                158,
-                8,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d09715c0-58b8-4743-a44f-878ca766897a",
-            "bbox": [
-                497,
-                500,
-                11,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b2b49a45-6d1a-48c8-8576-08a9dbd16f2e",
-            "bbox": [
-                477,
-                294,
-                8,
-                8
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3f74b555-76b3-4d74-9fb4-a2c4dc3b05f9",
-            "bbox": [
-                501,
-                476,
-                10,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d4c7ccfe-e5da-41a1-a371-fb9bb0aee0e9",
-            "bbox": [
-                376,
-                229,
-                17,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ebb94e42-5a2d-419e-8795-17bbb2a92809",
-            "bbox": [
-                452,
-                335,
-                13,
-                24
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5b4d4d6a-0ff0-4982-809a-b23a24c50947",
-            "bbox": [
-                125,
-                411,
-                9,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "2a19c8a2-1f96-4104-898b-17245e7ea84f",
-            "bbox": [
-                281,
-                274,
-                8,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ebb43a68-a203-4724-8210-6ef3d558272d",
-            "bbox": [
-                400,
-                9,
-                19,
-                20
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "4c8bb250-0e75-48dd-beca-dc8034fb2e4a",
-            "bbox": [
-                475,
-                404,
-                17,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a5807ebe-4263-450a-9758-ab1bc445c418",
-            "bbox": [
-                241,
-                488,
-                8,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0529b1aa-64d5-449d-8bc5-d35df9f5d814",
-            "bbox": [
-                61,
-                493,
-                9,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7c4a5ac2-6bf5-4f09-9bf9-4b992c1981a0",
-            "bbox": [
-                447,
-                503,
-                16,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c2653f4b-f8b2-4d20-b955-42242fca7bae",
-            "bbox": [
-                445,
-                322,
-                12,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "18b27076-066a-431e-b20c-0001b706eccb",
-            "bbox": [
-                464,
-                25,
-                14,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3887ac88-0f7c-4a6e-b885-ab97b6069506",
-            "bbox": [
-                387,
-                273,
-                19,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "2a2c35ca-9547-4c6c-a7af-6bb0979c28db",
-            "bbox": [
-                271,
-                0,
-                13,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8d9e353d-66df-4741-9e75-debe3f0b5f39",
-            "bbox": [
-                419,
-                0,
-                15,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "28ab8e38-20da-43d8-b5e7-fca6168ccd84",
-            "bbox": [
-                415,
-                98,
-                10,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d70e7b65-55dd-4d43-9a9b-a02984a4623c",
-            "bbox": [
-                365,
-                224,
-                19,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c1b573f8-eecd-495a-8deb-6d1ef4ecd55f",
-            "bbox": [
-                299,
-                326,
-                9,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a04f2b82-4832-44a4-9c74-fcbb80697006",
-            "bbox": [
-                286,
-                0,
-                10,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3f06e2a5-9524-433d-b074-40a35edea0e6",
-            "bbox": [
-                482,
-                300,
-                15,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "1a3e4da8-66db-4c2e-83c4-046ff10fc7e9",
-            "bbox": [
-                352,
-                258,
-                13,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "2d48e05e-1b7c-4d5a-a73a-4692f9b92709",
-            "bbox": [
-                262,
-                303,
-                9,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "fa5f7f0c-e2ea-4f2d-94b4-579b86853691",
-            "bbox": [
-                485,
-                109,
-                8,
-                8
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b203c86d-c77d-4348-8e99-9f33521e7e5d",
-            "bbox": [
-                0,
-                121,
-                10,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d5fbd297-ebf4-4438-82a3-2d5acfcebfb1",
-            "bbox": [
-                362,
-                449,
-                8,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "cdd33ea6-b4a8-4d58-a48a-12040bc63809",
-            "bbox": [
-                472,
-                366,
-                11,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9c606aa7-c02f-47b8-9b0d-f1d6ccb03d8b",
-            "bbox": [
-                407,
-                0,
-                12,
-                7
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0c2a768c-9b05-4579-a72c-7820b0a30da6",
-            "bbox": [
-                263,
-                161,
-                7,
-                8
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a13ba573-843e-49c2-9495-bbcfece0ce0f",
-            "bbox": [
-                279,
-                149,
-                8,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ff26a709-c097-498a-87e1-f029c2807719",
-            "bbox": [
-                303,
-                95,
-                12,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "590a903e-c3f5-4f60-9533-ee67e6c0b63e",
-            "bbox": [
-                477,
-                259,
-                14,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b4e1c884-90fd-461f-8339-d74588db60c9",
-            "bbox": [
-                478,
-                283,
-                8,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "77dbbe2c-37a8-48a7-aa3e-a117b2191977",
-            "bbox": [
-                506,
-                67,
-                5,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "73a9ad3d-40f6-45a4-a5db-abceaf451f19",
-            "bbox": [
-                342,
-                122,
-                13,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c5e7d52d-efa6-45fb-a646-1f0434df2d57",
-            "bbox": [
-                462,
-                395,
-                8,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "1483cf7a-4971-44ee-b048-b1116c6f1faa",
-            "bbox": [
-                444,
-                426,
-                18,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "24979e98-6fa8-4ca4-944c-52a2f056704a",
-            "bbox": [
-                224,
-                3,
-                14,
-                23
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "306b54a0-cdff-4c12-a543-75ea6effb72d",
-            "bbox": [
-                386,
-                125,
-                14,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "600f2298-c041-43ca-870a-81256da538b3",
-            "bbox": [
-                502,
-                181,
-                9,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c3b3db68-2ea4-4a7d-8c3b-04108436ad0d",
-            "bbox": [
-                333,
-                94,
-                10,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9d2029f4-9daf-48d3-8a68-f8985f9b0868",
-            "bbox": [
-                304,
-                143,
-                11,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "16622c74-40be-4295-8a42-a85711482dd7",
-            "bbox": [
-                507,
-                259,
-                4,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c15d2cef-74e6-4892-9259-37730f885842",
-            "bbox": [
-                453,
-                184,
-                14,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "68958416-49da-48ac-81be-8ff5fc52bebe",
-            "bbox": [
-                506,
-                432,
-                6,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e8660bc8-ba6c-4ff3-b489-0c1ea31cda86",
-            "bbox": [
-                1,
-                112,
-                9,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "37c48c70-c342-4636-99c3-03a0732bdebe",
-            "bbox": [
-                500,
-                192,
-                12,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0f6562bc-7e71-405c-b9e4-ec7e5d4692d3",
-            "bbox": [
-                505,
-                369,
-                7,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "4ad7973f-1d24-4ce8-aaa3-8497aaf862d8",
-            "bbox": [
-                360,
-                237,
-                15,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "cfb75d5f-9a93-428f-9214-612b1eed30c5",
-            "bbox": [
-                158,
-                408,
-                9,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "012dc231-9a7b-47ba-a1a2-4a65b9154cbe",
-            "bbox": [
-                248,
-                201,
-                15,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7ef36e21-4583-4150-9827-2da5de998839",
-            "bbox": [
-                479,
-                212,
-                10,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a2c1ee60-d5ae-4eb2-812f-5f3ce891a58f",
-            "bbox": [
-                300,
-                131,
-                11,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "4812c1c0-ff14-43fd-a5d7-f5b5c714f443",
-            "bbox": [
-                442,
-                391,
-                13,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "623c9dfb-1db4-4335-bb8d-058b684905de",
-            "bbox": [
-                324,
-                11,
-                15,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3fefcc63-2753-4794-8fbd-e65c5fe50bdc",
-            "bbox": [
-                457,
-                440,
-                11,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0105e111-d46d-4ccf-bd58-2f131cfacce8",
-            "bbox": [
-                359,
-                191,
-                10,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e07b28cf-224b-4327-a224-6e4e716f578d",
-            "bbox": [
-                393,
-                327,
-                13,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "901831f1-fbb2-44d5-9158-3340bc132fde",
-            "bbox": [
-                0,
-                139,
-                5,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e42ffaf1-6289-4987-9bcf-6065081ed799",
-            "bbox": [
-                463,
-                246,
-                15,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e6b7e239-3699-4e7e-81fd-8a9aaf61652c",
-            "bbox": [
-                297,
-                204,
-                12,
-                21
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "2aeecdf1-debc-44cb-acbe-98f726fe7c29",
-            "bbox": [
-                407,
-                417,
-                15,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9edc8edf-665d-434f-bdb7-0bcb56787ede",
-            "bbox": [
-                25,
-                145,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "68d5038c-3284-401f-aa22-8c5b863278c4",
-            "bbox": [
-                439,
-                308,
-                14,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f22d6311-f427-436a-b5a0-99b8bda1fa28",
-            "bbox": [
-                292,
-                387,
-                11,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3eb6fd49-835a-4c00-bb3f-53b1ab36afc1",
-            "bbox": [
-                425,
-                76,
-                10,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "879b560b-9867-4be6-a7c5-5afa3fcfda07",
-            "bbox": [
-                215,
-                0,
-                13,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e782ddf9-e8b5-410a-8acc-673046d0aa14",
-            "bbox": [
-                446,
-                14,
-                9,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d81bdc37-cb2c-4a0b-b434-b82fd7b0bb87",
-            "bbox": [
-                422,
-                125,
-                12,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "30f96777-2630-488e-a6cf-16d39d59c1a4",
-            "bbox": [
-                406,
-                283,
-                18,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "6d7414c3-feff-4734-a527-2c78d80adcf4",
-            "bbox": [
-                496,
-                170,
-                13,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "33a8b9af-0154-40eb-8e1d-5147ae180801",
-            "bbox": [
-                378,
-                463,
-                6,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c238cd76-f166-464b-b733-9a4c9b4ae348",
-            "bbox": [
-                287,
-                170,
-                12,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d9af5040-cec6-4b28-9f6b-5cb82263f4c6",
-            "bbox": [
-                278,
-                141,
-                9,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "50ba7695-465e-4c3b-b1cb-4e021d37b5e0",
-            "bbox": [
-                345,
-                416,
-                11,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7c95747b-cf40-4402-850f-335e6cc9b923",
-            "bbox": [
-                443,
-                34,
-                14,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "92e7b51b-d36d-4f67-b692-80f46e20646c",
-            "bbox": [
-                357,
-                263,
-                11,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8e70785e-850e-4082-84a4-6f22a89617fb",
-            "bbox": [
-                428,
-                47,
-                13,
-                35
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "6cca2c18-8c4b-4f49-8b0c-c859386b033f",
-            "bbox": [
-                477,
-                245,
-                20,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ea26dd4f-490d-437f-9a0e-9ec7d431cde9",
-            "bbox": [
-                414,
-                311,
-                13,
-                20
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5e1fa5d7-876e-4bdb-a690-88683a01f92c",
-            "bbox": [
-                464,
-                102,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ed518510-f805-4d16-b1fd-df16bf9afebd",
-            "bbox": [
-                77,
-                457,
-                20,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "eebbcab5-5081-4c13-96fd-c7016de62143",
-            "bbox": [
-                484,
-                268,
-                11,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ec102ef3-1a73-426f-a5a1-434a72281f66",
-            "bbox": [
-                92,
-                129,
-                16,
-                22
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0ee3a54c-f4cd-4c3f-bfea-844f264f156c",
-            "bbox": [
-                459,
-                0,
-                16,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3e52047e-2b35-47c6-8ee8-5cbce8d92701",
-            "bbox": [
-                385,
-                266,
-                12,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "00a6ee1d-8b03-4119-8b8c-1b632c38089c",
-            "bbox": [
-                1,
-                167,
-                14,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "91558f6a-9a83-409b-9fb2-cbbb8c486d78",
-            "bbox": [
-                445,
-                209,
-                13,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3b80a517-1234-442b-844b-138e4424449d",
-            "bbox": [
-                473,
-                115,
-                13,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "2168f8ca-afcc-4f02-91b7-c7f38b1cc6ac",
-            "bbox": [
-                415,
-                231,
-                18,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5b248f87-7a66-4ab0-bb69-4f0397f9746e",
-            "bbox": [
-                180,
-                18,
-                9,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "275f4b5b-fc89-4990-9eae-39c114cd1a4e",
-            "bbox": [
-                452,
-                67,
-                10,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c195241a-d895-4029-a8c2-58c6bd27a093",
-            "bbox": [
-                501,
-                417,
-                11,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5a6b027f-b20b-42d6-8336-c7c9a6a533bb",
-            "bbox": [
-                294,
-                27,
-                13,
-                21
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d0bd30d7-6a1a-4717-beb0-9e70e29e1559",
-            "bbox": [
-                297,
-                84,
-                18,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "fe2e9404-8560-4c21-9c9b-d9bd8cfa0b68",
-            "bbox": [
-                475,
-                221,
-                8,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9e4dde15-4dbf-49d5-b713-98b227453e85",
-            "bbox": [
-                301,
-                293,
-                8,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "088e54e5-085f-4949-bdc5-48c2f7fb5c33",
-            "bbox": [
-                411,
-                251,
-                11,
-                20
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "490f729e-01f8-456f-8c92-aec6ee250941",
-            "bbox": [
-                341,
-                150,
-                18,
-                23
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "504a66d4-5608-4063-863b-ca26d8bd02ff",
-            "bbox": [
-                497,
-                306,
-                9,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "315a887e-2727-4760-b700-9a63de0c80b8",
-            "bbox": [
-                134,
-                100,
-                7,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f71b15b7-83bf-47fd-8b8d-86328ee86a5e",
-            "bbox": [
-                363,
-                277,
-                22,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7dd3adc7-0dd7-47fd-8aaa-8a0d9d46fc79",
-            "bbox": [
-                232,
-                0,
-                16,
-                7
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ef6b18c6-7ccd-4fc7-b18d-9901946657f3",
-            "bbox": [
-                497,
-                391,
-                12,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c9d53139-161d-46fb-ad6d-ed9a6d07ba98",
-            "bbox": [
-                349,
-                299,
-                10,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "50fa5da4-0076-4b36-aed0-4fd6f1a44f4b",
-            "bbox": [
-                505,
-                320,
-                7,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9c60633b-e9de-4d0c-a353-a3622fb71b4a",
-            "bbox": [
-                503,
-                158,
-                8,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "45614f08-5e1d-43fb-95fb-729bd8e82924",
-            "bbox": [
-                401,
-                152,
-                12,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "dc9c1122-7000-489f-91eb-d5bd4cc08870",
-            "bbox": [
-                481,
-                33,
-                8,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "971e2ce4-2ee4-4e05-9ab3-20d160545b86",
-            "bbox": [
-                419,
-                238,
-                14,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a70a7c63-150a-4d56-890e-9426d6df998b",
-            "bbox": [
-                456,
-                209,
-                9,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "cd7f799b-96d3-4a84-a490-b5623841166a",
-            "bbox": [
-                420,
-                303,
-                14,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "23123aaf-89d9-44c3-9952-41ebabc5e5b6",
-            "bbox": [
-                343,
-                116,
-                14,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f1ec999a-0dc6-41ce-8676-5a8485812615",
-            "bbox": [
-                503,
-                53,
-                8,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5a2e50d3-bb8b-4828-9feb-b5ab7c63a124",
-            "bbox": [
-                367,
-                213,
-                16,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "991728fb-fd4e-434a-aa03-0b5792673c17",
-            "bbox": [
-                335,
-                69,
-                14,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8391f0ca-f33b-4065-bab2-c1825865a26b",
-            "bbox": [
-                445,
-                108,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f52f1975-58c2-40b1-878d-b2e64baa3fcd",
-            "bbox": [
-                500,
-                233,
-                12,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7afb2131-45bd-45a5-8986-79185f8a74b0",
-            "bbox": [
-                349,
-                269,
-                10,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a65f7023-64d1-45b6-b9f2-dd0789fa42b8",
-            "bbox": [
-                414,
-                50,
-                15,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "03e7cc1b-3be8-49a1-925d-8ec66fb23829",
-            "bbox": [
-                502,
-                93,
-                9,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "2198091a-29d5-4dce-81e6-2e26fadd88f8",
-            "bbox": [
-                195,
-                169,
-                15,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ad2ffbfd-5dec-40c6-bf67-534c2d6111de",
-            "bbox": [
-                452,
-                309,
-                15,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "47bdb1a6-13d0-4c8b-ba0f-0412de32a4a1",
-            "bbox": [
-                391,
-                52,
-                13,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b0ee8857-a6aa-4986-8392-533551a6815f",
-            "bbox": [
-                325,
-                129,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c08c433d-568d-4534-a23e-793addd526a2",
-            "bbox": [
-                503,
-                443,
-                8,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a6aba784-735a-4a6a-bf29-5f31280912df",
-            "bbox": [
-                502,
-                332,
-                9,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "514cc1a6-0785-48c7-a4fb-048748fc6f32",
-            "bbox": [
-                239,
-                51,
-                19,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e721b6a7-7956-4259-ba9e-c23b1181415f",
-            "bbox": [
-                365,
-                49,
-                11,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c478f603-84c8-4c05-81f3-fda77bd83a39",
-            "bbox": [
-                433,
-                119,
-                9,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7f7d7a8b-095f-4faa-8d86-8844bfd259ca",
-            "bbox": [
-                468,
-                419,
-                13,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8c33b337-7759-46cf-a3ea-0e0c8a90f224",
-            "bbox": [
-                461,
-                499,
-                14,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d73222ae-be57-4d18-9996-504a04d848cc",
-            "bbox": [
-                501,
-                118,
-                10,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "26fa818f-9a9e-4e8b-8fc4-3646808f95ff",
-            "bbox": [
-                314,
-                13,
-                12,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c8b9a82e-6941-4dc9-b18f-0d9cd4eb5088",
-            "bbox": [
-                474,
-                94,
-                12,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f0c09c74-3d77-4980-b0c0-a5830dbdedb4",
-            "bbox": [
-                497,
-                361,
-                12,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8fed1357-0aa9-4aaf-bae6-864c58f867e0",
-            "bbox": [
-                400,
-                371,
-                15,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d6835e18-11cf-4a8d-a97e-47b31e272ad5",
-            "bbox": [
-                309,
-                9,
-                11,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "79122b40-35f7-4d25-92ee-b28686673a07",
-            "bbox": [
-                246,
-                363,
-                10,
-                29
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "adc0a0a3-9d97-4fa0-9b2c-00570394916f",
-            "bbox": [
-                298,
-                0,
-                12,
-                7
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0d7ae391-0e6e-4df6-855a-e219df09946a",
-            "bbox": [
-                439,
-                341,
-                16,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0a6f2575-4053-4542-8174-92f002170dbb",
-            "bbox": [
-                382,
-                36,
-                11,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b22948a3-43a2-45d8-a0c5-979c2c1b9395",
-            "bbox": [
-                292,
-                162,
-                12,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "881cd67d-010e-4abb-aeff-a1cbce37e905",
-            "bbox": [
-                331,
-                178,
-                11,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "eaf4b530-b0e0-482f-a65c-cf8f85dd6bc6",
-            "bbox": [
-                8,
-                146,
-                10,
-                23
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7fa3f843-46dd-4c6a-b1e2-2af382fa4558",
-            "bbox": [
-                357,
-                53,
-                9,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e605fb1e-83ce-452a-a015-67796cb3debd",
-            "bbox": [
-                181,
-                59,
-                8,
-                25
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "114bd93d-c4c1-4133-a435-948085e05c1b",
-            "bbox": [
-                336,
-                77,
-                13,
-                23
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a439ddbe-ab9e-4838-ad9c-07bedc82b721",
-            "bbox": [
-                293,
-                119,
-                18,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b2c7dd39-680b-41c8-9c0f-a652f186efef",
-            "bbox": [
-                407,
-                62,
-                13,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f735e299-0957-4591-b621-bc12cdcf2b05",
-            "bbox": [
-                431,
-                417,
-                11,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5938fcf7-c6df-4f38-ac62-7fc6b84730af",
-            "bbox": [
-                247,
-                155,
-                9,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "94a9ea62-2ab5-434a-bb0c-d545ebe56659",
-            "bbox": [
-                360,
-                181,
-                15,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e627f8d0-c28c-42f6-b05b-29fbc4fefc06",
-            "bbox": [
-                476,
-                155,
-                13,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f0aea7c9-bb5e-4ae3-844e-887b81117371",
-            "bbox": [
-                306,
-                197,
-                19,
-                21
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "cbb1edb5-d1c2-41f8-834e-1c0a90f8ff9a",
-            "bbox": [
-                486,
-                308,
-                14,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d4ef3208-3ba8-4289-94dc-9d55630fa117",
-            "bbox": [
-                469,
-                2,
-                12,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5cec09d2-c900-414d-8716-b62300ba6b27",
-            "bbox": [
-                493,
-                463,
-                17,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "eeeec51d-1ca1-464b-9393-c283d6166ef8",
-            "bbox": [
-                457,
-                237,
-                10,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d47b1ea8-d24f-47f0-8004-82dfd92911b5",
-            "bbox": [
-                415,
-                276,
-                12,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c2a52289-836e-4c38-8539-f85348563b8a",
-            "bbox": [
-                411,
-                384,
-                18,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b33def19-b2b8-42cc-a826-4a019f8126bb",
-            "bbox": [
-                478,
-                2,
-                13,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9a329ea2-3040-4a79-a21c-0dc51c2555a1",
-            "bbox": [
-                441,
-                416,
-                14,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "4b6dc4ab-7aef-4705-bda9-ea0f0aa7c2c9",
-            "bbox": [
-                493,
-                449,
-                12,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "66dea26a-2dcb-492f-a9b5-322ae515b0c2",
-            "bbox": [
-                259,
-                128,
-                11,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "1ff48266-6560-41f7-82ed-676cfa8cc69d",
-            "bbox": [
-                488,
-                274,
-                12,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "85482a9d-8fb6-4da7-b079-f0273ebcdf85",
-            "bbox": [
-                496,
-                148,
-                13,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a579025d-4bc5-4b7b-9186-9e7b86b3b63e",
-            "bbox": [
-                387,
-                332,
-                13,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "818ae9d1-d01e-4be0-bc82-dfa429862c66",
-            "bbox": [
-                338,
-                270,
-                18,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "64fb1199-fa13-432b-894c-7cf66549232f",
-            "bbox": [
-                109,
-                475,
-                10,
-                21
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "65d2d8b6-cffe-4fbd-9880-5a21db2671fd",
-            "bbox": [
-                411,
-                355,
-                19,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8c8e9a3e-9053-467a-ad77-ac7a82937b91",
-            "bbox": [
-                440,
-                90,
-                16,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "292d6393-0c6d-4039-a5ab-fc6c126ebffe",
-            "bbox": [
-                346,
-                206,
-                18,
-                23
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "497cf6fc-52f2-49c5-9b27-0c433c22fe68",
-            "bbox": [
-                435,
-                407,
-                14,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9ae30e7c-512b-4f10-9df5-43f7aedb0c49",
-            "bbox": [
-                446,
-                134,
-                10,
-                9
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7d8c9b3c-f75e-4548-b2e6-67c491d94522",
-            "bbox": [
-                249,
-                56,
-                17,
-                22
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "1ac01e82-2027-4acd-b80a-b17f1ccbd154",
-            "bbox": [
-                310,
-                135,
-                12,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "900a4b41-80a9-4793-b4b0-bf6bcfd82077",
-            "bbox": [
-                282,
-                158,
-                13,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b0696591-d694-4fa2-a50a-b6bd0f2db918",
-            "bbox": [
-                417,
-                373,
-                14,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7b4317a1-31e1-446e-a43e-b36cc18ef2ee",
-            "bbox": [
-                388,
-                402,
-                15,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f8eab4ca-89cf-4f2e-b7d2-20668dbcacdb",
-            "bbox": [
-                483,
-                329,
-                12,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f9ed8946-898a-42ae-a1ab-e806f2ab27f7",
-            "bbox": [
-                477,
-                389,
-                17,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "756e27b4-27e0-4830-8bdb-be931523a457",
-            "bbox": [
-                452,
-                78,
-                11,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5042ad50-e08f-4cf5-ad30-3302d3ba82ef",
-            "bbox": [
-                403,
-                27,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d15363b9-10b7-4d1d-8d99-7dc4256a3bd8",
-            "bbox": [
-                404,
-                122,
-                13,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "bea6ba77-9215-4129-a731-d9b19d90bb52",
-            "bbox": [
-                414,
-                111,
-                15,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f0e6b561-a915-4ca5-a6cc-bdf0d80e3d69",
-            "bbox": [
-                377,
-                60,
-                15,
-                23
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e3f7f1e7-d0e7-4c08-81b5-dbb1fa21edc2",
-            "bbox": [
-                436,
-                35,
-                8,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d7f5b4bb-09d2-4dfd-9245-c207296fd970",
-            "bbox": [
-                399,
-                204,
-                12,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "24cf1fb4-2912-4b4b-b868-09725c8a622d",
-            "bbox": [
-                481,
-                137,
-                18,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7da3f779-8d1f-43e2-8b95-d2168c073f85",
-            "bbox": [
-                492,
-                259,
-                13,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "225a7499-72c5-45df-9dcd-6a3a144851a0",
-            "bbox": [
-                309,
-                112,
-                13,
-                24
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b1bddbde-5d63-4a3f-8180-9d476288cc97",
-            "bbox": [
-                483,
-                422,
-                12,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "10d55c79-eaeb-46bd-9812-a074a82c7a8e",
-            "bbox": [
-                343,
-                226,
-                19,
-                20
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "6683e8f8-8d1d-4f2d-b9c7-64b58fa1526e",
-            "bbox": [
-                261,
-                88,
-                11,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "13326cf8-51cc-48bc-b59f-043265505672",
-            "bbox": [
-                484,
-                189,
-                13,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "56f0f9e9-4c75-4878-b4bd-01321bc9691c",
-            "bbox": [
-                396,
-                19,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "fced1c51-24d4-4d1d-81bc-79c46df07b14",
-            "bbox": [
-                242,
-                474,
-                13,
-                20
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a56e4b61-7ab8-4bec-bfce-3daacdc9fac1",
-            "bbox": [
-                491,
-                20,
-                13,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "bced7e56-0d53-4844-a3af-4b06ea5f3376",
-            "bbox": [
-                398,
-                40,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0231d341-5054-41e6-8a2b-72ea554411ed",
-            "bbox": [
-                259,
-                23,
-                21,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "41b29f6d-2bd5-4e00-889c-fbdbf87a6a9c",
-            "bbox": [
-                394,
-                491,
-                13,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f72b2d5a-365d-423e-8500-f18283effafc",
-            "bbox": [
-                242,
-                257,
-                12,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8da72040-c904-4917-9a37-2a4aa9afb059",
-            "bbox": [
-                461,
-                80,
-                11,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "1d1a7f00-cbdc-4643-ade8-848ff9c9b905",
-            "bbox": [
-                454,
-                17,
-                12,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "78a8771e-9020-417a-81a7-1b8a79268529",
-            "bbox": [
-                501,
-                206,
-                10,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "84a29e54-0071-470d-a29b-10f7a04f484c",
-            "bbox": [
-                421,
-                406,
-                15,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7105ddec-15ec-4195-8dbc-a81f4703d10f",
-            "bbox": [
-                348,
-                498,
-                11,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7b7c9f8e-5f3e-4d38-9fe4-a5b673075601",
-            "bbox": [
-                385,
-                23,
-                13,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "bf6fa74c-192f-41ce-ba6e-129becd599cd",
-            "bbox": [
-                451,
-                46,
-                13,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "2982c585-f5cc-437d-bf27-d85bebee7a3e",
-            "bbox": [
-                452,
-                452,
-                14,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d50cc075-8010-4797-a827-9e4619f16458",
-            "bbox": [
-                353,
-                122,
-                13,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f780e08c-6fb9-4c6f-b0f4-12eb43f144b5",
-            "bbox": [
-                350,
-                282,
-                13,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "870648d7-9e56-4c21-95f2-df87ff896d6c",
-            "bbox": [
-                413,
-                128,
-                16,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b1e598d8-f28d-4f1a-b06b-4332400d969f",
-            "bbox": [
-                7,
-                487,
-                11,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "75b647c8-1af3-402c-9e5b-055cab7dc8ce",
-            "bbox": [
-                492,
-                64,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d1a9008d-7eea-48d0-9724-260e0a894750",
-            "bbox": [
-                392,
-                381,
-                12,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c82a9aae-95c2-45ed-a722-7469222a7242",
-            "bbox": [
-                372,
-                121,
-                10,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "323b8b07-ba6d-4686-b444-6c2b2fd1773f",
-            "bbox": [
-                496,
-                248,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "919c908b-b14a-474a-ac7f-eecf8ecd7112",
-            "bbox": [
-                465,
-                65,
-                13,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7aa44bf4-4385-478f-9344-4f94cef6d2d5",
-            "bbox": [
-                331,
-                121,
-                13,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "93c095a2-caf1-41f4-8904-874ea239aa07",
-            "bbox": [
-                403,
-                385,
-                12,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "6116e6d3-2bf0-44e3-8851-4e29d6b5994b",
-            "bbox": [
-                371,
-                104,
-                11,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "be874546-1480-4a3f-8a22-b532544cc5cf",
-            "bbox": [
-                389,
-                74,
-                13,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "af95607f-d957-42db-a4cb-6ee6414409cd",
-            "bbox": [
-                453,
-                249,
-                12,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "41ea150b-ccd1-4cdc-a99f-9c9866fad4db",
-            "bbox": [
-                203,
-                415,
-                11,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "55826f0d-01f2-47f2-bab2-f0708182e96a",
-            "bbox": [
-                399,
-                466,
-                10,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "91c3e5be-0920-428c-99c6-8b4b429e003b",
-            "bbox": [
-                419,
-                15,
-                11,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "343e6ea2-cb7c-4283-ba9b-bc10a745da90",
-            "bbox": [
-                468,
-                234,
-                18,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "4bd257d6-ea40-4a3d-9c9a-cf2339ef8b64",
-            "bbox": [
-                429,
-                378,
-                16,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9cefb048-5cd3-4285-9857-ffae3d476de2",
-            "bbox": [
-                476,
-                146,
-                15,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a4c821a9-b046-4023-a938-4fc714cb4332",
-            "bbox": [
-                449,
-                223,
-                11,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "97d189ab-ae45-40e5-8ecd-eb766ce0d36d",
-            "bbox": [
-                427,
-                159,
-                15,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "947b46f3-02a7-4c44-83ea-77b708d8145b",
-            "bbox": [
-                429,
-                1,
-                19,
-                24
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0106cf5c-9c6e-4fcb-89cc-fc0ff0801e37",
-            "bbox": [
-                372,
-                421,
-                10,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "6e687999-99e7-4122-898a-8a1a57ea9333",
-            "bbox": [
-                385,
-                293,
-                14,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "58524f2d-67a9-495e-b3ba-b5181dd65ca9",
-            "bbox": [
-                399,
-                316,
-                13,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "85355f6c-f0b0-4776-9873-9bfb195adb4c",
-            "bbox": [
-                305,
-                23,
-                10,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5a2dec08-31eb-4df7-a102-47432f994ee4",
-            "bbox": [
-                492,
-                406,
-                18,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b48b6ff5-6303-484f-bcc2-b3999e5537d6",
-            "bbox": [
-                439,
-                63,
-                14,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ba55c724-980f-4ce5-8e77-c4e9f18d911c",
-            "bbox": [
-                481,
-                468,
-                20,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "44a317c8-263a-45f1-a275-c3713197624e",
-            "bbox": [
-                391,
-                282,
-                13,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ed0e28d7-dc26-4028-be17-e186d50d92e4",
-            "bbox": [
-                422,
-                100,
-                15,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "29ba24db-3733-46ed-9d91-00b45729b2aa",
-            "bbox": [
-                9,
-                404,
-                12,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "996f5d8c-9717-43a5-b755-640bcd4c7295",
-            "bbox": [
-                442,
-                48,
-                12,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b2417c9a-6986-4683-976a-51c790162627",
-            "bbox": [
-                382,
-                235,
-                18,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "24a49a93-8fab-49ec-a806-66bc566b1e16",
-            "bbox": [
-                386,
-                450,
-                9,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ee5c42e6-4397-4df3-8199-e6743539c9a3",
-            "bbox": [
-                429,
-                242,
-                13,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "bcbbdb69-7852-423c-8230-916e7d864a26",
-            "bbox": [
-                458,
-                425,
-                16,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3ed8e8a7-a012-4e67-b887-e10ad1947ec0",
-            "bbox": [
-                440,
-                176,
-                24,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b7a0ca9d-797a-495c-8027-4f3888b494e6",
-            "bbox": [
-                468,
-                262,
-                12,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "dfc46d6b-bb3d-4266-8dfd-60385147e70d",
-            "bbox": [
-                240,
-                269,
-                16,
-                21
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "fc0efc31-225c-455e-949d-1d0e7015ca2c",
-            "bbox": [
-                496,
-                345,
-                14,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ac859007-85e2-474e-9855-9ecfef47f578",
-            "bbox": [
-                416,
-                29,
-                14,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0a9f2d1f-5573-447c-b9ca-eba6409cd29e",
-            "bbox": [
-                312,
-                214,
-                13,
-                21
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0f9c2cf4-f30d-495e-8e27-2df2fc364073",
-            "bbox": [
-                283,
-                130,
-                15,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c9bcc571-2993-49b2-a8b2-1255dda5fca5",
-            "bbox": [
-                497,
-                12,
-                13,
-                10
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "dd45b73e-fb8d-4216-8a4a-b3d9d9d4cea5",
-            "bbox": [
-                427,
-                336,
-                21,
-                22
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e5d30ec1-da26-430a-942f-4f218c820aa3",
-            "bbox": [
-                476,
-                17,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "967db690-a078-4d5a-b2ec-af676eb3947c",
-            "bbox": [
-                477,
-                428,
-                13,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c9af865c-c62a-429d-8149-e09fb8eb947b",
-            "bbox": [
-                354,
-                96,
-                16,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9b956a4c-ccd7-4023-8bb1-01c64ba19e4d",
-            "bbox": [
-                369,
-                131,
-                18,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d1ec5c44-8bb1-436f-a3b6-7abe3b40730a",
-            "bbox": [
-                3,
-                82,
-                13,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "44cc9414-2b57-4735-b91f-32e94541ccc9",
-            "bbox": [
-                389,
-                157,
-                14,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "dd2c8531-d73c-4b58-a127-2385b3674ebd",
-            "bbox": [
-                371,
-                0,
-                13,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "67424224-d8df-470a-9fb7-10933b8a64f2",
-            "bbox": [
-                479,
-                123,
-                12,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "96c4ae6e-6cde-4636-be7e-9aa6f6d08321",
-            "bbox": [
-                378,
-                300,
-                17,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "85c09606-c8c7-4696-8d0d-3733a998d4c0",
-            "bbox": [
-                316,
-                353,
-                12,
-                21
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "73847f44-9eca-4fbc-87a0-4378e5668ffe",
-            "bbox": [
-                483,
-                75,
-                12,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "1aa0dfab-07c0-4105-b0fc-2a061cec57e2",
-            "bbox": [
-                465,
-                13,
-                12,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7bae9e04-5afb-46c7-a947-e4fa297853ad",
-            "bbox": [
-                442,
-                371,
-                18,
-                22
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3f783b39-9ee0-4293-9a09-6445bf3fbabb",
-            "bbox": [
-                468,
-                398,
-                13,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5a7ffd26-c02d-4b75-a4e9-23b080b59a7d",
-            "bbox": [
-                429,
-                128,
-                16,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "38984443-41d7-4ab8-8bea-b29414ea11f3",
-            "bbox": [
-                352,
-                245,
-                23,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ca8fd09b-b15c-4f97-b3ce-7ff65e01f3d2",
-            "bbox": [
-                398,
-                110,
-                18,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "cce87ab3-a622-4cf2-9235-64342c958843",
-            "bbox": [
-                481,
-                347,
-                12,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "fba77558-5764-4fed-af3e-c1d91f8c8bde",
-            "bbox": [
-                430,
-                105,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "70ac469b-91b7-4028-b480-6107651f0c38",
-            "bbox": [
-                379,
-                373,
-                17,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f1bfad6c-5064-4ab9-8b48-4bc7ebc2768c",
-            "bbox": [
-                369,
-                66,
-                9,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8196fa67-0c2e-4a89-8072-242e59417192",
-            "bbox": [
-                449,
-                124,
-                13,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "6d89e759-7cf7-4d8b-bd26-948e8a959bd7",
-            "bbox": [
-                267,
-                194,
-                11,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "50ae932d-7155-4951-b9bc-84a7179916c9",
-            "bbox": [
-                398,
-                132,
-                12,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "1d29acdf-af88-4ad2-ad41-461c292d774c",
-            "bbox": [
-                308,
-                406,
-                12,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5fa3503d-8a51-4dea-be09-2277303f17e0",
-            "bbox": [
-                28,
-                79,
-                16,
-                32
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "83018513-f61f-4969-bc2a-e27aa8fab276",
-            "bbox": [
-                171,
-                34,
-                12,
-                34
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "89ab9d3b-b120-4651-9118-729d037e137c",
-            "bbox": [
-                409,
-                269,
-                13,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f3134a90-2751-4d1d-ba51-55fb29326101",
-            "bbox": [
-                132,
-                114,
-                9,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "597a56f9-aa84-468a-af57-e680da7701a4",
-            "bbox": [
-                392,
-                416,
-                14,
-                30
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f364426e-10fb-4f7f-8d4e-bf767b4de400",
-            "bbox": [
-                470,
-                480,
-                23,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "be041d51-cda9-4ae9-ac20-a74bd8845bac",
-            "bbox": [
-                364,
-                202,
-                19,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "2f93ee33-911b-438e-907d-11794f510f17",
-            "bbox": [
-                481,
-                41,
-                14,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3e14084e-a69e-4697-87a7-d55939403b2f",
-            "bbox": [
-                458,
-                271,
-                15,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "4ca3df6d-19fd-4742-b770-bfebc6cd2c83",
-            "bbox": [
-                489,
-                121,
-                12,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ff48ed5c-05b1-43c7-bfa0-9727055ba46b",
-            "bbox": [
-                280,
-                217,
-                13,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "67167293-d9aa-4de0-8c52-14caf4cf3cde",
-            "bbox": [
-                304,
-                302,
-                17,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ea7d0bee-594e-47d9-9822-fe4a2308db21",
-            "bbox": [
-                196,
-                207,
-                9,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "39e7c372-60a9-4b19-bb39-5c15d0da2c2c",
-            "bbox": [
-                284,
-                144,
-                12,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9b045264-876c-4b75-b7b3-35ecc058610c",
-            "bbox": [
-                368,
-                163,
-                17,
-                21
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "888749f8-b9f2-4834-8ef4-b91d05aa0649",
-            "bbox": [
-                376,
-                319,
-                12,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c1113f1e-772b-4ef7-9df1-6b3ee5dd4809",
-            "bbox": [
-                368,
-                334,
-                14,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "2f35ad5d-3b7c-481c-9726-a515a52f7a4d",
-            "bbox": [
-                343,
-                22,
-                15,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a49be4ec-77a3-487b-9198-1a67f85a23b9",
-            "bbox": [
-                313,
-                186,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9e56d88d-769e-49c2-8eee-d7e0d4f21cb3",
-            "bbox": [
-                497,
-                294,
-                13,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "11a32530-f79a-411b-b8c6-75ede68937d6",
-            "bbox": [
-                476,
-                62,
-                11,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ae9c5e29-d4f5-4ab9-8900-bc5ec137fddc",
-            "bbox": [
-                325,
-                220,
-                12,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "32b889ec-5dcb-4004-8c16-ed514426640f",
-            "bbox": [
-                382,
-                10,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8368ad92-eb34-4c66-873f-dbd68b7061a1",
-            "bbox": [
-                416,
-                327,
-                16,
-                22
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "df995898-8a37-4c68-b0e3-75d05d6a9440",
-            "bbox": [
-                246,
-                88,
-                17,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "85688198-12d8-4b3c-881b-7b39f89e04d6",
-            "bbox": [
-                329,
-                141,
-                14,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "54ecf45f-d98e-471c-9471-6db4e171c9a3",
-            "bbox": [
-                405,
-                397,
-                16,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "64bda176-8796-42b0-9016-9d62b2781d55",
-            "bbox": [
-                150,
-                82,
-                9,
-                21
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "805f1a27-2098-4832-9327-9a6a87fcddcf",
-            "bbox": [
-                459,
-                199,
-                18,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b957ab95-02f4-4345-9ad2-1a6f10facb39",
-            "bbox": [
-                487,
-                437,
-                15,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "de020ea9-74f7-48eb-ba41-06947f5bde77",
-            "bbox": [
-                434,
-                184,
-                14,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "0655cc0d-9ddf-4893-9d58-f28a1965411e",
-            "bbox": [
-                386,
-                194,
-                14,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "20998036-50e0-4c8b-a044-e8aa57caa77f",
-            "bbox": [
-                491,
-                368,
-                14,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "fd5992ca-aad7-4f29-bd6b-caaf3f537fa8",
-            "bbox": [
-                430,
-                313,
-                17,
-                20
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e869965c-d99b-4520-8b8f-16615196f9c9",
-            "bbox": [
-                243,
-                139,
-                11,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "6de2f8a3-0c97-4ce1-b1a7-0c690e8ba992",
-            "bbox": [
-                420,
-                253,
-                15,
-                20
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "4f23bdd4-3b18-4cb0-b97b-8f640b772648",
-            "bbox": [
-                324,
-                166,
-                17,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c5add3f4-0cb7-4de6-bbcc-d9116ac62cb7",
-            "bbox": [
-                497,
-                32,
-                13,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a675288e-4516-4671-a525-909b8dca0093",
-            "bbox": [
-                348,
-                2,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "47ee3e27-dccd-4ac5-bd06-77937a6b2372",
-            "bbox": [
-                217,
-                187,
-                13,
-                23
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "31550825-d7a4-450f-a786-79041b0b95d0",
-            "bbox": [
-                119,
-                328,
-                9,
-                21
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "290d87a4-fe97-44cb-928e-c06a951858f8",
-            "bbox": [
-                426,
-                389,
-                19,
-                20
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "97ef8eb6-0ba4-4ca0-965e-4c3196309f42",
-            "bbox": [
-                358,
-                311,
-                12,
-                12
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c398ea2f-52cf-4bcb-bd0b-b0440ddfa3bf",
-            "bbox": [
-                171,
-                373,
-                9,
-                21
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3186902c-8646-4605-ad1a-9318442e7f7d",
-            "bbox": [
-                474,
-                271,
-                12,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "440af7eb-d778-4c3b-9a1c-53e7551ae207",
-            "bbox": [
-                440,
-                197,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e1c6a85c-c80b-409e-a15c-482743f248ee",
-            "bbox": [
-                321,
-                199,
-                18,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8258f205-2ca5-47ca-b2df-54237b259d3d",
-            "bbox": [
-                350,
-                35,
-                14,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e3f0c518-2206-4332-b640-5a70daa4f3f3",
-            "bbox": [
-                466,
-                352,
-                14,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7058d978-545f-4c38-9078-92b81edef02a",
-            "bbox": [
-                212,
-                174,
-                14,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "4c949a48-7823-4e31-b8e0-a921b14f9c17",
-            "bbox": [
-                385,
-                314,
-                15,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e5d9fb36-70b0-4373-8870-f77a6ecc2938",
-            "bbox": [
-                321,
-                154,
-                12,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "69bf4461-68cc-45eb-b9b7-ac04ad002506",
-            "bbox": [
-                461,
-                127,
-                13,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "080ea90e-ea28-4452-8ef5-b6eee995f44c",
-            "bbox": [
-                126,
-                84,
-                14,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ebed034f-cd75-454c-bae3-3b708241f353",
-            "bbox": [
-                494,
-                219,
-                14,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "2da8e170-19d7-4131-891a-994e81f6bce2",
-            "bbox": [
-                453,
-                260,
-                11,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b49e1e20-83b6-4393-b08a-cad3641fa0d4",
-            "bbox": [
-                421,
-                425,
-                16,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "fd71f275-2564-4970-93fd-2459d2e9f8b5",
-            "bbox": [
-                471,
-                381,
-                11,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "2d6fbe53-6165-4ff5-80a7-b63b8f00125a",
-            "bbox": [
-                332,
-                237,
-                13,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3487548a-4000-4a0d-9386-5a6d43679048",
-            "bbox": [
-                434,
-                211,
-                13,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ffe4c7fe-156c-41ea-b20e-6b724100f246",
-            "bbox": [
-                440,
-                273,
-                13,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "49281d08-5352-4f04-b972-0c11652bf395",
-            "bbox": [
-                353,
-                167,
-                18,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "a90b8209-42cc-4f9c-8b60-1ee839ba1b4b",
-            "bbox": [
-                336,
-                250,
-                14,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "295f2078-4bfc-4979-b516-c8f25cbd8931",
-            "bbox": [
-                464,
-                87,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5fa8af15-e021-4d00-9480-7b4ec419e12c",
-            "bbox": [
-                125,
-                229,
-                16,
-                21
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "861a4d87-c5ef-49f3-9d34-b48e93f1d86b",
-            "bbox": [
-                487,
-                157,
-                16,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "af2d6f4a-4353-4e6f-afe2-f3a40a2d2c00",
-            "bbox": [
-                472,
-                318,
-                15,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d8a07487-52b8-45ca-a6db-6a53bd6f9381",
-            "bbox": [
-                463,
-                146,
-                13,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "6ad75e81-3254-4304-970f-b0b32b899cff",
-            "bbox": [
-                349,
-                183,
-                12,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "b07ecae1-edc9-44d7-878a-74f8e3bc96ee",
-            "bbox": [
-                376,
-                183,
-                15,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e0916dc4-a4db-429d-830b-af0d3cf6f56a",
-            "bbox": [
-                7,
-                461,
-                15,
-                11
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f2cd89d5-bc2b-4411-8e09-8b6efbab1005",
-            "bbox": [
-                478,
-                199,
-                13,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "e51df52c-e237-4d50-9f12-093d609b14c9",
-            "bbox": [
-                398,
-                302,
-                14,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "62beecc7-27a4-4fd7-99e7-857dce73420e",
-            "bbox": [
-                367,
-                35,
-                14,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "edd30123-387d-48d9-bed9-c1a3e70cbc97",
-            "bbox": [
-                450,
-                4,
-                12,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "bdc6ca01-3a27-4f43-8fab-9b4183481745",
-            "bbox": [
-                392,
-                358,
-                16,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "58c40e0b-011c-45e6-8f2a-35e1f229e82b",
-            "bbox": [
-                173,
-                421,
-                15,
-                20
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "038c227f-e93f-4068-bb8a-0076f63bf71a",
-            "bbox": [
-                495,
-                133,
-                16,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "ef452a4b-be87-445c-8f42-50484365078d",
-            "bbox": [
-                478,
-                452,
-                17,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "765d376c-3355-4e86-bd56-6a975ee988c4",
-            "bbox": [
-                373,
-                142,
-                15,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "32b8ab71-b70d-468c-95ac-2b832bbc07cd",
-            "bbox": [
-                411,
-                441,
-                13,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "94a05999-b15d-4162-97b3-d803dc744d71",
-            "bbox": [
-                373,
-                20,
-                14,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "cb4b028c-4602-4b7c-b7e7-ef3adebc52a4",
-            "bbox": [
-                333,
-                48,
-                14,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "f29f0ee3-239e-4fb1-a668-55e71c65a31c",
-            "bbox": [
-                407,
-                140,
-                14,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "beefda5e-0749-461f-a1b7-014007718ec6",
-            "bbox": [
-                19,
-                485,
-                21,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "87dc6713-8ac5-440c-a10e-520016b80b6b",
-            "bbox": [
-                380,
-                355,
-                14,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "39a62d2c-e3a5-40a0-a690-caf6860433e1",
-            "bbox": [
-                53,
-                22,
-                13,
-                40
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9108a3a7-8f95-4669-bbe9-f38a3f61770f",
-            "bbox": [
-                370,
-                347,
-                13,
-                17
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "cd7e0e04-3eca-45e9-8823-cf2882d6bd45",
-            "bbox": [
-                296,
-                60,
-                12,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "1520020d-9ca2-463c-adc9-544392a10959",
-            "bbox": [
-                373,
-                243,
-                18,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c6191a75-25bc-43cb-ae1d-f3c7179c4630",
-            "bbox": [
-                423,
-                213,
-                13,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "3c8a37f6-9069-4283-9d98-b9d2d3eef0c2",
-            "bbox": [
-                171,
-                202,
-                17,
-                23
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "9381bcbb-521f-4576-99b0-1f7202812d04",
-            "bbox": [
-                428,
-                359,
-                16,
-                13
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7b4c3e11-015e-4a92-b6bb-583bc1a3a77d",
-            "bbox": [
-                158,
-                143,
-                11,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8effd89a-93c4-4207-9535-00ea3654d2f3",
-            "bbox": [
-                144,
-                248,
-                17,
-                31
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "c88ec78c-aa54-4a5e-9e56-0fd5c7afcbcf",
-            "bbox": [
-                386,
-                169,
-                18,
-                18
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7ac38054-fb6c-4de1-aa94-cdfd10085de1",
-            "bbox": [
-                458,
-                381,
-                15,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "8cc17340-9b7e-477b-9145-a8aaecaab0fa",
-            "bbox": [
-                458,
-                410,
-                18,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "7b7015ef-d8e9-4e38-9931-6d88a2e0f76b",
-            "bbox": [
-                113,
-                398,
-                13,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "31236b9c-1987-4c55-813b-e0aa2b9d87de",
-            "bbox": [
-                24,
-                24,
-                10,
-                25
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "50f29a6e-3c44-426f-a053-352751c630c4",
-            "bbox": [
-                85,
-                159,
-                13,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5732ab03-8e27-4c53-b352-e8495e0adcea",
-            "bbox": [
-                427,
-                141,
-                14,
-                15
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d4af6feb-d721-48df-9ca1-9cfc5b0fa173",
-            "bbox": [
-                460,
-                160,
-                14,
-                14
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "941756d2-5d09-46be-8b3e-4f452fa1fed1",
-            "bbox": [
-                178,
-                130,
-                12,
-                25
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "5c813a44-7d5f-4aa8-af16-fe5e21b46e70",
-            "bbox": [
-                426,
-                273,
-                19,
-                26
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "882d9fd3-f65b-4a9a-b4ae-a79d46c2beb3",
-            "bbox": [
-                411,
-                202,
-                18,
-                19
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "86f2ffe8-3c45-4e78-b7f9-dd52b6f6a791",
-            "bbox": [
-                447,
-                295,
-                18,
-                16
-            ],
-            "class": "Unclassified"
-        },
-        {
-            "id": "d341425f-ff96-455e-ad25-530402d6c8f7",
-            "bbox": [
-                415,
-                182,
-                12,
-                17
-            ],
-            "class": "Unclassified"
-        }
-    ]
+  "annotations": [
+    {
+      "id": "e41f6370-9a16-40a1-9f71-eedc99e79d1c",
+      "bbox": [
+        471,
+        459,
+        7,
+        6
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c693e145-880f-427f-ada3-7f0f2a8fbe98",
+      "bbox": [
+        428,
+        179,
+        8,
+        7
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ca0dfa54-e9e4-4c73-8a50-396624dd0e56",
+      "bbox": [
+        421,
+        399,
+        9,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ef92d2cd-c7f7-4158-be3f-95daab7d82e0",
+      "bbox": [
+        487,
+        508,
+        13,
+        4
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "93e681a3-4fae-4ae8-b8fb-6d814e7e04a3",
+      "bbox": [
+        332,
+        343,
+        9,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f0239b99-c5dd-447d-9d42-fecfe68c1fc1",
+      "bbox": [
+        418,
+        346,
+        13,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d212f82b-2a05-421a-8fb3-cb5cb72b6793",
+      "bbox": [
+        491,
+        496,
+        7,
+        6
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3e4e1063-8c03-4303-8b1b-2e9f83edd6e4",
+      "bbox": [
+        467,
+        490,
+        10,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "25c94ac8-ab21-48d7-bbab-5b9a5f14303d",
+      "bbox": [
+        338,
+        305,
+        7,
+        6
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "1a058e92-b57f-4871-b8a8-37112869fccf",
+      "bbox": [
+        506,
+        503,
+        5,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8b1caa64-2bb1-4029-aec0-961648cf6e0c",
+      "bbox": [
+        484,
+        89,
+        9,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a6ab3b4f-bee9-4bcf-b06e-49fb2cb5fcce",
+      "bbox": [
+        437,
+        236,
+        8,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "1458a656-76ff-43c6-ae88-166e4a410397",
+      "bbox": [
+        461,
+        344,
+        9,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5b7bf5d7-9a60-4a2e-b441-34938d9d34ee",
+      "bbox": [
+        397,
+        299,
+        11,
+        8
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "fc666f07-dc03-4013-bb2a-950d98b3438e",
+      "bbox": [
+        468,
+        114,
+        10,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "cd6d7f94-5096-4f91-8f4e-b0d8d5305164",
+      "bbox": [
+        444,
+        404,
+        13,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e1372d57-a3f9-4670-aa09-24702e03d3dd",
+      "bbox": [
+        150,
+        350,
+        8,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "92c63f23-03a6-46b9-b132-ed0668092a52",
+      "bbox": [
+        448,
+        192,
+        15,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "02f3a2c6-e71d-455e-a99c-22fced42bf01",
+      "bbox": [
+        386,
+        108,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "838eb255-4399-4e8e-854d-f32e92026470",
+      "bbox": [
+        400,
+        2,
+        11,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "bf7f484b-06cc-4dc7-bcc2-6b63b9883f7d",
+      "bbox": [
+        188,
+        22,
+        8,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "30a04fda-bf16-4745-85ed-95e9d1e0551c",
+      "bbox": [
+        399,
+        186,
+        19,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3134e9c0-d321-4feb-842a-c1a3928626a7",
+      "bbox": [
+        195,
+        163,
+        13,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e09b23fd-2831-41fb-b62d-6d4fe4f69e73",
+      "bbox": [
+        345,
+        456,
+        7,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f26d5a78-71c1-4a60-acfe-2ccf327b45b0",
+      "bbox": [
+        397,
+        34,
+        8,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8df010d1-8897-49d9-add8-e816b179f0cc",
+      "bbox": [
+        443,
+        218,
+        9,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "6e725197-8159-410d-a616-640f27d95455",
+      "bbox": [
+        488,
+        96,
+        10,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "4040cdc0-5728-4960-b497-a46d4394f9c5",
+      "bbox": [
+        502,
+        25,
+        9,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "2b0317ed-c819-41c0-a414-e51e29ac4d38",
+      "bbox": [
+        404,
+        326,
+        10,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8b16498b-17a3-4a09-9b9b-20796b813fa5",
+      "bbox": [
+        463,
+        322,
+        6,
+        8
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "20422722-ad98-4792-b211-59c0c5d62011",
+      "bbox": [
+        396,
+        210,
+        7,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "cbfd5dae-6fce-499a-abc9-62a0259d0085",
+      "bbox": [
+        505,
+        483,
+        6,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "822f977d-3dc5-4999-a9a2-18947756d42f",
+      "bbox": [
+        311,
+        277,
+        11,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b69718e7-376b-429e-8d22-c4ce7f382943",
+      "bbox": [
+        324,
+        332,
+        9,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "4ef5172a-58d6-467f-bbc5-6d47367fb8ad",
+      "bbox": [
+        447,
+        1,
+        14,
+        4
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3efccdb9-1907-410b-a878-4ca5e712ab36",
+      "bbox": [
+        208,
+        1,
+        8,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "018a83ce-2f6c-47c9-b25a-94da982f395c",
+      "bbox": [
+        466,
+        36,
+        16,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "052f5722-e38d-40fd-957c-361f1d7abaad",
+      "bbox": [
+        465,
+        334,
+        9,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0d6c76de-0fff-462b-a38d-f42712230284",
+      "bbox": [
+        505,
+        351,
+        6,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ddba0c29-2753-4655-8a12-da3adf01da4c",
+      "bbox": [
+        447,
+        26,
+        11,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b42c5f6e-41b0-467c-8f79-f658b133e511",
+      "bbox": [
+        506,
+        463,
+        5,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f68cec4c-67d1-4df7-bb85-61e8ea2e56c2",
+      "bbox": [
+        498,
+        0,
+        13,
+        7
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8ca25320-24dc-42ca-a497-47cdb17710f0",
+      "bbox": [
+        327,
+        105,
+        7,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "00b4a30d-fcd2-4615-9953-3cc37ba29222",
+      "bbox": [
+        309,
+        73,
+        7,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5d455e56-e258-4f0a-8c4f-724749c410c9",
+      "bbox": [
+        475,
+        411,
+        11,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d7a8050f-c73e-4434-a988-de0eff3c97a8",
+      "bbox": [
+        429,
+        84,
+        19,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8d481b1e-4db6-41b9-bb04-7704cbd1860a",
+      "bbox": [
+        381,
+        119,
+        14,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "46319f49-8fc5-455d-a02f-48e0c7ce88a4",
+      "bbox": [
+        487,
+        2,
+        11,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7e9a4cf6-750d-4c91-9c6e-8821ccb02c05",
+      "bbox": [
+        380,
+        112,
+        14,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "de7d3ae6-4d8f-441d-8be2-e71f3529aa4e",
+      "bbox": [
+        315,
+        287,
+        12,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "54ea6b58-28a7-46f9-9baa-b8f7146786c1",
+      "bbox": [
+        504,
+        143,
+        7,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "776adcd8-0307-40d0-b497-4c89007b13f0",
+      "bbox": [
+        256,
+        475,
+        9,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3cb72442-652c-41c0-8d5a-94289c16ec1e",
+      "bbox": [
+        446,
+        59,
+        13,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "453804d6-73b5-4b4e-b985-afdcc9214057",
+      "bbox": [
+        492,
+        421,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "059b7ce6-8eb1-4546-bb27-e3415e0e21ad",
+      "bbox": [
+        405,
+        71,
+        22,
+        25
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8ca04d3b-b3f8-41c1-8fd3-e3fa795a634f",
+      "bbox": [
+        501,
+        491,
+        10,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "600a4039-f6fc-4b72-99a1-ee3bf001df5e",
+      "bbox": [
+        452,
+        283,
+        10,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3a78976b-516b-40f4-9554-66ca4c253bd0",
+      "bbox": [
+        426,
+        158,
+        8,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d09715c0-58b8-4743-a44f-878ca766897a",
+      "bbox": [
+        497,
+        500,
+        11,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b2b49a45-6d1a-48c8-8576-08a9dbd16f2e",
+      "bbox": [
+        477,
+        294,
+        8,
+        8
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3f74b555-76b3-4d74-9fb4-a2c4dc3b05f9",
+      "bbox": [
+        501,
+        476,
+        10,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d4c7ccfe-e5da-41a1-a371-fb9bb0aee0e9",
+      "bbox": [
+        376,
+        229,
+        17,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ebb94e42-5a2d-419e-8795-17bbb2a92809",
+      "bbox": [
+        452,
+        335,
+        13,
+        24
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5b4d4d6a-0ff0-4982-809a-b23a24c50947",
+      "bbox": [
+        125,
+        411,
+        9,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "2a19c8a2-1f96-4104-898b-17245e7ea84f",
+      "bbox": [
+        281,
+        274,
+        8,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ebb43a68-a203-4724-8210-6ef3d558272d",
+      "bbox": [
+        400,
+        9,
+        19,
+        20
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "4c8bb250-0e75-48dd-beca-dc8034fb2e4a",
+      "bbox": [
+        475,
+        404,
+        17,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a5807ebe-4263-450a-9758-ab1bc445c418",
+      "bbox": [
+        241,
+        488,
+        8,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0529b1aa-64d5-449d-8bc5-d35df9f5d814",
+      "bbox": [
+        61,
+        493,
+        9,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7c4a5ac2-6bf5-4f09-9bf9-4b992c1981a0",
+      "bbox": [
+        447,
+        503,
+        16,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c2653f4b-f8b2-4d20-b955-42242fca7bae",
+      "bbox": [
+        445,
+        322,
+        12,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "18b27076-066a-431e-b20c-0001b706eccb",
+      "bbox": [
+        464,
+        25,
+        14,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3887ac88-0f7c-4a6e-b885-ab97b6069506",
+      "bbox": [
+        387,
+        273,
+        19,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "2a2c35ca-9547-4c6c-a7af-6bb0979c28db",
+      "bbox": [
+        271,
+        0,
+        13,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8d9e353d-66df-4741-9e75-debe3f0b5f39",
+      "bbox": [
+        419,
+        0,
+        15,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "28ab8e38-20da-43d8-b5e7-fca6168ccd84",
+      "bbox": [
+        415,
+        98,
+        10,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d70e7b65-55dd-4d43-9a9b-a02984a4623c",
+      "bbox": [
+        365,
+        224,
+        19,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c1b573f8-eecd-495a-8deb-6d1ef4ecd55f",
+      "bbox": [
+        299,
+        326,
+        9,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a04f2b82-4832-44a4-9c74-fcbb80697006",
+      "bbox": [
+        286,
+        0,
+        10,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3f06e2a5-9524-433d-b074-40a35edea0e6",
+      "bbox": [
+        482,
+        300,
+        15,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "1a3e4da8-66db-4c2e-83c4-046ff10fc7e9",
+      "bbox": [
+        352,
+        258,
+        13,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "2d48e05e-1b7c-4d5a-a73a-4692f9b92709",
+      "bbox": [
+        262,
+        303,
+        9,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "fa5f7f0c-e2ea-4f2d-94b4-579b86853691",
+      "bbox": [
+        485,
+        109,
+        8,
+        8
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b203c86d-c77d-4348-8e99-9f33521e7e5d",
+      "bbox": [
+        0,
+        121,
+        10,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d5fbd297-ebf4-4438-82a3-2d5acfcebfb1",
+      "bbox": [
+        362,
+        449,
+        8,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "cdd33ea6-b4a8-4d58-a48a-12040bc63809",
+      "bbox": [
+        472,
+        366,
+        11,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9c606aa7-c02f-47b8-9b0d-f1d6ccb03d8b",
+      "bbox": [
+        407,
+        0,
+        12,
+        7
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0c2a768c-9b05-4579-a72c-7820b0a30da6",
+      "bbox": [
+        263,
+        161,
+        7,
+        8
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a13ba573-843e-49c2-9495-bbcfece0ce0f",
+      "bbox": [
+        279,
+        149,
+        8,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ff26a709-c097-498a-87e1-f029c2807719",
+      "bbox": [
+        303,
+        95,
+        12,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "590a903e-c3f5-4f60-9533-ee67e6c0b63e",
+      "bbox": [
+        477,
+        259,
+        14,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b4e1c884-90fd-461f-8339-d74588db60c9",
+      "bbox": [
+        478,
+        283,
+        8,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "77dbbe2c-37a8-48a7-aa3e-a117b2191977",
+      "bbox": [
+        506,
+        67,
+        5,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "73a9ad3d-40f6-45a4-a5db-abceaf451f19",
+      "bbox": [
+        342,
+        122,
+        13,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c5e7d52d-efa6-45fb-a646-1f0434df2d57",
+      "bbox": [
+        462,
+        395,
+        8,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "1483cf7a-4971-44ee-b048-b1116c6f1faa",
+      "bbox": [
+        444,
+        426,
+        18,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "24979e98-6fa8-4ca4-944c-52a2f056704a",
+      "bbox": [
+        224,
+        3,
+        14,
+        23
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "306b54a0-cdff-4c12-a543-75ea6effb72d",
+      "bbox": [
+        386,
+        125,
+        14,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "600f2298-c041-43ca-870a-81256da538b3",
+      "bbox": [
+        502,
+        181,
+        9,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c3b3db68-2ea4-4a7d-8c3b-04108436ad0d",
+      "bbox": [
+        333,
+        94,
+        10,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9d2029f4-9daf-48d3-8a68-f8985f9b0868",
+      "bbox": [
+        304,
+        143,
+        11,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "16622c74-40be-4295-8a42-a85711482dd7",
+      "bbox": [
+        507,
+        259,
+        4,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c15d2cef-74e6-4892-9259-37730f885842",
+      "bbox": [
+        453,
+        184,
+        14,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "68958416-49da-48ac-81be-8ff5fc52bebe",
+      "bbox": [
+        506,
+        432,
+        6,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e8660bc8-ba6c-4ff3-b489-0c1ea31cda86",
+      "bbox": [
+        1,
+        112,
+        9,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "37c48c70-c342-4636-99c3-03a0732bdebe",
+      "bbox": [
+        500,
+        192,
+        12,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0f6562bc-7e71-405c-b9e4-ec7e5d4692d3",
+      "bbox": [
+        505,
+        369,
+        7,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "4ad7973f-1d24-4ce8-aaa3-8497aaf862d8",
+      "bbox": [
+        360,
+        237,
+        15,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "cfb75d5f-9a93-428f-9214-612b1eed30c5",
+      "bbox": [
+        158,
+        408,
+        9,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "012dc231-9a7b-47ba-a1a2-4a65b9154cbe",
+      "bbox": [
+        248,
+        201,
+        15,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7ef36e21-4583-4150-9827-2da5de998839",
+      "bbox": [
+        479,
+        212,
+        10,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a2c1ee60-d5ae-4eb2-812f-5f3ce891a58f",
+      "bbox": [
+        300,
+        131,
+        11,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "4812c1c0-ff14-43fd-a5d7-f5b5c714f443",
+      "bbox": [
+        442,
+        391,
+        13,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "623c9dfb-1db4-4335-bb8d-058b684905de",
+      "bbox": [
+        324,
+        11,
+        15,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3fefcc63-2753-4794-8fbd-e65c5fe50bdc",
+      "bbox": [
+        457,
+        440,
+        11,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0105e111-d46d-4ccf-bd58-2f131cfacce8",
+      "bbox": [
+        359,
+        191,
+        10,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e07b28cf-224b-4327-a224-6e4e716f578d",
+      "bbox": [
+        393,
+        327,
+        13,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "901831f1-fbb2-44d5-9158-3340bc132fde",
+      "bbox": [
+        0,
+        139,
+        5,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e42ffaf1-6289-4987-9bcf-6065081ed799",
+      "bbox": [
+        463,
+        246,
+        15,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e6b7e239-3699-4e7e-81fd-8a9aaf61652c",
+      "bbox": [
+        297,
+        204,
+        12,
+        21
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "2aeecdf1-debc-44cb-acbe-98f726fe7c29",
+      "bbox": [
+        407,
+        417,
+        15,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9edc8edf-665d-434f-bdb7-0bcb56787ede",
+      "bbox": [
+        25,
+        145,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "68d5038c-3284-401f-aa22-8c5b863278c4",
+      "bbox": [
+        439,
+        308,
+        14,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f22d6311-f427-436a-b5a0-99b8bda1fa28",
+      "bbox": [
+        292,
+        387,
+        11,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3eb6fd49-835a-4c00-bb3f-53b1ab36afc1",
+      "bbox": [
+        425,
+        76,
+        10,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "879b560b-9867-4be6-a7c5-5afa3fcfda07",
+      "bbox": [
+        215,
+        0,
+        13,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e782ddf9-e8b5-410a-8acc-673046d0aa14",
+      "bbox": [
+        446,
+        14,
+        9,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d81bdc37-cb2c-4a0b-b434-b82fd7b0bb87",
+      "bbox": [
+        422,
+        125,
+        12,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "30f96777-2630-488e-a6cf-16d39d59c1a4",
+      "bbox": [
+        406,
+        283,
+        18,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "6d7414c3-feff-4734-a527-2c78d80adcf4",
+      "bbox": [
+        496,
+        170,
+        13,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "33a8b9af-0154-40eb-8e1d-5147ae180801",
+      "bbox": [
+        378,
+        463,
+        6,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c238cd76-f166-464b-b733-9a4c9b4ae348",
+      "bbox": [
+        287,
+        170,
+        12,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d9af5040-cec6-4b28-9f6b-5cb82263f4c6",
+      "bbox": [
+        278,
+        141,
+        9,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "50ba7695-465e-4c3b-b1cb-4e021d37b5e0",
+      "bbox": [
+        345,
+        416,
+        11,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7c95747b-cf40-4402-850f-335e6cc9b923",
+      "bbox": [
+        443,
+        34,
+        14,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "92e7b51b-d36d-4f67-b692-80f46e20646c",
+      "bbox": [
+        357,
+        263,
+        11,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8e70785e-850e-4082-84a4-6f22a89617fb",
+      "bbox": [
+        428,
+        47,
+        13,
+        35
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "6cca2c18-8c4b-4f49-8b0c-c859386b033f",
+      "bbox": [
+        477,
+        245,
+        20,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ea26dd4f-490d-437f-9a0e-9ec7d431cde9",
+      "bbox": [
+        414,
+        311,
+        13,
+        20
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5e1fa5d7-876e-4bdb-a690-88683a01f92c",
+      "bbox": [
+        464,
+        102,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ed518510-f805-4d16-b1fd-df16bf9afebd",
+      "bbox": [
+        77,
+        457,
+        20,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "eebbcab5-5081-4c13-96fd-c7016de62143",
+      "bbox": [
+        484,
+        268,
+        11,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ec102ef3-1a73-426f-a5a1-434a72281f66",
+      "bbox": [
+        92,
+        129,
+        16,
+        22
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0ee3a54c-f4cd-4c3f-bfea-844f264f156c",
+      "bbox": [
+        459,
+        0,
+        16,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3e52047e-2b35-47c6-8ee8-5cbce8d92701",
+      "bbox": [
+        385,
+        266,
+        12,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "00a6ee1d-8b03-4119-8b8c-1b632c38089c",
+      "bbox": [
+        1,
+        167,
+        14,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "91558f6a-9a83-409b-9fb2-cbbb8c486d78",
+      "bbox": [
+        445,
+        209,
+        13,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3b80a517-1234-442b-844b-138e4424449d",
+      "bbox": [
+        473,
+        115,
+        13,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "2168f8ca-afcc-4f02-91b7-c7f38b1cc6ac",
+      "bbox": [
+        415,
+        231,
+        18,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5b248f87-7a66-4ab0-bb69-4f0397f9746e",
+      "bbox": [
+        180,
+        18,
+        9,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "275f4b5b-fc89-4990-9eae-39c114cd1a4e",
+      "bbox": [
+        452,
+        67,
+        10,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c195241a-d895-4029-a8c2-58c6bd27a093",
+      "bbox": [
+        501,
+        417,
+        11,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5a6b027f-b20b-42d6-8336-c7c9a6a533bb",
+      "bbox": [
+        294,
+        27,
+        13,
+        21
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d0bd30d7-6a1a-4717-beb0-9e70e29e1559",
+      "bbox": [
+        297,
+        84,
+        18,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "fe2e9404-8560-4c21-9c9b-d9bd8cfa0b68",
+      "bbox": [
+        475,
+        221,
+        8,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9e4dde15-4dbf-49d5-b713-98b227453e85",
+      "bbox": [
+        301,
+        293,
+        8,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "088e54e5-085f-4949-bdc5-48c2f7fb5c33",
+      "bbox": [
+        411,
+        251,
+        11,
+        20
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "490f729e-01f8-456f-8c92-aec6ee250941",
+      "bbox": [
+        341,
+        150,
+        18,
+        23
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "504a66d4-5608-4063-863b-ca26d8bd02ff",
+      "bbox": [
+        497,
+        306,
+        9,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "315a887e-2727-4760-b700-9a63de0c80b8",
+      "bbox": [
+        134,
+        100,
+        7,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f71b15b7-83bf-47fd-8b8d-86328ee86a5e",
+      "bbox": [
+        363,
+        277,
+        22,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7dd3adc7-0dd7-47fd-8aaa-8a0d9d46fc79",
+      "bbox": [
+        232,
+        0,
+        16,
+        7
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ef6b18c6-7ccd-4fc7-b18d-9901946657f3",
+      "bbox": [
+        497,
+        391,
+        12,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c9d53139-161d-46fb-ad6d-ed9a6d07ba98",
+      "bbox": [
+        349,
+        299,
+        10,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "50fa5da4-0076-4b36-aed0-4fd6f1a44f4b",
+      "bbox": [
+        505,
+        320,
+        7,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9c60633b-e9de-4d0c-a353-a3622fb71b4a",
+      "bbox": [
+        503,
+        158,
+        8,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "45614f08-5e1d-43fb-95fb-729bd8e82924",
+      "bbox": [
+        401,
+        152,
+        12,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "dc9c1122-7000-489f-91eb-d5bd4cc08870",
+      "bbox": [
+        481,
+        33,
+        8,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "971e2ce4-2ee4-4e05-9ab3-20d160545b86",
+      "bbox": [
+        419,
+        238,
+        14,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a70a7c63-150a-4d56-890e-9426d6df998b",
+      "bbox": [
+        456,
+        209,
+        9,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "cd7f799b-96d3-4a84-a490-b5623841166a",
+      "bbox": [
+        420,
+        303,
+        14,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "23123aaf-89d9-44c3-9952-41ebabc5e5b6",
+      "bbox": [
+        343,
+        116,
+        14,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f1ec999a-0dc6-41ce-8676-5a8485812615",
+      "bbox": [
+        503,
+        53,
+        8,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5a2e50d3-bb8b-4828-9feb-b5ab7c63a124",
+      "bbox": [
+        367,
+        213,
+        16,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "991728fb-fd4e-434a-aa03-0b5792673c17",
+      "bbox": [
+        335,
+        69,
+        14,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8391f0ca-f33b-4065-bab2-c1825865a26b",
+      "bbox": [
+        445,
+        108,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f52f1975-58c2-40b1-878d-b2e64baa3fcd",
+      "bbox": [
+        500,
+        233,
+        12,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7afb2131-45bd-45a5-8986-79185f8a74b0",
+      "bbox": [
+        349,
+        269,
+        10,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a65f7023-64d1-45b6-b9f2-dd0789fa42b8",
+      "bbox": [
+        414,
+        50,
+        15,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "03e7cc1b-3be8-49a1-925d-8ec66fb23829",
+      "bbox": [
+        502,
+        93,
+        9,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "2198091a-29d5-4dce-81e6-2e26fadd88f8",
+      "bbox": [
+        195,
+        169,
+        15,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ad2ffbfd-5dec-40c6-bf67-534c2d6111de",
+      "bbox": [
+        452,
+        309,
+        15,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "47bdb1a6-13d0-4c8b-ba0f-0412de32a4a1",
+      "bbox": [
+        391,
+        52,
+        13,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b0ee8857-a6aa-4986-8392-533551a6815f",
+      "bbox": [
+        325,
+        129,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c08c433d-568d-4534-a23e-793addd526a2",
+      "bbox": [
+        503,
+        443,
+        8,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a6aba784-735a-4a6a-bf29-5f31280912df",
+      "bbox": [
+        502,
+        332,
+        9,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "514cc1a6-0785-48c7-a4fb-048748fc6f32",
+      "bbox": [
+        239,
+        51,
+        19,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e721b6a7-7956-4259-ba9e-c23b1181415f",
+      "bbox": [
+        365,
+        49,
+        11,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c478f603-84c8-4c05-81f3-fda77bd83a39",
+      "bbox": [
+        433,
+        119,
+        9,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7f7d7a8b-095f-4faa-8d86-8844bfd259ca",
+      "bbox": [
+        468,
+        419,
+        13,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8c33b337-7759-46cf-a3ea-0e0c8a90f224",
+      "bbox": [
+        461,
+        499,
+        14,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d73222ae-be57-4d18-9996-504a04d848cc",
+      "bbox": [
+        501,
+        118,
+        10,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "26fa818f-9a9e-4e8b-8fc4-3646808f95ff",
+      "bbox": [
+        314,
+        13,
+        12,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c8b9a82e-6941-4dc9-b18f-0d9cd4eb5088",
+      "bbox": [
+        474,
+        94,
+        12,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f0c09c74-3d77-4980-b0c0-a5830dbdedb4",
+      "bbox": [
+        497,
+        361,
+        12,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8fed1357-0aa9-4aaf-bae6-864c58f867e0",
+      "bbox": [
+        400,
+        371,
+        15,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d6835e18-11cf-4a8d-a97e-47b31e272ad5",
+      "bbox": [
+        309,
+        9,
+        11,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "79122b40-35f7-4d25-92ee-b28686673a07",
+      "bbox": [
+        246,
+        363,
+        10,
+        29
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "adc0a0a3-9d97-4fa0-9b2c-00570394916f",
+      "bbox": [
+        298,
+        0,
+        12,
+        7
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0d7ae391-0e6e-4df6-855a-e219df09946a",
+      "bbox": [
+        439,
+        341,
+        16,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0a6f2575-4053-4542-8174-92f002170dbb",
+      "bbox": [
+        382,
+        36,
+        11,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b22948a3-43a2-45d8-a0c5-979c2c1b9395",
+      "bbox": [
+        292,
+        162,
+        12,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "881cd67d-010e-4abb-aeff-a1cbce37e905",
+      "bbox": [
+        331,
+        178,
+        11,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "eaf4b530-b0e0-482f-a65c-cf8f85dd6bc6",
+      "bbox": [
+        8,
+        146,
+        10,
+        23
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7fa3f843-46dd-4c6a-b1e2-2af382fa4558",
+      "bbox": [
+        357,
+        53,
+        9,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e605fb1e-83ce-452a-a015-67796cb3debd",
+      "bbox": [
+        181,
+        59,
+        8,
+        25
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "114bd93d-c4c1-4133-a435-948085e05c1b",
+      "bbox": [
+        336,
+        77,
+        13,
+        23
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a439ddbe-ab9e-4838-ad9c-07bedc82b721",
+      "bbox": [
+        293,
+        119,
+        18,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b2c7dd39-680b-41c8-9c0f-a652f186efef",
+      "bbox": [
+        407,
+        62,
+        13,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f735e299-0957-4591-b621-bc12cdcf2b05",
+      "bbox": [
+        431,
+        417,
+        11,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5938fcf7-c6df-4f38-ac62-7fc6b84730af",
+      "bbox": [
+        247,
+        155,
+        9,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "94a9ea62-2ab5-434a-bb0c-d545ebe56659",
+      "bbox": [
+        360,
+        181,
+        15,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e627f8d0-c28c-42f6-b05b-29fbc4fefc06",
+      "bbox": [
+        476,
+        155,
+        13,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f0aea7c9-bb5e-4ae3-844e-887b81117371",
+      "bbox": [
+        306,
+        197,
+        19,
+        21
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "cbb1edb5-d1c2-41f8-834e-1c0a90f8ff9a",
+      "bbox": [
+        486,
+        308,
+        14,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d4ef3208-3ba8-4289-94dc-9d55630fa117",
+      "bbox": [
+        469,
+        2,
+        12,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5cec09d2-c900-414d-8716-b62300ba6b27",
+      "bbox": [
+        493,
+        463,
+        17,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "eeeec51d-1ca1-464b-9393-c283d6166ef8",
+      "bbox": [
+        457,
+        237,
+        10,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d47b1ea8-d24f-47f0-8004-82dfd92911b5",
+      "bbox": [
+        415,
+        276,
+        12,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c2a52289-836e-4c38-8539-f85348563b8a",
+      "bbox": [
+        411,
+        384,
+        18,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b33def19-b2b8-42cc-a826-4a019f8126bb",
+      "bbox": [
+        478,
+        2,
+        13,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9a329ea2-3040-4a79-a21c-0dc51c2555a1",
+      "bbox": [
+        441,
+        416,
+        14,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "4b6dc4ab-7aef-4705-bda9-ea0f0aa7c2c9",
+      "bbox": [
+        493,
+        449,
+        12,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "66dea26a-2dcb-492f-a9b5-322ae515b0c2",
+      "bbox": [
+        259,
+        128,
+        11,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "1ff48266-6560-41f7-82ed-676cfa8cc69d",
+      "bbox": [
+        488,
+        274,
+        12,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "85482a9d-8fb6-4da7-b079-f0273ebcdf85",
+      "bbox": [
+        496,
+        148,
+        13,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a579025d-4bc5-4b7b-9186-9e7b86b3b63e",
+      "bbox": [
+        387,
+        332,
+        13,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "818ae9d1-d01e-4be0-bc82-dfa429862c66",
+      "bbox": [
+        338,
+        270,
+        18,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "64fb1199-fa13-432b-894c-7cf66549232f",
+      "bbox": [
+        109,
+        475,
+        10,
+        21
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "65d2d8b6-cffe-4fbd-9880-5a21db2671fd",
+      "bbox": [
+        411,
+        355,
+        19,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8c8e9a3e-9053-467a-ad77-ac7a82937b91",
+      "bbox": [
+        440,
+        90,
+        16,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "292d6393-0c6d-4039-a5ab-fc6c126ebffe",
+      "bbox": [
+        346,
+        206,
+        18,
+        23
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "497cf6fc-52f2-49c5-9b27-0c433c22fe68",
+      "bbox": [
+        435,
+        407,
+        14,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9ae30e7c-512b-4f10-9df5-43f7aedb0c49",
+      "bbox": [
+        446,
+        134,
+        10,
+        9
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7d8c9b3c-f75e-4548-b2e6-67c491d94522",
+      "bbox": [
+        249,
+        56,
+        17,
+        22
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "1ac01e82-2027-4acd-b80a-b17f1ccbd154",
+      "bbox": [
+        310,
+        135,
+        12,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "900a4b41-80a9-4793-b4b0-bf6bcfd82077",
+      "bbox": [
+        282,
+        158,
+        13,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b0696591-d694-4fa2-a50a-b6bd0f2db918",
+      "bbox": [
+        417,
+        373,
+        14,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7b4317a1-31e1-446e-a43e-b36cc18ef2ee",
+      "bbox": [
+        388,
+        402,
+        15,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f8eab4ca-89cf-4f2e-b7d2-20668dbcacdb",
+      "bbox": [
+        483,
+        329,
+        12,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f9ed8946-898a-42ae-a1ab-e806f2ab27f7",
+      "bbox": [
+        477,
+        389,
+        17,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "756e27b4-27e0-4830-8bdb-be931523a457",
+      "bbox": [
+        452,
+        78,
+        11,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5042ad50-e08f-4cf5-ad30-3302d3ba82ef",
+      "bbox": [
+        403,
+        27,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d15363b9-10b7-4d1d-8d99-7dc4256a3bd8",
+      "bbox": [
+        404,
+        122,
+        13,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "bea6ba77-9215-4129-a731-d9b19d90bb52",
+      "bbox": [
+        414,
+        111,
+        15,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f0e6b561-a915-4ca5-a6cc-bdf0d80e3d69",
+      "bbox": [
+        377,
+        60,
+        15,
+        23
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e3f7f1e7-d0e7-4c08-81b5-dbb1fa21edc2",
+      "bbox": [
+        436,
+        35,
+        8,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d7f5b4bb-09d2-4dfd-9245-c207296fd970",
+      "bbox": [
+        399,
+        204,
+        12,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "24cf1fb4-2912-4b4b-b868-09725c8a622d",
+      "bbox": [
+        481,
+        137,
+        18,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7da3f779-8d1f-43e2-8b95-d2168c073f85",
+      "bbox": [
+        492,
+        259,
+        13,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "225a7499-72c5-45df-9dcd-6a3a144851a0",
+      "bbox": [
+        309,
+        112,
+        13,
+        24
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b1bddbde-5d63-4a3f-8180-9d476288cc97",
+      "bbox": [
+        483,
+        422,
+        12,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "10d55c79-eaeb-46bd-9812-a074a82c7a8e",
+      "bbox": [
+        343,
+        226,
+        19,
+        20
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "6683e8f8-8d1d-4f2d-b9c7-64b58fa1526e",
+      "bbox": [
+        261,
+        88,
+        11,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "13326cf8-51cc-48bc-b59f-043265505672",
+      "bbox": [
+        484,
+        189,
+        13,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "56f0f9e9-4c75-4878-b4bd-01321bc9691c",
+      "bbox": [
+        396,
+        19,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "fced1c51-24d4-4d1d-81bc-79c46df07b14",
+      "bbox": [
+        242,
+        474,
+        13,
+        20
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a56e4b61-7ab8-4bec-bfce-3daacdc9fac1",
+      "bbox": [
+        491,
+        20,
+        13,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "bced7e56-0d53-4844-a3af-4b06ea5f3376",
+      "bbox": [
+        398,
+        40,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0231d341-5054-41e6-8a2b-72ea554411ed",
+      "bbox": [
+        259,
+        23,
+        21,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "41b29f6d-2bd5-4e00-889c-fbdbf87a6a9c",
+      "bbox": [
+        394,
+        491,
+        13,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f72b2d5a-365d-423e-8500-f18283effafc",
+      "bbox": [
+        249,
+        219,
+        12,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8da72040-c904-4917-9a37-2a4aa9afb059",
+      "bbox": [
+        461,
+        80,
+        11,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "1d1a7f00-cbdc-4643-ade8-848ff9c9b905",
+      "bbox": [
+        454,
+        17,
+        12,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "78a8771e-9020-417a-81a7-1b8a79268529",
+      "bbox": [
+        501,
+        206,
+        10,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "84a29e54-0071-470d-a29b-10f7a04f484c",
+      "bbox": [
+        421,
+        406,
+        15,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7105ddec-15ec-4195-8dbc-a81f4703d10f",
+      "bbox": [
+        348,
+        498,
+        11,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7b7c9f8e-5f3e-4d38-9fe4-a5b673075601",
+      "bbox": [
+        385,
+        23,
+        13,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "bf6fa74c-192f-41ce-ba6e-129becd599cd",
+      "bbox": [
+        451,
+        46,
+        13,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "2982c585-f5cc-437d-bf27-d85bebee7a3e",
+      "bbox": [
+        452,
+        452,
+        14,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d50cc075-8010-4797-a827-9e4619f16458",
+      "bbox": [
+        353,
+        122,
+        13,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f780e08c-6fb9-4c6f-b0f4-12eb43f144b5",
+      "bbox": [
+        350,
+        282,
+        13,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "870648d7-9e56-4c21-95f2-df87ff896d6c",
+      "bbox": [
+        413,
+        128,
+        16,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b1e598d8-f28d-4f1a-b06b-4332400d969f",
+      "bbox": [
+        7,
+        487,
+        11,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "75b647c8-1af3-402c-9e5b-055cab7dc8ce",
+      "bbox": [
+        492,
+        64,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d1a9008d-7eea-48d0-9724-260e0a894750",
+      "bbox": [
+        392,
+        381,
+        12,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c82a9aae-95c2-45ed-a722-7469222a7242",
+      "bbox": [
+        372,
+        121,
+        10,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "323b8b07-ba6d-4686-b444-6c2b2fd1773f",
+      "bbox": [
+        496,
+        248,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "919c908b-b14a-474a-ac7f-eecf8ecd7112",
+      "bbox": [
+        465,
+        65,
+        13,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7aa44bf4-4385-478f-9344-4f94cef6d2d5",
+      "bbox": [
+        331,
+        121,
+        13,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "93c095a2-caf1-41f4-8904-874ea239aa07",
+      "bbox": [
+        403,
+        385,
+        12,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "6116e6d3-2bf0-44e3-8851-4e29d6b5994b",
+      "bbox": [
+        371,
+        104,
+        11,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "be874546-1480-4a3f-8a22-b532544cc5cf",
+      "bbox": [
+        389,
+        74,
+        13,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "af95607f-d957-42db-a4cb-6ee6414409cd",
+      "bbox": [
+        453,
+        249,
+        12,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "41ea150b-ccd1-4cdc-a99f-9c9866fad4db",
+      "bbox": [
+        203,
+        415,
+        11,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "55826f0d-01f2-47f2-bab2-f0708182e96a",
+      "bbox": [
+        399,
+        466,
+        10,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "91c3e5be-0920-428c-99c6-8b4b429e003b",
+      "bbox": [
+        419,
+        15,
+        11,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "343e6ea2-cb7c-4283-ba9b-bc10a745da90",
+      "bbox": [
+        468,
+        234,
+        18,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "4bd257d6-ea40-4a3d-9c9a-cf2339ef8b64",
+      "bbox": [
+        429,
+        378,
+        16,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9cefb048-5cd3-4285-9857-ffae3d476de2",
+      "bbox": [
+        476,
+        146,
+        15,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a4c821a9-b046-4023-a938-4fc714cb4332",
+      "bbox": [
+        449,
+        223,
+        11,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "97d189ab-ae45-40e5-8ecd-eb766ce0d36d",
+      "bbox": [
+        427,
+        159,
+        15,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "947b46f3-02a7-4c44-83ea-77b708d8145b",
+      "bbox": [
+        429,
+        1,
+        19,
+        24
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0106cf5c-9c6e-4fcb-89cc-fc0ff0801e37",
+      "bbox": [
+        372,
+        421,
+        10,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "6e687999-99e7-4122-898a-8a1a57ea9333",
+      "bbox": [
+        385,
+        293,
+        14,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "58524f2d-67a9-495e-b3ba-b5181dd65ca9",
+      "bbox": [
+        399,
+        316,
+        13,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "85355f6c-f0b0-4776-9873-9bfb195adb4c",
+      "bbox": [
+        305,
+        23,
+        10,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5a2dec08-31eb-4df7-a102-47432f994ee4",
+      "bbox": [
+        492,
+        406,
+        18,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b48b6ff5-6303-484f-bcc2-b3999e5537d6",
+      "bbox": [
+        439,
+        63,
+        14,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ba55c724-980f-4ce5-8e77-c4e9f18d911c",
+      "bbox": [
+        481,
+        468,
+        20,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "44a317c8-263a-45f1-a275-c3713197624e",
+      "bbox": [
+        391,
+        282,
+        13,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ed0e28d7-dc26-4028-be17-e186d50d92e4",
+      "bbox": [
+        422,
+        100,
+        15,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "29ba24db-3733-46ed-9d91-00b45729b2aa",
+      "bbox": [
+        9,
+        404,
+        12,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "996f5d8c-9717-43a5-b755-640bcd4c7295",
+      "bbox": [
+        442,
+        48,
+        12,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b2417c9a-6986-4683-976a-51c790162627",
+      "bbox": [
+        382,
+        235,
+        18,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "24a49a93-8fab-49ec-a806-66bc566b1e16",
+      "bbox": [
+        386,
+        450,
+        9,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ee5c42e6-4397-4df3-8199-e6743539c9a3",
+      "bbox": [
+        429,
+        242,
+        13,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "bcbbdb69-7852-423c-8230-916e7d864a26",
+      "bbox": [
+        458,
+        425,
+        16,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3ed8e8a7-a012-4e67-b887-e10ad1947ec0",
+      "bbox": [
+        440,
+        176,
+        24,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b7a0ca9d-797a-495c-8027-4f3888b494e6",
+      "bbox": [
+        468,
+        262,
+        12,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "dfc46d6b-bb3d-4266-8dfd-60385147e70d",
+      "bbox": [
+        240,
+        269,
+        16,
+        21
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "fc0efc31-225c-455e-949d-1d0e7015ca2c",
+      "bbox": [
+        496,
+        345,
+        14,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ac859007-85e2-474e-9855-9ecfef47f578",
+      "bbox": [
+        416,
+        29,
+        14,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0a9f2d1f-5573-447c-b9ca-eba6409cd29e",
+      "bbox": [
+        312,
+        214,
+        13,
+        21
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0f9c2cf4-f30d-495e-8e27-2df2fc364073",
+      "bbox": [
+        283,
+        130,
+        15,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c9bcc571-2993-49b2-a8b2-1255dda5fca5",
+      "bbox": [
+        497,
+        12,
+        13,
+        10
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "dd45b73e-fb8d-4216-8a4a-b3d9d9d4cea5",
+      "bbox": [
+        427,
+        336,
+        21,
+        22
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e5d30ec1-da26-430a-942f-4f218c820aa3",
+      "bbox": [
+        476,
+        17,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "967db690-a078-4d5a-b2ec-af676eb3947c",
+      "bbox": [
+        477,
+        428,
+        13,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c9af865c-c62a-429d-8149-e09fb8eb947b",
+      "bbox": [
+        354,
+        96,
+        16,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9b956a4c-ccd7-4023-8bb1-01c64ba19e4d",
+      "bbox": [
+        369,
+        131,
+        18,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d1ec5c44-8bb1-436f-a3b6-7abe3b40730a",
+      "bbox": [
+        3,
+        82,
+        13,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "44cc9414-2b57-4735-b91f-32e94541ccc9",
+      "bbox": [
+        389,
+        157,
+        14,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "dd2c8531-d73c-4b58-a127-2385b3674ebd",
+      "bbox": [
+        371,
+        0,
+        13,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "67424224-d8df-470a-9fb7-10933b8a64f2",
+      "bbox": [
+        479,
+        123,
+        12,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "96c4ae6e-6cde-4636-be7e-9aa6f6d08321",
+      "bbox": [
+        378,
+        300,
+        17,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "85c09606-c8c7-4696-8d0d-3733a998d4c0",
+      "bbox": [
+        316,
+        353,
+        12,
+        21
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "73847f44-9eca-4fbc-87a0-4378e5668ffe",
+      "bbox": [
+        483,
+        75,
+        12,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "1aa0dfab-07c0-4105-b0fc-2a061cec57e2",
+      "bbox": [
+        465,
+        13,
+        12,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7bae9e04-5afb-46c7-a947-e4fa297853ad",
+      "bbox": [
+        442,
+        371,
+        18,
+        22
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3f783b39-9ee0-4293-9a09-6445bf3fbabb",
+      "bbox": [
+        468,
+        398,
+        13,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5a7ffd26-c02d-4b75-a4e9-23b080b59a7d",
+      "bbox": [
+        429,
+        128,
+        16,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "38984443-41d7-4ab8-8bea-b29414ea11f3",
+      "bbox": [
+        352,
+        245,
+        23,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ca8fd09b-b15c-4f97-b3ce-7ff65e01f3d2",
+      "bbox": [
+        398,
+        110,
+        18,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "cce87ab3-a622-4cf2-9235-64342c958843",
+      "bbox": [
+        481,
+        347,
+        12,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "fba77558-5764-4fed-af3e-c1d91f8c8bde",
+      "bbox": [
+        430,
+        105,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "70ac469b-91b7-4028-b480-6107651f0c38",
+      "bbox": [
+        379,
+        373,
+        17,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f1bfad6c-5064-4ab9-8b48-4bc7ebc2768c",
+      "bbox": [
+        369,
+        66,
+        9,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8196fa67-0c2e-4a89-8072-242e59417192",
+      "bbox": [
+        449,
+        124,
+        13,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "6d89e759-7cf7-4d8b-bd26-948e8a959bd7",
+      "bbox": [
+        267,
+        194,
+        11,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "50ae932d-7155-4951-b9bc-84a7179916c9",
+      "bbox": [
+        398,
+        132,
+        12,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "1d29acdf-af88-4ad2-ad41-461c292d774c",
+      "bbox": [
+        308,
+        406,
+        12,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5fa3503d-8a51-4dea-be09-2277303f17e0",
+      "bbox": [
+        65,
+        39,
+        16,
+        32
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "83018513-f61f-4969-bc2a-e27aa8fab276",
+      "bbox": [
+        171,
+        34,
+        12,
+        34
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "89ab9d3b-b120-4651-9118-729d037e137c",
+      "bbox": [
+        409,
+        269,
+        13,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f3134a90-2751-4d1d-ba51-55fb29326101",
+      "bbox": [
+        132,
+        114,
+        9,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "597a56f9-aa84-468a-af57-e680da7701a4",
+      "bbox": [
+        392,
+        416,
+        14,
+        30
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f364426e-10fb-4f7f-8d4e-bf767b4de400",
+      "bbox": [
+        470,
+        480,
+        23,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "be041d51-cda9-4ae9-ac20-a74bd8845bac",
+      "bbox": [
+        364,
+        202,
+        19,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "2f93ee33-911b-438e-907d-11794f510f17",
+      "bbox": [
+        481,
+        41,
+        14,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3e14084e-a69e-4697-87a7-d55939403b2f",
+      "bbox": [
+        458,
+        271,
+        15,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "4ca3df6d-19fd-4742-b770-bfebc6cd2c83",
+      "bbox": [
+        489,
+        121,
+        12,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ff48ed5c-05b1-43c7-bfa0-9727055ba46b",
+      "bbox": [
+        280,
+        217,
+        13,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "67167293-d9aa-4de0-8c52-14caf4cf3cde",
+      "bbox": [
+        304,
+        302,
+        17,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ea7d0bee-594e-47d9-9822-fe4a2308db21",
+      "bbox": [
+        196,
+        207,
+        9,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "39e7c372-60a9-4b19-bb39-5c15d0da2c2c",
+      "bbox": [
+        284,
+        144,
+        12,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9b045264-876c-4b75-b7b3-35ecc058610c",
+      "bbox": [
+        368,
+        163,
+        17,
+        21
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "888749f8-b9f2-4834-8ef4-b91d05aa0649",
+      "bbox": [
+        376,
+        319,
+        12,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c1113f1e-772b-4ef7-9df1-6b3ee5dd4809",
+      "bbox": [
+        368,
+        334,
+        14,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "2f35ad5d-3b7c-481c-9726-a515a52f7a4d",
+      "bbox": [
+        343,
+        22,
+        15,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a49be4ec-77a3-487b-9198-1a67f85a23b9",
+      "bbox": [
+        313,
+        186,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9e56d88d-769e-49c2-8eee-d7e0d4f21cb3",
+      "bbox": [
+        497,
+        294,
+        13,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "11a32530-f79a-411b-b8c6-75ede68937d6",
+      "bbox": [
+        476,
+        62,
+        11,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ae9c5e29-d4f5-4ab9-8900-bc5ec137fddc",
+      "bbox": [
+        325,
+        220,
+        12,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "32b889ec-5dcb-4004-8c16-ed514426640f",
+      "bbox": [
+        382,
+        10,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8368ad92-eb34-4c66-873f-dbd68b7061a1",
+      "bbox": [
+        416,
+        327,
+        16,
+        22
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "df995898-8a37-4c68-b0e3-75d05d6a9440",
+      "bbox": [
+        246,
+        88,
+        17,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "85688198-12d8-4b3c-881b-7b39f89e04d6",
+      "bbox": [
+        329,
+        141,
+        14,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "54ecf45f-d98e-471c-9471-6db4e171c9a3",
+      "bbox": [
+        405,
+        397,
+        16,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "64bda176-8796-42b0-9016-9d62b2781d55",
+      "bbox": [
+        150,
+        82,
+        9,
+        21
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "805f1a27-2098-4832-9327-9a6a87fcddcf",
+      "bbox": [
+        459,
+        199,
+        18,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b957ab95-02f4-4345-9ad2-1a6f10facb39",
+      "bbox": [
+        487,
+        437,
+        15,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "de020ea9-74f7-48eb-ba41-06947f5bde77",
+      "bbox": [
+        434,
+        184,
+        14,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "0655cc0d-9ddf-4893-9d58-f28a1965411e",
+      "bbox": [
+        386,
+        194,
+        14,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "20998036-50e0-4c8b-a044-e8aa57caa77f",
+      "bbox": [
+        491,
+        368,
+        14,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "fd5992ca-aad7-4f29-bd6b-caaf3f537fa8",
+      "bbox": [
+        430,
+        313,
+        17,
+        20
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e869965c-d99b-4520-8b8f-16615196f9c9",
+      "bbox": [
+        243,
+        139,
+        11,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "6de2f8a3-0c97-4ce1-b1a7-0c690e8ba992",
+      "bbox": [
+        420,
+        253,
+        15,
+        20
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "4f23bdd4-3b18-4cb0-b97b-8f640b772648",
+      "bbox": [
+        324,
+        166,
+        17,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c5add3f4-0cb7-4de6-bbcc-d9116ac62cb7",
+      "bbox": [
+        497,
+        32,
+        13,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a675288e-4516-4671-a525-909b8dca0093",
+      "bbox": [
+        348,
+        2,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "47ee3e27-dccd-4ac5-bd06-77937a6b2372",
+      "bbox": [
+        217,
+        187,
+        13,
+        23
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "31550825-d7a4-450f-a786-79041b0b95d0",
+      "bbox": [
+        119,
+        328,
+        9,
+        21
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "290d87a4-fe97-44cb-928e-c06a951858f8",
+      "bbox": [
+        426,
+        389,
+        19,
+        20
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "97ef8eb6-0ba4-4ca0-965e-4c3196309f42",
+      "bbox": [
+        358,
+        311,
+        12,
+        12
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c398ea2f-52cf-4bcb-bd0b-b0440ddfa3bf",
+      "bbox": [
+        171,
+        373,
+        9,
+        21
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3186902c-8646-4605-ad1a-9318442e7f7d",
+      "bbox": [
+        474,
+        271,
+        12,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "440af7eb-d778-4c3b-9a1c-53e7551ae207",
+      "bbox": [
+        440,
+        197,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e1c6a85c-c80b-409e-a15c-482743f248ee",
+      "bbox": [
+        321,
+        199,
+        18,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8258f205-2ca5-47ca-b2df-54237b259d3d",
+      "bbox": [
+        350,
+        35,
+        14,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e3f0c518-2206-4332-b640-5a70daa4f3f3",
+      "bbox": [
+        466,
+        352,
+        14,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7058d978-545f-4c38-9078-92b81edef02a",
+      "bbox": [
+        212,
+        174,
+        14,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "4c949a48-7823-4e31-b8e0-a921b14f9c17",
+      "bbox": [
+        385,
+        314,
+        15,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e5d9fb36-70b0-4373-8870-f77a6ecc2938",
+      "bbox": [
+        321,
+        154,
+        12,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "69bf4461-68cc-45eb-b9b7-ac04ad002506",
+      "bbox": [
+        461,
+        127,
+        13,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "080ea90e-ea28-4452-8ef5-b6eee995f44c",
+      "bbox": [
+        126,
+        84,
+        14,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ebed034f-cd75-454c-bae3-3b708241f353",
+      "bbox": [
+        494,
+        219,
+        14,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "2da8e170-19d7-4131-891a-994e81f6bce2",
+      "bbox": [
+        453,
+        260,
+        11,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b49e1e20-83b6-4393-b08a-cad3641fa0d4",
+      "bbox": [
+        421,
+        425,
+        16,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "fd71f275-2564-4970-93fd-2459d2e9f8b5",
+      "bbox": [
+        471,
+        381,
+        11,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "2d6fbe53-6165-4ff5-80a7-b63b8f00125a",
+      "bbox": [
+        332,
+        237,
+        13,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3487548a-4000-4a0d-9386-5a6d43679048",
+      "bbox": [
+        434,
+        211,
+        13,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ffe4c7fe-156c-41ea-b20e-6b724100f246",
+      "bbox": [
+        440,
+        273,
+        13,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "49281d08-5352-4f04-b972-0c11652bf395",
+      "bbox": [
+        353,
+        167,
+        18,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "a90b8209-42cc-4f9c-8b60-1ee839ba1b4b",
+      "bbox": [
+        336,
+        250,
+        14,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "295f2078-4bfc-4979-b516-c8f25cbd8931",
+      "bbox": [
+        464,
+        87,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5fa8af15-e021-4d00-9480-7b4ec419e12c",
+      "bbox": [
+        125,
+        229,
+        16,
+        21
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "861a4d87-c5ef-49f3-9d34-b48e93f1d86b",
+      "bbox": [
+        487,
+        157,
+        16,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "af2d6f4a-4353-4e6f-afe2-f3a40a2d2c00",
+      "bbox": [
+        472,
+        318,
+        15,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d8a07487-52b8-45ca-a6db-6a53bd6f9381",
+      "bbox": [
+        463,
+        146,
+        13,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "6ad75e81-3254-4304-970f-b0b32b899cff",
+      "bbox": [
+        349,
+        183,
+        12,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "b07ecae1-edc9-44d7-878a-74f8e3bc96ee",
+      "bbox": [
+        376,
+        183,
+        15,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e0916dc4-a4db-429d-830b-af0d3cf6f56a",
+      "bbox": [
+        7,
+        461,
+        15,
+        11
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f2cd89d5-bc2b-4411-8e09-8b6efbab1005",
+      "bbox": [
+        478,
+        199,
+        13,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "e51df52c-e237-4d50-9f12-093d609b14c9",
+      "bbox": [
+        398,
+        302,
+        14,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "62beecc7-27a4-4fd7-99e7-857dce73420e",
+      "bbox": [
+        367,
+        35,
+        14,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "edd30123-387d-48d9-bed9-c1a3e70cbc97",
+      "bbox": [
+        450,
+        4,
+        12,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "bdc6ca01-3a27-4f43-8fab-9b4183481745",
+      "bbox": [
+        392,
+        358,
+        16,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "58c40e0b-011c-45e6-8f2a-35e1f229e82b",
+      "bbox": [
+        173,
+        421,
+        15,
+        20
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "038c227f-e93f-4068-bb8a-0076f63bf71a",
+      "bbox": [
+        495,
+        133,
+        16,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ef452a4b-be87-445c-8f42-50484365078d",
+      "bbox": [
+        478,
+        452,
+        17,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "765d376c-3355-4e86-bd56-6a975ee988c4",
+      "bbox": [
+        373,
+        142,
+        15,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "32b8ab71-b70d-468c-95ac-2b832bbc07cd",
+      "bbox": [
+        411,
+        441,
+        13,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "94a05999-b15d-4162-97b3-d803dc744d71",
+      "bbox": [
+        373,
+        20,
+        14,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "cb4b028c-4602-4b7c-b7e7-ef3adebc52a4",
+      "bbox": [
+        333,
+        48,
+        14,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "f29f0ee3-239e-4fb1-a668-55e71c65a31c",
+      "bbox": [
+        407,
+        140,
+        14,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "beefda5e-0749-461f-a1b7-014007718ec6",
+      "bbox": [
+        19,
+        485,
+        21,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "87dc6713-8ac5-440c-a10e-520016b80b6b",
+      "bbox": [
+        380,
+        355,
+        14,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "39a62d2c-e3a5-40a0-a690-caf6860433e1",
+      "bbox": [
+        65,
+        84,
+        13,
+        40
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9108a3a7-8f95-4669-bbe9-f38a3f61770f",
+      "bbox": [
+        370,
+        347,
+        13,
+        17
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "cd7e0e04-3eca-45e9-8823-cf2882d6bd45",
+      "bbox": [
+        296,
+        60,
+        12,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "1520020d-9ca2-463c-adc9-544392a10959",
+      "bbox": [
+        373,
+        243,
+        18,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c6191a75-25bc-43cb-ae1d-f3c7179c4630",
+      "bbox": [
+        423,
+        213,
+        13,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "3c8a37f6-9069-4283-9d98-b9d2d3eef0c2",
+      "bbox": [
+        171,
+        202,
+        17,
+        23
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "9381bcbb-521f-4576-99b0-1f7202812d04",
+      "bbox": [
+        428,
+        359,
+        16,
+        13
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7b4c3e11-015e-4a92-b6bb-583bc1a3a77d",
+      "bbox": [
+        115,
+        158,
+        11,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8effd89a-93c4-4207-9535-00ea3654d2f3",
+      "bbox": [
+        144,
+        248,
+        17,
+        31
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "c88ec78c-aa54-4a5e-9e56-0fd5c7afcbcf",
+      "bbox": [
+        386,
+        169,
+        18,
+        18
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7ac38054-fb6c-4de1-aa94-cdfd10085de1",
+      "bbox": [
+        458,
+        381,
+        15,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "8cc17340-9b7e-477b-9145-a8aaecaab0fa",
+      "bbox": [
+        458,
+        410,
+        18,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7b7015ef-d8e9-4e38-9931-6d88a2e0f76b",
+      "bbox": [
+        113,
+        398,
+        13,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "31236b9c-1987-4c55-813b-e0aa2b9d87de",
+      "bbox": [
+        19,
+        34,
+        10,
+        25
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "50f29a6e-3c44-426f-a053-352751c630c4",
+      "bbox": [
+        85,
+        159,
+        13,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5732ab03-8e27-4c53-b352-e8495e0adcea",
+      "bbox": [
+        427,
+        141,
+        14,
+        15
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d4af6feb-d721-48df-9ca1-9cfc5b0fa173",
+      "bbox": [
+        460,
+        160,
+        14,
+        14
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "941756d2-5d09-46be-8b3e-4f452fa1fed1",
+      "bbox": [
+        178,
+        130,
+        12,
+        25
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5c813a44-7d5f-4aa8-af16-fe5e21b46e70",
+      "bbox": [
+        426,
+        273,
+        19,
+        26
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "882d9fd3-f65b-4a9a-b4ae-a79d46c2beb3",
+      "bbox": [
+        411,
+        202,
+        18,
+        19
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "86f2ffe8-3c45-4e78-b7f9-dd52b6f6a791",
+      "bbox": [
+        447,
+        295,
+        18,
+        16
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "d341425f-ff96-455e-ad25-530402d6c8f7",
+      "bbox": [
+        415,
+        182,
+        12,
+        17
+      ],
+      "class": "Unclassified"
+    }
+  ]
 }

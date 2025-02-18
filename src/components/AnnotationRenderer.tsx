@@ -13,24 +13,55 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   imageFileName,
 }) => {
   const overlayRef = useRef<HTMLDivElement | null>(null);
-  if (overlayRef.current) {
+  useEffect(() => {
+    if (!viewer || !overlayRef.current) return;
+
+    // 🔥 OpenSeadragon에 오버레이 추가 (한 번만)
     viewer.addOverlay({
       element: overlayRef.current as HTMLElement,
       location: new OpenSeadragon.Rect(0, 0, 1, 1),
     });
-  }
+
+    // ✅ 어노테이션 업데이트 (뷰포트 변경 시)
+    const updateOverlays = () => {
+      annotations.forEach(({ id, bbox }) => {
+        const [x, y, width, height] = bbox;
+        const viewportRect = viewer.viewport.imageToViewportRectangle(
+          new OpenSeadragon.Rect(x, y, width, height)
+        );
+
+        const element = document.getElementById(`annotation-${id}`);
+        if (element) {
+          element.style.left = `${viewportRect.x * 100}%`;
+          element.style.top = `${viewportRect.y * 100}%`;
+          element.style.width = `${viewportRect.width * 100}%`;
+          element.style.height = `${viewportRect.height * 100}%`;
+        }
+      });
+    };
+
+    viewer.addHandler('viewport-change', updateOverlays);
+    updateOverlays(); // 초기 업데이트 실행
+
+    return () => {
+      viewer.removeHandler('viewport-change', updateOverlays);
+    };
+  }, [viewer, annotations]);
+
   const [lastImageFile, setLastImageFile] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
   const [dragOffset, setDragOffset] = useState<{ x: number; y: number } | null>(null);
   const [classColors, setClassColors] = useState<Record<string, string>>({});
   const [classVisibility, setClassVisibility] = useState<Record<string, boolean>>({});
-  const [showOnlyUnclassified, setShowOnlyUnclassified] = useState(false);
+  const [isHoldingMouse, setIsHoldingMouse] = useState(false); // ✅ 마우스를 클릭한 상태인지 추적
+  const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null);
+
   useEffect(() => {
     window.api.onAnnotationsUpdated((data) => {
       setAnnotations((prevAnnotations) =>
         prevAnnotations.map((a) => {
-          const updatedAnnotation = data.annotations.find((ann) => ann.id === a.id);
+          const updatedAnnotation = data.annotations.find((ann: { id: string }) => ann.id === a.id);
           return updatedAnnotation ? updatedAnnotation : a;
         })
       );
@@ -58,9 +89,11 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   }, []);
 
   useEffect(() => {
+    let prevSelectedAnnotations: string[] = []; // 🔥 이전 선택 상태 저장
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'v' || event.key === 'V') {
-        if (event.shiftKey) return; // Shift 키가 눌린 경우 무시
+      if (event.key.toLowerCase() === 'v') {
+        if (event.shiftKey) return; // Shift 키 무시
 
         if (event.ctrlKey || event.metaKey) {
           // ✅ V + 숫자키 (개별 클래스 토글)
@@ -69,30 +102,62 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
             const className = classIndex === 0 ? 'Unclassified' : `Class ${classIndex}`;
             setClassVisibility((prev) => ({
               ...prev,
-              [className]: !prev[className], // 토글
+              [className]: !prev[className], // 개별 토글
             }));
           }
         } else {
-          // ✅ 전체 토글
-          const anyVisible = Object.values(classVisibility).some((v) => v);
-          setClassVisibility((prev) =>
-            Object.keys(prev).reduce((acc, key) => {
-              acc[key] = !anyVisible;
+          // ✅ 전체 클래스 가시성 토글 (V 키 단독)
+          setClassVisibility((prev) => {
+            const anyVisible = Object.values(prev).some((v) => v);
+
+            // 🔥 선택된 것 초기화 후 저장
+            if (anyVisible) {
+              prevSelectedAnnotations = selectedAnnotations;
+              setSelectedAnnotations([]); // 모든 선택 해제
+            } else {
+              setSelectedAnnotations(prevSelectedAnnotations); // 🔥 이전 선택 복구
+            }
+
+            const newVisibility = Object.keys(prev).reduce((acc, key) => {
+              acc[key] = !anyVisible; // 모든 클래스 가시성 반전
               return acc;
-            }, {} as Record<string, boolean>)
-          );
+            }, {} as Record<string, boolean>);
+
+            console.log('🔄 New Class Visibility:', newVisibility);
+            return newVisibility;
+          });
         }
       }
 
-      if (event.key === 'f' || event.key === 'F') {
-        // ✅ `F`를 누르면 Unclassified만 보이도록 토글
-        setShowOnlyUnclassified((prev) => !prev);
+      if (event.key.toLowerCase() === 'f') {
+        // ✅ `F` 키를 누르면 Unclassified(미분류)만 보이도록 토글
+        setClassVisibility((prev) => {
+          const isUnclassifiedOnly = Object.keys(prev).every(
+            (key) => key === 'Unclassified' || !prev[key]
+          );
+
+          if (!isUnclassifiedOnly) {
+            // 🔥 기존 선택된 것 저장 후 초기화
+            prevSelectedAnnotations = selectedAnnotations;
+            setSelectedAnnotations([]);
+          } else {
+            setSelectedAnnotations(prevSelectedAnnotations); // 🔥 복구
+          }
+
+          const newVisibility = Object.keys(prev).reduce((acc, key) => {
+            acc[key] = isUnclassifiedOnly ? true : key === 'Unclassified'; // Unclassified만 보이거나, 전체 복구
+            return acc;
+          }, {} as Record<string, boolean>);
+
+          console.log('🔄 Updated Class Visibility:', newVisibility);
+          return newVisibility;
+        });
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [classVisibility]);
+  }, [selectedAnnotations]);
 
   const fetchClassColors = async () => {
     const response = await window.api.getClasses();
@@ -136,6 +201,8 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     if (!isInsideBBox) return;
 
     setIsDragging(true);
+    setIsHoldingMouse(true); // ✅ 마우스를 클릭했음을 표시
+    setMousePosition(imagePoint); // ✅ 마우스 위치 업데이트
     setDragStart(imagePoint);
     setDragOffset({
       x: imagePoint.x - x,
@@ -152,12 +219,12 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   const handleMouseMove = (event: CustomOSDEvent) => {
     if (!isDragging || !dragStart || !dragOffset || selectedAnnotations.length !== 1) return;
 
-    event.stopPropagation();
-
     const viewportPoint = viewer.viewport.pointFromPixel(event.position);
     const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
 
-    const selectedId = selectedAnnotations[0];
+    setMousePosition(imagePoint); // ✅ 마우스 위치 지속적으로 업데이트
+
+    const selectedId = selectedAnnotations[0]; // ✅ 드래그 중인 주석만 선택
     const selectedAnnotation = annotations.find((annotation) => annotation.id === selectedId);
     if (!selectedAnnotation) return;
 
@@ -172,26 +239,22 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     newX = Math.max(0, Math.min(newX, imageWidth - selectedAnnotation.bbox[2]));
     newY = Math.max(0, Math.min(newY, imageHeight - selectedAnnotation.bbox[3]));
 
-    const isOverlapping = annotations.some(({ id, bbox }) => {
-      if (id === selectedId) return false;
-      const [x, y, width, height] = bbox;
-      return !(
-        newX + selectedAnnotation.bbox[2] < x ||
-        newX > x + width ||
-        newY + selectedAnnotation.bbox[3] < y ||
-        newY > y + height
-      );
-    });
-
-    if (isOverlapping) return;
-
-    setSelectedAnnotations([selectedId]);
+    // ✅ 선택된 주석만 업데이트
+    setAnnotations((prevAnnotations) =>
+      prevAnnotations.map((annotation) =>
+        annotation.id === selectedId
+          ? { ...annotation, bbox: [newX, newY, annotation.bbox[2], annotation.bbox[3]] }
+          : annotation
+      )
+    );
   };
 
   const handleMouseUp = async (event: CustomOSDEvent) => {
     if (!isDragging || selectedAnnotations.length !== 1) return;
 
     setIsDragging(false);
+    setIsHoldingMouse(false); // ✅ 마우스를 놓았음을 표시
+    setMousePosition(null);
     setDragStart(null);
     setDragOffset(null);
 
@@ -246,11 +309,55 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
 
       setTimeout(() => {
         setSelectedAnnotations([selectedId]);
-      }, 1);
+      }, 50);
     } catch (error) {
       console.error('Error updating annotation position:', error);
     }
   };
+
+  useEffect(() => {
+    if (!isHoldingMouse || selectedAnnotations.length !== 1) return;
+
+    const selectedId = selectedAnnotations[0];
+    const selectedAnnotation = annotations.find((annotation) => annotation.id === selectedId);
+    if (!selectedAnnotation) return;
+
+    const tiledImage = viewer.world.getItemAt(0);
+    if (!tiledImage) return;
+
+    const { x: imageWidth, y: imageHeight } = tiledImage.getContentSize();
+
+    // ✅ `mousePosition`이 존재하면, 해당 위치에서 박스를 계속 유지
+    let newX = Math.round(
+      (mousePosition?.x ?? dragStart?.x ?? selectedAnnotation.bbox[0]) - (dragOffset?.x || 0)
+    );
+    let newY = Math.round(
+      (mousePosition?.y ?? dragStart?.y ?? selectedAnnotation.bbox[1]) - (dragOffset?.y || 0)
+    );
+
+    newX = Math.max(0, Math.min(newX, imageWidth - selectedAnnotation.bbox[2]));
+    newY = Math.max(0, Math.min(newY, imageHeight - selectedAnnotation.bbox[3]));
+
+    setAnnotations((prevAnnotations) =>
+      prevAnnotations.map((annotation) =>
+        annotation.id === selectedId
+          ? { ...annotation, bbox: [newX, newY, annotation.bbox[2], annotation.bbox[3]] }
+          : annotation
+      )
+    );
+
+    // ✅ 마우스를 움직이지 않아도 `bbox`를 계속 갱신
+    const animationFrameId = requestAnimationFrame(() => {
+      if (isHoldingMouse) {
+        setMousePosition((prev) => ({
+          x: prev?.x ?? newX,
+          y: prev?.y ?? newY,
+        }));
+      }
+    });
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isHoldingMouse, mousePosition, selectedAnnotations, dragOffset]);
 
   const handleCanvasDoubleClick = (event: CustomOSDEvent) => {
     if (isDragging) return; // ✅ 드래그 중에는 실행 안됨
@@ -292,7 +399,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   // ✅ ALT + 클릭 (다중 선택 유지)
   const handleCanvasAltClick = (event: CustomOSDEvent) => {
     if (isDragging) return; // ✅ 드래그 중이면 실행 안됨
-    if (!event.originalEvent.altKey) return; // Alt 키가 없으면 실행 안 함
+    if (!event.originalEvent.ctrlKey) return; // Alt 키가 없으면 실행 안 함
     const viewportPoint = viewer.viewport.pointFromPixel(event.position);
     const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
 
@@ -706,9 +813,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
         const isSelected = selectedAnnotations.some((selectedId) => selectedId === id);
         const borderColor = classColors[annotationClass] || '#000000';
         // ✅ 가시성 체크
-        const isVisible = showOnlyUnclassified
-          ? annotationClass === 'Unclassified'
-          : classVisibility[annotationClass] || isSelected; // 선택된 BBox는 항상 표시
+        const isVisible = classVisibility[annotationClass] || isSelected; // 선택된 BBox는 항상 표시
 
         if (!isVisible) return null; // 가시성이 false면 렌더링 X
         return (

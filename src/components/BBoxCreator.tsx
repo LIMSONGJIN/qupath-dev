@@ -82,10 +82,9 @@ const BBoxCreator: React.FC<
       overlayElement.style.background = 'rgba(255, 0, 0, 0.3)';
       overlayElement.style.border = '2px solid red';
       overlayElement.style.pointerEvents = 'none';
-      viewer.addOverlay(
-        overlayElement,
-        new OpenSeadragon.Rect(startImagePos.x, startImagePos.y, 0, 0)
-      );
+
+      // DOM 요소를 직접 추가 (뷰어 내부에 append)
+      viewer.element.appendChild(overlayElement);
 
       dragRef.current = { startImagePos, overlayElement };
     };
@@ -105,9 +104,18 @@ const BBoxCreator: React.FC<
       const width = Math.abs(currentImagePos.x - startImagePos.x);
       const height = Math.abs(currentImagePos.y - startImagePos.y);
 
-      // 박스 위치 업데이트
-      const location = new OpenSeadragon.Rect(x, y, width, height);
-      viewer.updateOverlay(overlayElement, location);
+      // 박스 스타일을 직접 변경하여 실시간으로 반영
+      const pointTL = viewer.viewport.imageToViewerElementCoordinates(
+        new OpenSeadragon.Point(x, y)
+      );
+      const pointBR = viewer.viewport.imageToViewerElementCoordinates(
+        new OpenSeadragon.Point(x + width, y + height)
+      );
+
+      overlayElement.style.left = `${pointTL.x}px`;
+      overlayElement.style.top = `${pointTL.y}px`;
+      overlayElement.style.width = `${pointBR.x - pointTL.x}px`;
+      overlayElement.style.height = `${pointBR.y - pointTL.y}px`;
     };
 
     const handleCanvasRelease = (event: OpenSeadragon.MouseTrackerEvent) => {
@@ -144,8 +152,8 @@ const BBoxCreator: React.FC<
         saveAnnotations(newAnnotation);
       }
 
-      // 드래그 상태 초기화
-      viewer.removeOverlay(overlayElement);
+      // 드래그 박스 삭제
+      overlayElement.remove();
       dragRef.current = null;
       resetMode();
     };
