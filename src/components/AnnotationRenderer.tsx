@@ -496,11 +496,27 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     const handleKeyDown = async (event: KeyboardEvent) => {
       const key = event.key;
 
+      // ✅ Ctrl + 숫자키로 해당 클래스에 속한 어노테이션을 선택
+      if (event.ctrlKey && key >= '0' && key <= '9') {
+        event.preventDefault(); // 기본 브라우저 동작 방지
+
+        const selectedClass = key === '0' ? 'Unclassified' : `Class ${key}`;
+
+        setSelectedAnnotations(
+          annotations
+            .filter((annotation) => annotation.class === selectedClass)
+            .map((annotation) => annotation.id)
+        );
+        return;
+      }
+
+      // ✅ Delete 키로 선택된 어노테이션 삭제
       if (key === 'Delete' && selectedAnnotations.length > 0) {
         deleteSelectedAnnotations();
         return;
       }
 
+      // ✅ 숫자 키로 선택된 어노테이션의 클래스 변경
       if (key >= '0' && key <= '9') {
         const newClass = key === '0' ? 'Unclassified' : `Class ${key}`;
 
