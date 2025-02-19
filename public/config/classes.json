@@ -1,0 +1,52 @@
+[
+  {
+    "id": 0,
+    "name": "Unclassified",
+    "color": "#ff0000"
+  },
+  {
+    "id": 1,
+    "name": "Class 1",
+    "color": "#2181e8"
+  },
+  {
+    "id": 2,
+    "name": "Class 2",
+    "color": "#56B4E9"
+  },
+  {
+    "id": 3,
+    "name": "Class 3",
+    "color": "#90EE90"
+  },
+  {
+    "id": 4,
+    "name": "Class 4",
+    "color": "#489b86"
+  },
+  {
+    "id": 5,
+    "name": "Class 5",
+    "color": "#E69F00"
+  },
+  {
+    "id": 6,
+    "name": "Class 6",
+    "color": "#D55E00"
+  },
+  {
+    "id": 7,
+    "name": "Class 7",
+    "color": "#CC79A7"
+  },
+  {
+    "id": 8,
+    "name": "Class 8",
+    "color": "#4B0082"
+  },
+  {
+    "id": 9,
+    "name": "Class 9",
+    "color": "#CCCCCC"
+  }
+]

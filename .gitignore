@@ -57,5 +57,3 @@ playwright-report/
 
 # 기타
 debug.log*
-*.png
-*.json
