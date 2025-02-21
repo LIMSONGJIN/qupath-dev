@@ -4,8 +4,7 @@ import { Annotation, BBoxCreatorProps, CustomMouseTrackerEvent } from '../types/
 
 const BBoxCreator: React.FC<
   BBoxCreatorProps & { setSelectedAnnotations: (ids: string[]) => void }
-> = ({ viewer, imageFileName, setSelectedAnnotations }) => {
-  const [annotations, setAnnotations] = useState<Annotation[]>([]);
+> = ({ viewer, imageFileName, setSelectedAnnotations, annotations, setAnnotations }) => {
   const [selectionMode, setSelectionMode] = useState(false);
   const dragRef = useRef<{
     startImagePos: OpenSeadragon.Point;
@@ -161,12 +160,12 @@ const BBoxCreator: React.FC<
     const mouseTracker = new OpenSeadragon.MouseTracker({
       element: viewer.element,
       pressHandler: handleCanvasPress,
-      dragHandler: handleCanvasMove, // 드래그 중 박스 업데이트
+      dragHandler: handleCanvasMove,
       releaseHandler: handleCanvasRelease,
     });
 
     return () => mouseTracker.destroy();
-  }, [viewer, selectionMode, annotations]);
+  }, [viewer, selectionMode]);
 
   return null;
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Annotation, ImageInfo } from '../types/app';
 import ClassManager from './ClassManager';
 import ImageList from './ImageList';
@@ -18,39 +18,44 @@ function App() {
     localStorage.setItem('selectedImage', image);
     localStorage.setItem('selectedImageName', name);
 
-    // 해당 이미지에 대한 annotation 데이터 로드
     fetch(`/annotations/${name.split('.')[0]}_annotation.json`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to load annotations (status: ${response.status})`);
+        }
+        return response.json();
+      })
       .then((data) => {
         setAnnotations(data.annotations || []);
       })
       .catch((error) => {
         console.error('Error loading annotations:', error);
-        setAnnotations([]); // 실패 시 빈 배열로 설정
+        setAnnotations([]);
       });
   };
 
-  // 단축키 이벤트 핸들러 추가
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
+  const handleKeyPress = useCallback(
+    (e: KeyboardEvent) => {
       if (images.length === 0) return;
 
       const currentIndex = images.findIndex((img) => img.url === selectedImage);
+      if (currentIndex === -1) return;
 
-      if (e.key === 'z' || e.key === 'Z') {
-        // 이전 이미지
+      if (e.key.toLowerCase() === 'z') {
         const prevIndex = (currentIndex === 0 ? images.length : currentIndex) - 1;
         handleImageSelect(images[prevIndex].url, images[prevIndex].name);
-      } else if (e.key === 'x' || e.key === 'X') {
-        // 다음 이미지
+      } else if (e.key.toLowerCase() === 'x') {
         const nextIndex = (currentIndex + 1) % images.length;
         handleImageSelect(images[nextIndex].url, images[nextIndex].name);
       }
-    };
+    },
+    [selectedImage, images]
+  );
 
+  useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [selectedImage, images]);
+  }, [handleKeyPress]);
 
   return (
     <div

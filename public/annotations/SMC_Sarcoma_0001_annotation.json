@@ -1,26 +1,6 @@
 {
   "annotations": [
     {
-      "id": "72a291f5-5975-4bf0-bccd-f51c3959042a",
-      "bbox": [
-        1021,
-        755,
-        811,
-        571
-      ],
-      "class": "Unclassified"
-    },
-    {
-      "id": "8e75dea9-d4dc-45ec-b7ca-7562c96fc538",
-      "bbox": [
-        2750,
-        803,
-        632,
-        331
-      ],
-      "class": "Unclassified"
-    },
-    {
       "id": "9f2d1f83-1d06-412c-a285-b4c85b3894a8",
       "bbox": [
         3487,
@@ -31,42 +11,92 @@
       "class": "Class 1"
     },
     {
-      "id": "8604a320-ead5-49d7-ab4e-346aebf12682",
+      "id": "5dc462d2-ee3d-4bc4-93f9-8ceb2aa43e8d",
       "bbox": [
-        2957,
-        2323,
-        482,
-        1037
+        1991,
+        871,
+        393,
+        587
       ],
-      "class": "Unclassified"
+      "class": "Class 8"
     },
     {
-      "id": "cbbd15d0-8a82-4b6d-94b2-719f86cc327a",
+      "id": "ee8d605b-a82b-462c-9f7a-71b95ef12cd7",
       "bbox": [
-        2135,
-        2838,
-        449,
-        322
+        2715,
+        1414,
+        343,
+        543
       ],
-      "class": "Unclassified"
+      "class": "Class 8"
     },
     {
-      "id": "80c37363-f6a2-48d6-af3b-a6db2563142f",
+      "id": "8b8f1f1c-fbe6-4b56-a03c-d17be25db096",
       "bbox": [
-        1908,
-        1841,
-        501,
-        610
+        1386,
+        2719,
+        580,
+        755
       ],
-      "class": "Unclassified"
+      "class": "Class 8"
     },
     {
-      "id": "b4049fe1-3138-4ba4-b849-33a9846faeed",
+      "id": "f95a30f8-a47c-4c72-a37e-9a97e1f45fee",
       "bbox": [
-        563,
-        2370,
-        296,
-        363
+        1642,
+        235,
+        1754,
+        250
+      ],
+      "class": "Class 8"
+    },
+    {
+      "id": "cfb76296-9409-4d0b-a6cc-689a0b262f82",
+      "bbox": [
+        1055,
+        1395,
+        811,
+        743
+      ],
+      "class": "Class 8"
+    },
+    {
+      "id": "8578fbc7-08f6-4646-a183-d9715ee0e4c5",
+      "bbox": [
+        2478,
+        2344,
+        1055,
+        999
+      ],
+      "class": "Class 8"
+    },
+    {
+      "id": "f0838453-a54a-4c79-ac1c-1fc09864b148",
+      "bbox": [
+        431,
+        472,
+        624,
+        443
+      ],
+      "class": "Class 8"
+    },
+    {
+      "id": "a56479ba-2ebd-4996-ad1a-8b66067749c5",
+      "bbox": [
+        612,
+        2244,
+        412,
+        986
+      ],
+      "class": "Class 8"
+    },
+    {
+      "id": "dd69bf39-5a41-4c22-994a-052fbbfa9d5d",
+      "bbox": [
+        1984,
+        1693,
+        462,
+        543
       ],
       "class": "Unclassified"
     }

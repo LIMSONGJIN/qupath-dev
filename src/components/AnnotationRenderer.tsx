@@ -48,7 +48,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     };
   }, [viewer, annotations]);
 
-  const [lastImageFile, setLastImageFile] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
   const [dragOffset, setDragOffset] = useState<{ x: number; y: number } | null>(null);
@@ -495,7 +494,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   useEffect(() => {
     const handleKeyDown = async (event: KeyboardEvent) => {
       const key = event.key;
-
       // ✅ Ctrl + 숫자키로 해당 클래스에 속한 어노테이션을 선택
       if (event.ctrlKey && key >= '0' && key <= '9') {
         event.preventDefault(); // 기본 브라우저 동작 방지
@@ -509,14 +507,11 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
         );
         return;
       }
-
-      // ✅ Delete 키로 선택된 어노테이션 삭제
       if (key === 'Delete' && selectedAnnotations.length > 0) {
         deleteSelectedAnnotations();
         return;
       }
 
-      // ✅ 숫자 키로 선택된 어노테이션의 클래스 변경
       if (key >= '0' && key <= '9') {
         const newClass = key === '0' ? 'Unclassified' : `Class ${key}`;
 
@@ -549,40 +544,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [selectedAnnotations, annotations, imageFileName]);
-
-  useEffect(() => {
-    if (imageFileName !== lastImageFile) {
-      if (annotations.length === 0 || !viewer) return;
-
-      const viewportCenter = viewer.viewport.getCenter();
-      const imageCenter = viewer.viewport.viewportToImageCoordinates(viewportCenter);
-
-      let closestAnnotationId: string | null = null;
-      let closestDistance = Infinity;
-
-      annotations.forEach(({ id, bbox }) => {
-        const [x, y, width, height] = bbox;
-        const annotationCenterX = x + width / 2;
-        const annotationCenterY = y + height / 2;
-
-        const distance = Math.sqrt(
-          (annotationCenterX - imageCenter.x) ** 2 + (annotationCenterY - imageCenter.y) ** 2
-        );
-
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestAnnotationId = id;
-        }
-      });
-
-      if (closestAnnotationId) {
-        setSelectedAnnotations([closestAnnotationId]);
-        setSelectedSide(null);
-      }
-
-      setLastImageFile(imageFileName);
-    }
-  }, [imageFileName, annotations, viewer]);
 
   useEffect(() => {
     const handleArrowKey = (event: KeyboardEvent) => {
