@@ -215,37 +215,15 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     viewer.gestureSettingsMouse.flickEnabled = false;
   };
 
+  // handleMouseMove 내부
   const handleMouseMove = (event: CustomOSDEvent) => {
-    if (!isDragging || !dragStart || !dragOffset || selectedAnnotations.length !== 1) return;
+    if (!isDragging) return;
 
     const viewportPoint = viewer.viewport.pointFromPixel(event.position);
     const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
 
-    setMousePosition(imagePoint); // ✅ 마우스 위치 지속적으로 업데이트
-
-    const selectedId = selectedAnnotations[0]; // ✅ 드래그 중인 주석만 선택
-    const selectedAnnotation = annotations.find((annotation) => annotation.id === selectedId);
-    if (!selectedAnnotation) return;
-
-    const tiledImage = viewer.world.getItemAt(0);
-    if (!tiledImage) return;
-
-    const { x: imageWidth, y: imageHeight } = tiledImage.getContentSize();
-
-    let newX = Math.round(imagePoint.x - dragOffset.x);
-    let newY = Math.round(imagePoint.y - dragOffset.y);
-
-    newX = Math.max(0, Math.min(newX, imageWidth - selectedAnnotation.bbox[2]));
-    newY = Math.max(0, Math.min(newY, imageHeight - selectedAnnotation.bbox[3]));
-
-    // ✅ 선택된 주석만 업데이트
-    setAnnotations((prevAnnotations) =>
-      prevAnnotations.map((annotation) =>
-        annotation.id === selectedId
-          ? { ...annotation, bbox: [newX, newY, annotation.bbox[2], annotation.bbox[3]] }
-          : annotation
-      )
-    );
+    // 계속 mousePosition을 최신 상태로 갱신
+    setMousePosition(imagePoint);
   };
 
   const handleMouseUp = async (event: CustomOSDEvent) => {
@@ -315,7 +293,9 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   };
 
   useEffect(() => {
+    // 드래그 중이 아니거나, 선택된 어노테이션이 없으면 아무것도 안 함
     if (!isHoldingMouse || selectedAnnotations.length !== 1) return;
+    if (!mousePosition) return; // mousePosition이 없으면 아직 드래그가 안 시작된 것
 
     const selectedId = selectedAnnotations[0];
     const selectedAnnotation = annotations.find((annotation) => annotation.id === selectedId);
@@ -326,13 +306,9 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
 
     const { x: imageWidth, y: imageHeight } = tiledImage.getContentSize();
 
-    // ✅ `mousePosition`이 존재하면, 해당 위치에서 박스를 계속 유지
-    let newX = Math.round(
-      (mousePosition?.x ?? dragStart?.x ?? selectedAnnotation.bbox[0]) - (dragOffset?.x || 0)
-    );
-    let newY = Math.round(
-      (mousePosition?.y ?? dragStart?.y ?? selectedAnnotation.bbox[1]) - (dragOffset?.y || 0)
-    );
+    // 마우스 위치 기반으로 bbox 계산 (fallback 제거)
+    let newX = Math.round(mousePosition.x - (dragOffset?.x || 0));
+    let newY = Math.round(mousePosition.y - (dragOffset?.y || 0));
 
     newX = Math.max(0, Math.min(newX, imageWidth - selectedAnnotation.bbox[2]));
     newY = Math.max(0, Math.min(newY, imageHeight - selectedAnnotation.bbox[3]));
@@ -344,19 +320,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
           : annotation
       )
     );
-
-    // ✅ 마우스를 움직이지 않아도 `bbox`를 계속 갱신
-    const animationFrameId = requestAnimationFrame(() => {
-      if (isHoldingMouse) {
-        setMousePosition((prev) => ({
-          x: prev?.x ?? newX,
-          y: prev?.y ?? newY,
-        }));
-      }
-    });
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isHoldingMouse, mousePosition, selectedAnnotations, dragOffset]);
+  }, [isHoldingMouse, mousePosition, selectedAnnotations, dragOffset, annotations, viewer]);
 
   const handleCanvasDoubleClick = (event: CustomOSDEvent) => {
     if (isDragging) return; // ✅ 드래그 중에는 실행 안됨
