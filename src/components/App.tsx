@@ -36,8 +36,10 @@ function App() {
 
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
-      if (images.length === 0) return;
+      // ctrl 키가 눌렸다면 이미지 전환 로직을 실행하지 않음
+      if (e.ctrlKey) return;
 
+      if (images.length === 0) return;
       const currentIndex = images.findIndex((img) => img.url === selectedImage);
       if (currentIndex === -1) return;
 

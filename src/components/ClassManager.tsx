@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { SketchPicker } from 'react-color';
+import { useUndoRedo } from '../context/UndoRedoContext';
 import { ClassInfo, ClassManagerProps } from '../types/classmanager';
 
 const ClassManager: React.FC<ClassManagerProps> = ({ selectedImageName }) => {
   const [classes, setClasses] = useState<ClassInfo[]>([]);
   const [classCounts, setClassCounts] = useState<Record<string, number>>({});
   const [colorPickerVisible, setColorPickerVisible] = useState<number | null>(null);
+  const { performCommand } = useUndoRedo();
 
   useEffect(() => {
     if (!selectedImageName) return;
@@ -31,25 +33,52 @@ const ClassManager: React.FC<ClassManagerProps> = ({ selectedImageName }) => {
     return () => clearInterval(interval);
   }, [selectedImageName]);
 
-  // 클래스 이름 변경 핸들러
+  // 클래스 이름 변경 핸들러 (Undo/Redo 적용)
   const handleNameChange = (id: number, oldName: string, newName: string) => {
-    if (oldName === 'Unclassified') return;
+    if (oldName === 'Unclassified' || oldName === newName) return;
 
-    const updatedClasses = classes.map((cls) => (cls.id === id ? { ...cls, name: newName } : cls));
-
-    setClasses(updatedClasses);
-    window.api.updateClasses(updatedClasses);
-    window.api.updateAnnotationsClassname(oldName, newName);
+    performCommand({
+      redo: () => {
+        setClasses((prev) => {
+          const updated = prev.map((cls) => (cls.id === id ? { ...cls, name: newName } : cls));
+          window.api.updateClasses(updated);
+          window.api.updateAnnotationsClassname(oldName, newName);
+          return updated;
+        });
+      },
+      undo: () => {
+        setClasses((prev) => {
+          const updated = prev.map((cls) => (cls.id === id ? { ...cls, name: oldName } : cls));
+          window.api.updateClasses(updated);
+          window.api.updateAnnotationsClassname(newName, oldName);
+          return updated;
+        });
+      },
+    });
   };
 
-  // 클래스 색상 변경 핸들러
+  // 클래스 색상 변경 핸들러 (Undo/Redo 적용)
   const handleColorChange = (id: number, newColor: string) => {
-    const updatedClasses = classes.map((cls) =>
-      cls.id === id ? { ...cls, color: newColor } : cls
-    );
+    const targetClass = classes.find((cls) => cls.id === id);
+    if (!targetClass || targetClass.color === newColor) return;
+    const oldColor = targetClass.color;
 
-    setClasses(updatedClasses);
-    window.api.updateClasses(updatedClasses);
+    performCommand({
+      redo: () => {
+        setClasses((prev) => {
+          const updated = prev.map((cls) => (cls.id === id ? { ...cls, color: newColor } : cls));
+          window.api.updateClasses(updated);
+          return updated;
+        });
+      },
+      undo: () => {
+        setClasses((prev) => {
+          const updated = prev.map((cls) => (cls.id === id ? { ...cls, color: oldColor } : cls));
+          window.api.updateClasses(updated);
+          return updated;
+        });
+      },
+    });
   };
 
   return (
@@ -71,6 +100,12 @@ const ClassManager: React.FC<ClassManagerProps> = ({ selectedImageName }) => {
             value={cls.name}
             disabled={cls.name === 'Unclassified'}
             onChange={(e) => handleNameChange(cls.id, cls.name, e.target.value)}
+            onKeyDown={(e) => {
+              // Delete 키는 전파되도록 허용
+              if (e.key !== 'Delete') {
+                e.stopPropagation();
+              }
+            }}
             style={{
               marginRight: '10px',
               width: '100px',
@@ -104,9 +139,9 @@ const ClassManager: React.FC<ClassManagerProps> = ({ selectedImageName }) => {
               style={{
                 position: 'absolute',
                 zIndex: 100,
-                left: '-20px', // 왼쪽 정렬 (Class Management 내부)
-                top: '40px', // 아래쪽으로 일정하게 배치
-                width: '100%', // 패널 내부에서 전체 너비 사용
+                left: '-20px',
+                top: '40px',
+                width: '100%',
               }}
             >
               <SketchPicker
