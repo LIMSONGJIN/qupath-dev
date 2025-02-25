@@ -14,6 +14,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   imageFileName,
 }) => {
   const overlayRef = useRef<HTMLDivElement | null>(null);
+  const oldAnnotationRef = useRef<Annotation | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState<{ x: number; y: number } | null>(null);
   const [classColors, setClassColors] = useState<Record<string, string>>({});
@@ -136,7 +137,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
           });
           isVPressed = false;
           vKeyTimeout = null;
-        }, 300); // 타임아웃 시간은 필요에 따라 조정
+        }, 200); // 타임아웃 시간은 필요에 따라 조정
         return;
       }
 
@@ -238,9 +239,15 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
 
     if (!isInsideBBox) return;
 
+    // 1) 드래그 시작 시점의 "원래 bbox"를 oldAnnotationRef에 저장
+    oldAnnotationRef.current = {
+      ...selectedAnnotation,
+      bbox: [...selectedAnnotation.bbox],
+    };
+
     setIsDragging(true);
-    setIsHoldingMouse(true); // ✅ 마우스를 클릭했음을 표시
-    setMousePosition(imagePoint); // ✅ 마우스 위치 업데이트
+    setIsHoldingMouse(true);
+    setMousePosition(imagePoint);
     setDragOffset({
       x: imagePoint.x - x,
       y: imagePoint.y - y,
@@ -267,66 +274,110 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   const handleMouseUp = async (event: CustomOSDEvent) => {
     if (!isDragging || selectedAnnotations.length !== 1) return;
 
+    // 드래그 종료 후 상태 초기화
     setIsDragging(false);
-    setIsHoldingMouse(false); // ✅ 마우스를 놓았음을 표시
+    setIsHoldingMouse(false);
     setMousePosition(null);
     setDragOffset(null);
-
     viewer.panVertical = true;
     viewer.panHorizontal = true;
     viewer.gestureSettingsMouse.flickEnabled = true;
 
+    const selectedId = selectedAnnotations[0];
+    // ─────────────────────────────────────────────────────────────
+    // 1) "드래그 시작 시점"의 bbox를 가져옴
+    const oldSelectedAnnotation = oldAnnotationRef.current;
+    if (!oldSelectedAnnotation) {
+      // 혹시 null이면 그냥 return
+      return;
+    }
+
+    console.log('Initial (old) bounding box for', selectedId, ':', oldSelectedAnnotation.bbox);
+
+    // 현재(드래그 끝) 시점의 annotation은 이미 "실시간 이동"이 반영된 상태일 수 있음
+    // 그래도 find 해보겠습니다.
+    const currentAnnotation = annotations.find((a) => a.id === selectedId);
+    if (!currentAnnotation) return;
+
+    // 뷰포트 → 이미지 좌표 계산
     const viewportPoint = viewer.viewport.pointFromPixel(event.position);
     const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
 
-    const selectedId = selectedAnnotations[0];
-    const updatedAnnotation = annotations.find((annotation) => annotation.id === selectedId);
-    if (!updatedAnnotation) return;
-
     const tiledImage = viewer.world.getItemAt(0);
     if (!tiledImage) return;
-
     const { x: imageWidth, y: imageHeight } = tiledImage.getContentSize();
 
-    const finalUpdatedAnnotation = {
-      ...updatedAnnotation,
-      bbox: [
-        Math.max(
-          0,
-          Math.min(
-            Math.round(imagePoint.x - (dragOffset?.x || 0)),
-            imageWidth - updatedAnnotation.bbox[2]
-          )
-        ),
-        Math.max(
-          0,
-          Math.min(
-            Math.round(imagePoint.y - (dragOffset?.y || 0)),
-            imageHeight - updatedAnnotation.bbox[3]
-          )
-        ),
-        updatedAnnotation.bbox[2],
-        updatedAnnotation.bbox[3],
-      ],
+    const newX = Math.max(
+      0,
+      Math.min(
+        Math.round(imagePoint.x - (dragOffset?.x || 0)),
+        imageWidth - currentAnnotation.bbox[2]
+      )
+    );
+    const newY = Math.max(
+      0,
+      Math.min(
+        Math.round(imagePoint.y - (dragOffset?.y || 0)),
+        imageHeight - currentAnnotation.bbox[3]
+      )
+    );
+
+    const newSelectedAnnotation = {
+      ...currentAnnotation,
+      bbox: [newX, newY, currentAnnotation.bbox[2], currentAnnotation.bbox[3]],
     };
 
+    console.log('Final (new) bounding box for', selectedId, ':', newSelectedAnnotation.bbox);
+
+    const newAnnotations = annotations.map((a) =>
+      a.id === selectedId ? newSelectedAnnotation : a
+    );
+
     try {
-      await window.api.updateAnnotationBbox(`${imageFileName}_annotation`, finalUpdatedAnnotation);
-
-      setAnnotations((prevAnnotations) =>
-        prevAnnotations.map((annotation) =>
-          annotation.id === selectedId ? finalUpdatedAnnotation : annotation
-        )
-      );
-
+      await window.api.updateAnnotationBbox(`${imageFileName}_annotation`, newSelectedAnnotation);
+      setAnnotations(newAnnotations);
       setSelectedAnnotations([selectedId]);
-
       setTimeout(() => {
         setSelectedAnnotations([selectedId]);
       }, 50);
     } catch (error) {
       console.error('Error updating annotation position:', error);
+      return;
     }
+
+    // Undo/Redo 등록
+    performCommand({
+      redo: () => {
+        console.log('Redo: Applying new bounding box for', selectedId);
+        setAnnotations((prev) =>
+          prev.map((a) => (a.id === selectedId ? newSelectedAnnotation : a))
+        );
+
+        window.api
+          .saveAnnotations(`${imageFileName}_annotation`, {
+            annotations: newAnnotations,
+          })
+          .catch((error) => console.error('Error saving annotations on redo (move):', error));
+      },
+      undo: () => {
+        console.log('Undo: Restoring old bounding box for', selectedId);
+        setAnnotations((prev) =>
+          prev.map((a) => (a.id === selectedId ? oldSelectedAnnotation : a))
+        );
+
+        const restoredAnnotations = newAnnotations.map((a) =>
+          a.id === selectedId ? oldSelectedAnnotation : a
+        );
+        window.api
+          .saveAnnotations(`${imageFileName}_annotation`, {
+            annotations: restoredAnnotations,
+          })
+          .catch((error) => console.error('Error saving annotations on undo (move):', error));
+      },
+    });
+
+    // 마지막에 oldAnnotationRef 초기화
+    oldAnnotationRef.current = null;
   };
 
   useEffect(() => {
@@ -500,16 +551,13 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     setSelectedSide(null);
   };
 
-  //
   useEffect(() => {
     const handleKeyDown = async (event: KeyboardEvent) => {
       const key = event.key;
-      // ✅ Ctrl + 숫자키로 해당 클래스에 속한 어노테이션을 선택
+      // ✅ Ctrl + 숫자키: 해당 클래스에 속한 어노테이션 선택
       if (event.ctrlKey && key >= '0' && key <= '9') {
-        event.preventDefault(); // 기본 브라우저 동작 방지
-
+        event.preventDefault();
         const selectedClass = key === '0' ? 'Unclassified' : `Class ${key}`;
-
         setSelectedAnnotations(
           annotations
             .filter((annotation) => annotation.class === selectedClass)
@@ -517,64 +565,74 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
         );
         return;
       }
-      // Delete 키 처리: 선택된 어노테이션이 있으면 모달 띄우기
+      // Delete 키: 선택된 어노테이션 삭제
       if (key === 'Delete' && selectedAnnotations.length > 0) {
         event.preventDefault();
         event.stopPropagation();
         deleteSelectedAnnotations();
         return;
       }
+      // 숫자키 단독: 클래스 변경 (undo/redo 적용)
       if (key >= '0' && key <= '9') {
-        const classId = parseInt(key); // 숫자
+        const classId = parseInt(key);
         const targetClass = allClasses.find((cls) => cls.id === classId);
         if (!targetClass) {
           console.warn(`No class found for ID=${classId}`);
           return;
         }
-        const newClassName = targetClass.name; // 예: 'Class 12'
+        const newClassName = targetClass.name;
 
-        // 이제 newClassName을 적용
-        setAnnotations((prevAnnotations) =>
-          prevAnnotations.map((annotation) =>
-            selectedAnnotations.includes(annotation.id)
-              ? { ...annotation, class: newClassName }
-              : annotation
-          )
+        // 변경 전 상태 캡처
+        const oldAnnotations = [...annotations];
+        // 선택된 어노테이션에 대해 클래스 변경 적용
+        const newAnnotations = annotations.map((annotation) =>
+          selectedAnnotations.includes(annotation.id)
+            ? { ...annotation, class: newClassName }
+            : annotation
         );
 
-        // API 저장
-        try {
-          const response = await window.api.saveAnnotations(`${imageFileName}_annotation`, {
-            annotations: annotations.map((annotation) =>
-              selectedAnnotations.includes(annotation.id)
-                ? { ...annotation, class: newClassName }
-                : annotation
-            ),
-          });
+        // performCommand로 undo/redo 등록
+        performCommand({
+          redo: () => {
+            setAnnotations(newAnnotations);
+            window.api
+              .saveAnnotations(`${imageFileName}_annotation`, {
+                annotations: newAnnotations,
+              })
+              .catch((error) =>
+                console.error('Error saving annotations on redo (class change):', error)
+              );
+          },
+          undo: () => {
+            setAnnotations(oldAnnotations);
+            window.api
+              .saveAnnotations(`${imageFileName}_annotation`, {
+                annotations: oldAnnotations,
+              })
+              .catch((error) =>
+                console.error('Error saving annotations on undo (class change):', error)
+              );
+          },
+        });
 
-          if (!response.success) {
-            throw new Error(response.error || 'Failed to save updated annotations.');
-          }
-        } catch (error) {
-          console.error('Error updating annotation class:', error);
-        }
+        // 상태 업데이트 적용 (redo 함수에서도 실행됨)
+        setAnnotations(newAnnotations);
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
-
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [selectedAnnotations, annotations, imageFileName]);
+  }, [selectedAnnotations, annotations, allClasses, imageFileName, performCommand]);
 
   useEffect(() => {
     const handleArrowKey = (event: KeyboardEvent) => {
-      if (selectedAnnotations.length !== 1) return; // 🔥 하나의 annotation만 선택된 경우에만 동작
+      if (selectedAnnotations.length !== 1) return; // 하나의 annotation만 선택된 경우에만 동작
 
-      const selectedId = selectedAnnotations[0]; // 선택된 annotation의 ID
+      const selectedId = selectedAnnotations[0];
       const selectedAnnotation = annotations.find((a) => a.id === selectedId);
-      if (!selectedAnnotation) return; // 안전 체크
+      if (!selectedAnnotation) return;
 
       let newSide: 'top' | 'bottom' | 'left' | 'right' | null = null;
 
@@ -595,200 +653,207 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
           return;
       }
 
-      setSelectedSide({ id: selectedId, side: newSide });
+      // 1. 동일한 화살표 키를 다시 눌렀으면 선택 해제
+      // 2. 다른 화살표 키를 누르면 선택된 모서리 변경
+      if (selectedSide && selectedSide.id === selectedId && selectedSide.side === newSide) {
+        setSelectedSide(null);
+      } else {
+        setSelectedSide({ id: selectedId, side: newSide });
+      }
     };
 
     document.addEventListener('keydown', handleArrowKey);
     return () => document.removeEventListener('keydown', handleArrowKey);
-  }, [selectedAnnotations, annotations, setSelectedSide]);
+  }, [selectedAnnotations, annotations, selectedSide, setSelectedSide]);
 
-  const updateAnnotationBbox = (key: string) => {
-    if (!viewer) return;
-
+  // 동기적으로 bbox 크기 조절 결과를 반환하는 함수
+  const updateAnnotationBboxSync = (
+    key: string,
+    currentAnnotations: Annotation[]
+  ): Annotation[] => {
+    if (!viewer) return currentAnnotations;
     const tiledImage = viewer.world.getItemAt(0);
-    if (!tiledImage) return;
+    if (!tiledImage) return currentAnnotations;
+    const { x: imageWidth, y: imageHeight } = tiledImage.getContentSize();
+    const minSize = 1;
 
-    const { x: imageWidth, y: imageHeight } = tiledImage.getContentSize(); // ✅ 이미지 크기 가져오기
-    const minSize = 1; // ✅ 최소 도형 크기
-    // @ts-ignore
-    setAnnotations((prevAnnotations: Annotation[]) => {
-      const updatedAnnotations = prevAnnotations.map((annotation) => {
-        if (annotation.id !== selectedSide?.id) return annotation;
+    return currentAnnotations.map((annotation) => {
+      if (annotation.id !== selectedSide?.id) return annotation;
+      const [x, y, width, height] = annotation.bbox;
+      let newX = x,
+        newY = y,
+        newWidth = width,
+        newHeight = height;
 
-        const [x, y, width, height] = annotation.bbox;
-        let newX = x,
-          newY = y,
-          newWidth = width,
-          newHeight = height;
+      switch (selectedSide.side) {
+        case 'top':
+          if (key === 'ArrowUp' && newY > 0) {
+            newY = Math.max(newY - 1, 0);
+            newHeight = Math.min(newHeight + 1, imageHeight - newY);
+          } else if (key === 'ArrowDown' && newHeight > minSize) {
+            newY = Math.min(newY + 1, imageHeight - minSize);
+            newHeight = Math.max(newHeight - 1, minSize);
+          } else if (key === 'ArrowLeft' && newX > 0) {
+            newX = Math.max(newX - 1, 0);
+            newWidth = Math.min(newWidth + 1, imageWidth - newX);
+          } else if (key === 'ArrowRight') {
+            newWidth = Math.min(newWidth + 1, imageWidth - newX);
+          }
+          break;
 
-        switch (selectedSide.side) {
-          case 'top':
-            if (key === 'ArrowUp' && newY > 0) {
-              newY = Math.max(newY - 1, 0);
-              newHeight = Math.min(newHeight + 1, imageHeight - newY);
-            } else if (key === 'ArrowDown' && newHeight > minSize) {
-              newY = Math.min(newY + 1, imageHeight - minSize);
-              newHeight = Math.max(newHeight - 1, minSize);
-            } else if (key === 'ArrowLeft' && newX > 0) {
-              newX = Math.max(newX - 1, 0);
-              newWidth = Math.min(newWidth + 1, imageWidth - newX);
-            } else if (key === 'ArrowRight') {
-              newWidth = Math.min(newWidth + 1, imageWidth - newX);
-            }
-            break;
+        case 'bottom':
+          if (key === 'ArrowUp' && newHeight > minSize) {
+            newHeight = Math.max(newHeight - 1, minSize);
+          } else if (key === 'ArrowDown') {
+            newHeight = Math.min(newHeight + 1, imageHeight - newY);
+          } else if (key === 'ArrowLeft' && newX > 0) {
+            newX = Math.max(newX - 1, 0);
+            newWidth = Math.min(newWidth + 1, imageWidth - newX);
+          } else if (key === 'ArrowRight') {
+            newWidth = Math.min(newWidth + 1, imageWidth - newX);
+          }
+          break;
 
-          case 'bottom':
-            if (key === 'ArrowUp' && newHeight > minSize) {
-              newHeight = Math.max(newHeight - 1, minSize);
-            } else if (key === 'ArrowDown') {
-              newHeight = Math.min(newHeight + 1, imageHeight - newY);
-            } else if (key === 'ArrowLeft' && newX > 0) {
-              newX = Math.max(newX - 1, 0);
-              newWidth = Math.min(newWidth + 1, imageWidth - newX);
-            } else if (key === 'ArrowRight') {
-              newWidth = Math.min(newWidth + 1, imageWidth - newX);
-            }
-            break;
+        case 'left':
+          if (key === 'ArrowUp' && newY > 0) {
+            newY = Math.max(newY - 1, 0);
+            newHeight = Math.min(newHeight + 1, imageHeight - newY);
+          } else if (key === 'ArrowDown') {
+            newHeight = Math.min(newHeight + 1, imageHeight - newY);
+          } else if (key === 'ArrowLeft' && newX > 0) {
+            newX = Math.max(newX - 1, 0);
+            newWidth = Math.min(newWidth + 1, imageWidth - newX);
+          } else if (key === 'ArrowRight' && newWidth > minSize) {
+            newX = Math.min(newX + 1, imageWidth - minSize);
+            newWidth = Math.max(newWidth - 1, minSize);
+          }
+          break;
 
-          case 'left':
-            if (key === 'ArrowUp' && newY > 0) {
-              newY = Math.max(newY - 1, 0);
-              newHeight = Math.min(newHeight + 1, imageHeight - newY);
-            } else if (key === 'ArrowDown') {
-              newHeight = Math.min(newHeight + 1, imageHeight - newY);
-            } else if (key === 'ArrowLeft' && newX > 0) {
-              newX = Math.max(newX - 1, 0);
-              newWidth = Math.min(newWidth + 1, imageWidth - newX);
-            } else if (key === 'ArrowRight' && newWidth > minSize) {
-              newX = Math.min(newX + 1, imageWidth - minSize);
-              newWidth = Math.max(newWidth - 1, minSize);
-            }
-            break;
-
-          case 'right':
-            if (key === 'ArrowUp' && newY > 0) {
-              newY = Math.max(newY - 1, 0);
-              newHeight = Math.min(newHeight + 1, imageHeight - newY);
-            } else if (key === 'ArrowDown') {
-              newHeight = Math.min(newHeight + 1, imageHeight - newY);
-            } else if (key === 'ArrowLeft' && newWidth > minSize) {
-              newWidth = Math.max(newWidth - 1, minSize);
-            } else if (key === 'ArrowRight') {
-              newWidth = Math.min(newWidth + 1, imageWidth - newX);
-            }
-            break;
-        }
-
-        return { ...annotation, bbox: [newX, newY, newWidth, newHeight] };
-      });
-      // @ts-ignore
-      saveAnnotationsToJson(updatedAnnotations);
-
-      return updatedAnnotations; // ✅ updatedAnnotations 반환 (누락 X)
+        case 'right':
+          if (key === 'ArrowUp' && newY > 0) {
+            newY = Math.max(newY - 1, 0);
+            newHeight = Math.min(newHeight + 1, imageHeight - newY);
+          } else if (key === 'ArrowDown') {
+            newHeight = Math.min(newHeight + 1, imageHeight - newY);
+          } else if (key === 'ArrowLeft' && newWidth > minSize) {
+            newWidth = Math.max(newWidth - 1, minSize);
+          } else if (key === 'ArrowRight') {
+            newWidth = Math.min(newWidth + 1, imageWidth - newX);
+          }
+          break;
+      }
+      return { ...annotation, bbox: [newX, newY, newWidth, newHeight] };
     });
   };
 
-  // ✅ JSON 파일 저장 (최신 데이터 적용)
-  const saveAnnotationsToJson = (updatedAnnotations: typeof annotations) => {
-    window.api
-      .saveAnnotations(`${imageFileName}_annotation`, {
-        annotations: updatedAnnotations,
-      })
-      .catch((error) => console.error('Error saving updated annotations:', error));
+  // 동기적으로 BBox 이동 결과를 반환하는 함수 (selectedSide가 없을 때)
+  const moveSelectedAnnotationSync = (
+    key: string,
+    currentAnnotations: Annotation[]
+  ): Annotation[] => {
+    if (!viewer || selectedAnnotations.length !== 1 || selectedSide) return currentAnnotations;
+    const tiledImage = viewer.world.getItemAt(0);
+    if (!tiledImage) return currentAnnotations;
+    const { x: imageWidth, y: imageHeight } = tiledImage.getContentSize();
+    const moveStep = 1;
+
+    return currentAnnotations.map((annotation) => {
+      if (!selectedAnnotations.includes(annotation.id)) return annotation;
+      const [x, y, width, height] = annotation.bbox;
+      let newX = x,
+        newY = y;
+
+      switch (key) {
+        case 'ArrowUp':
+          newY = Math.max(y - moveStep, 0);
+          break;
+        case 'ArrowDown':
+          newY = Math.min(y + moveStep, imageHeight - height);
+          break;
+        case 'ArrowLeft':
+          newX = Math.max(x - moveStep, 0);
+          break;
+        case 'ArrowRight':
+          newX = Math.min(x + moveStep, imageWidth - width);
+          break;
+        default:
+          return annotation;
+      }
+      return { ...annotation, bbox: [newX, newY, width, height] };
+    });
   };
 
   useEffect(() => {
-    const handleShiftArrowKey = (event: KeyboardEvent) => {
-      if (!selectedSide || selectedAnnotations.length !== 1 || !event.shiftKey) return;
+    let commandTimeout: number | null = null;
 
-      const validKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-      if (validKeys.includes(event.key)) {
-        updateAnnotationBbox(event.key);
-      }
-    };
-
-    document.addEventListener('keydown', handleShiftArrowKey);
-    return () => document.removeEventListener('keydown', handleShiftArrowKey);
-  }, [selectedSide, selectedAnnotations]);
-
-  useEffect(() => {
     const handleShiftArrowKey = (event: KeyboardEvent) => {
       if (!event.shiftKey || selectedAnnotations.length !== 1) return;
-
       const validKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
       if (!validKeys.includes(event.key)) return;
 
       event.preventDefault(); // 기본 동작 방지
 
-      if (selectedSide) {
-        // ✅ side가 선택된 상태에서는 크기 조절 실행
-        updateAnnotationBbox(event.key);
-      } else {
-        // ✅ side가 선택되지 않은 경우에는 BBox 이동 실행
-        moveSelectedAnnotation(event.key);
-      }
+      // 함수형 업데이트를 통해 최신 상태를 기반으로 작업
+      setAnnotations((prevAnnotations) => {
+        // 이전 상태 깊은 복사 (불변성 유지)
+        const oldAnnotations = prevAnnotations.map((a) => ({
+          ...a,
+          bbox: [...a.bbox],
+        }));
+
+        // selectedSide가 있으면 bbox 크기 조절, 없으면 이동 처리
+        const newAnnotations = selectedSide
+          ? updateAnnotationBboxSync(event.key, prevAnnotations)
+          : moveSelectedAnnotationSync(event.key, prevAnnotations);
+
+        // API 저장 (즉시 실행)
+        window.api
+          .saveAnnotations(`${imageFileName}_annotation`, {
+            annotations: newAnnotations,
+          })
+          .catch((error) => console.error('Error saving annotations (move/resize):', error));
+
+        // 이전에 등록된 undo/redo 커맨드가 있다면 재설정
+        if (commandTimeout) {
+          clearTimeout(commandTimeout);
+        }
+        // 디바운스: 100ms 후에 undo/redo 명령 등록 (여러 키 입력을 하나의 명령으로 묶음)
+        commandTimeout = window.setTimeout(() => {
+          performCommand({
+            redo: () => {
+              setAnnotations(newAnnotations);
+              window.api
+                .saveAnnotations(`${imageFileName}_annotation`, {
+                  annotations: newAnnotations,
+                })
+                .catch((error) =>
+                  console.error('Error saving annotations on redo (move/resize):', error)
+                );
+            },
+            undo: () => {
+              setAnnotations(oldAnnotations);
+              window.api
+                .saveAnnotations(`${imageFileName}_annotation`, {
+                  annotations: oldAnnotations,
+                })
+                .catch((error) =>
+                  console.error('Error saving annotations on undo (move/resize):', error)
+                );
+            },
+          });
+          commandTimeout = null;
+        }, 100);
+
+        return newAnnotations;
+      });
     };
 
     document.addEventListener('keydown', handleShiftArrowKey);
-    return () => document.removeEventListener('keydown', handleShiftArrowKey);
-  }, [selectedAnnotations, selectedSide]);
-
-  /**
-   * 🔹 Shift + 방향키로 선택된 BBox 이동 (selectedSide가 없을 때만 실행)
-   */
-  const moveSelectedAnnotation = (key: string) => {
-    if (!viewer || selectedAnnotations.length !== 1 || selectedSide) return;
-
-    const tiledImage = viewer.world.getItemAt(0);
-    if (!tiledImage) return;
-
-    const { x: imageWidth, y: imageHeight } = tiledImage.getContentSize(); // 이미지 크기
-    const moveStep = 1; // 1px 이동
-    // @ts-ignore
-    setAnnotations((prevAnnotations) => {
-      return prevAnnotations.map((annotation) => {
-        if (!selectedAnnotations.includes(annotation.id)) return annotation;
-
-        const [x, y, width, height] = annotation.bbox;
-        let newX = x,
-          newY = y;
-
-        switch (key) {
-          case 'ArrowUp':
-            newY = Math.max(y - moveStep, 0);
-            break;
-          case 'ArrowDown':
-            newY = Math.min(y + moveStep, imageHeight - height);
-            break;
-          case 'ArrowLeft':
-            newX = Math.max(x - moveStep, 0);
-            break;
-          case 'ArrowRight':
-            newX = Math.min(x + moveStep, imageWidth - width);
-            break;
-          default:
-            return annotation;
-        }
-
-        const updatedAnnotation = { ...annotation, bbox: [newX, newY, width, height] };
-
-        // @ts-ignore
-        window.api
-          .moveAnnotation(`${imageFileName}`, updatedAnnotation)
-          .then((response: { success: any }) => {
-            if (response.success) {
-            } else {
-              console.error('❌ Failed to move annotation.');
-            }
-          })
-          .catch((error: any) => {
-            console.error('❌ Error moving annotation:', error);
-          });
-
-        return updatedAnnotation;
-      });
-    });
-  };
+    return () => {
+      if (commandTimeout) clearTimeout(commandTimeout);
+      document.removeEventListener('keydown', handleShiftArrowKey);
+    };
+  }, [selectedAnnotations, selectedSide, imageFileName, viewer, performCommand]);
 
   return (
     <div

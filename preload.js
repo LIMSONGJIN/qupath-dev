@@ -5,6 +5,8 @@ contextBridge.exposeInMainWorld('api', {
 
   getAnnotations: (fileName) => ipcRenderer.invoke('get-annotations', fileName),
 
+  loadAnnotations: (fileName) => ipcRenderer.invoke('load-annotations', fileName),
+
   onAnnotationsUpdated: (callback) =>
     ipcRenderer.on('annotations-updated', (event, data) => callback(data)),
 

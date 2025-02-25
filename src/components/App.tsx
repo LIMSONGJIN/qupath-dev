@@ -1,3 +1,4 @@
+// App.tsx
 import { useCallback, useEffect, useState } from 'react';
 import { Annotation, ImageInfo } from '../types/app';
 import ClassManager from './ClassManager';
@@ -10,33 +11,41 @@ function App() {
   const [images, setImages] = useState<ImageInfo[]>([]);
   const [annotations, setAnnotations] = useState<Annotation[]>([]);
 
-  // 이미지 선택 이벤트 핸들러
+  // 1) 이미지 선택 시 상태 업데이트
   const handleImageSelect = (image: string, name: string) => {
     setSelectedImage(image);
     setSelectedImageName(name);
-    // 선택한 이미지 정보를 로컬 스토리지에 저장
+
     localStorage.setItem('selectedImage', image);
     localStorage.setItem('selectedImageName', name);
+  };
 
-    fetch(`/annotations/${name.split('.')[0]}_annotation.json`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Failed to load annotations (status: ${response.status})`);
-        }
-        return response.json();
-      })
+  // 2) selectedImageName이 바뀔 때 어노테이션 로드
+  useEffect(() => {
+    if (!selectedImageName || selectedImageName === '이미지를 선택하세요') {
+      setAnnotations([]);
+      return;
+    }
+    // 확장자 제거 후 "_annotation" 붙여서 IPC로 로드
+    const baseName = selectedImageName.split('.')[0];
+    console.log('Loading annotations via window.api:', baseName);
+
+    window.api
+      .loadAnnotations(`${baseName}_annotation`)
       .then((data) => {
+        console.log('Loaded annotations:', data);
         setAnnotations(data.annotations || []);
       })
       .catch((error) => {
         console.error('Error loading annotations:', error);
         setAnnotations([]);
       });
-  };
+  }, [selectedImageName]);
 
+  // 3) 키보드로 이미지 전환 (z: 이전, x: 다음)
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
-      // ctrl 키가 눌렸다면 이미지 전환 로직을 실행하지 않음
+      // Ctrl 키가 눌린 경우엔 이미지 전환 스킵
       if (e.ctrlKey) return;
 
       if (images.length === 0) return;
@@ -81,6 +90,7 @@ function App() {
       </div>
 
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* 사이드바: 이미지 리스트 */}
         <div
           style={{
             width: '200px',
@@ -97,6 +107,7 @@ function App() {
           />
         </div>
 
+        {/* 중앙: 이미지 뷰어 */}
         <div style={{ flex: 2, backgroundColor: '#000', position: 'relative', overflow: 'hidden' }}>
           {selectedImage ? (
             <ImageViewer
@@ -111,6 +122,7 @@ function App() {
           )}
         </div>
 
+        {/* 우측: 클래스 관리 */}
         <div
           style={{
             width: '250px',

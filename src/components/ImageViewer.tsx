@@ -1,3 +1,4 @@
+// ImageViewer.tsx
 import OpenSeadragon from 'openseadragon';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ImageViewerProps } from '../types/imageviewer';
@@ -11,18 +12,20 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
   const viewerRef = useRef<OpenSeadragon.Viewer | null>(null);
   const [isViewerReady, setIsViewerReady] = useState(false);
   const [imageWidth, setImageWidth] = useState(0);
+
+  // 현재 선택된 Annotation ID, 선택된 side, 툴바/드래그 상태 등 UI 상태
   const [selectedAnnotations, setSelectedAnnotations] = useState<string[]>([]);
   const [selectedSide, setSelectedSide] = useState<{ id: string; side: string } | null>(null);
   const [isToolbarVisible, setIsToolbarVisible] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
 
-  // 이미 자동 선택을 진행한 이미지 URL을 저장
-  const [lastSelectedImageUrl, setLastSelectedImageUrl] = useState<string | null>(null);
+  // "이미지 + 어노테이션" 조합에 대해 자동 선택이 이미 실행되었는지 여부
+  const [hasAutoSelected, setHasAutoSelected] = useState(false);
 
   const imageFileName = imageUrl.split('/').pop()?.split('.')[0] || '';
 
   // ---------------------------------------------------------
-  // 1) 키보드 입력으로 'w,a,s,d' 키를 이용해 Annotation 사이를 이동하는 로직
+  // [A] 키보드 입력으로 'w,a,s,d' 키를 이용해 Annotation 간 이동
   // ---------------------------------------------------------
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
@@ -33,9 +36,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
       if (!viewerRef.current || selectedAnnotations.length === 0) return;
 
       const currentAnnotationId = selectedAnnotations[0];
-      const currentAnnotation = annotations.find(
-        (annotation) => annotation.id === currentAnnotationId
-      );
+      const currentAnnotation = annotations.find((ann) => ann.id === currentAnnotationId);
       if (!currentAnnotation) return;
 
       const directionVectors: Record<string, [number, number]> = {
@@ -101,31 +102,28 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
   }, [handleKeyPress]);
 
   // ---------------------------------------------------------
-  // 2) "이미지 변경 시 + Annotation이 준비된 시점"에 한 번만 자동 선택
+  // [B] 이미지나 annotations가 바뀔 때, "자동 선택" 플래그 리셋
   // ---------------------------------------------------------
   useEffect(() => {
-    // 1) 뷰어나 이미지가 준비되지 않았다면 스킵
-    if (!viewerRef.current) return; // 뷰어 미준비
-    if (!isViewerReady) return; // 뷰어 미준비
-    if (!imageUrl) return; // URL 비어있음
+    // 이미지나 어노테이션 배열이 변경되면 새로 자동 선택 가능
+    setHasAutoSelected(false);
+  }, [imageUrl, annotations]);
 
-    // 2) Annotation이 아직 비어 있으면(= 새 이미지 Annotation이 안 로드된 상태) 스킵
-    if (annotations.length === 0) {
-      return;
-    }
+  // ---------------------------------------------------------
+  // [C] "이미지 변경 시 + Annotation 준비 완료"에 한 번만 자동 선택
+  // ---------------------------------------------------------
+  useEffect(() => {
+    if (!viewerRef.current || !isViewerReady) return; // 뷰어가 준비 안 됨
+    if (!imageUrl || annotations.length === 0) return; // 이미지나 어노테이션이 비어 있음
+    if (hasAutoSelected) return; // 이미 자동 선택 완료
 
-    // 3) 이미 이 이미지Url에 대해 자동 선택을 했다면 재실행 스킵
-    if (lastSelectedImageUrl === imageUrl) {
-      return;
-    }
+    console.log('자동 선택 실행:', imageUrl);
 
-    // ---- 여기까지 통과하면 "새 이미지 + 해당 Annotation이 로드된 상태" & "아직 자동 선택 안 한 상태" ----
-    console.log('이미지 변경으로 인한 자동 선택 effect 실행:', imageUrl);
-
-    // 4) 중앙 Annotation 찾기
+    // 1) 뷰어의 화면 중심 좌표
     const viewportCenter = viewerRef.current.viewport.getCenter();
     const imageCenter = viewerRef.current.viewport.viewportToImageCoordinates(viewportCenter);
 
+    // 2) 어노테이션 중에서 화면 중심과 가장 가까운 것 찾기
     let closestAnnotationId: string | null = null;
     let closestDistance = Infinity;
 
@@ -141,15 +139,22 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
       }
     });
 
-    // 5) 실제 선택 적용
+    // 3) 선택 적용
     if (closestAnnotationId) {
       setSelectedAnnotations([closestAnnotationId]);
       setSelectedSide(null);
     }
 
-    // 6) "이 이미지에 대해 자동 선택을 완료했다" 표시
-    setLastSelectedImageUrl(imageUrl);
-  }, [imageUrl, isViewerReady, annotations]);
+    // 4) "자동 선택 완료" 표시
+    setHasAutoSelected(true);
+
+    // 디버깅 로그
+    console.log('자동 선택 조건 충족:', {
+      isViewerReady,
+      imageUrl,
+      annotationCount: annotations.length,
+    });
+  }, [imageUrl, isViewerReady, annotations, hasAutoSelected]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
@@ -190,8 +195,8 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
           <BBoxCreator
             viewer={viewerRef.current}
             imageFileName={imageFileName}
-            annotations={annotations} // 부모 상태 전달
-            setAnnotations={setAnnotations} // 부모 업데이트 함수 전달
+            annotations={annotations}
+            setAnnotations={setAnnotations}
             setSelectedAnnotations={setSelectedAnnotations}
           />
           {isToolbarVisible && <Toolbar viewer={viewerRef.current} />}

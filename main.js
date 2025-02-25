@@ -46,7 +46,22 @@ ipcMain.handle('get-annotations', async (event, fileName) => {
     return { success: false, error: error.message, annotations: [] };
   }
 });
+ipcMain.handle('load-annotations', async (event, fileName) => {
+  // fileName은 "2_annotation" 등, 확장자를 뺀 상태로 넘어올 것으로 가정
+  const filePath = path.join(__dirname, 'public', 'annotations', `${fileName}.json`);
 
+  try {
+    if (!fs.existsSync(filePath)) {
+      return { success: false, error: 'File not found', annotations: [] };
+    }
+
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    return { success: true, annotations: data.annotations || [] };
+  } catch (error) {
+    console.error('Error loading annotations:', error);
+    return { success: false, error: error.message, annotations: [] };
+  }
+});
 // JSON 저장 + React에 변경 알림 (`annotations-updated` 이벤트 발생)
 ipcMain.handle('save-annotations', async (event, { fileName, data }) => {
   const filePath = path.join(__dirname, 'public', 'annotations', `${fileName}.json`);

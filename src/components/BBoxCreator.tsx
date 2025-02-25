@@ -84,13 +84,19 @@ const BBoxCreator: React.FC<
 
       const { startImagePos, overlayElement } = dragRef.current;
 
-      // 박스의 위치 및 크기 계산
-      const x = Math.min(startImagePos.x, currentImagePos.x);
-      const y = Math.min(startImagePos.y, currentImagePos.y);
-      const width = Math.abs(currentImagePos.x - startImagePos.x);
-      const height = Math.abs(currentImagePos.y - startImagePos.y);
+      // 이미지 좌표를 먼저 1px 단위로 스냅핑
+      const snappedStartX = Math.round(startImagePos.x);
+      const snappedStartY = Math.round(startImagePos.y);
+      const snappedCurrentX = Math.round(currentImagePos.x);
+      const snappedCurrentY = Math.round(currentImagePos.y);
 
-      // 뷰어 좌표를 요소 좌표로 변환하여 스타일 업데이트
+      // 스냅핑된 좌표로 박스의 위치 및 크기 계산
+      const x = Math.min(snappedStartX, snappedCurrentX);
+      const y = Math.min(snappedStartY, snappedCurrentY);
+      const width = Math.abs(snappedCurrentX - snappedStartX);
+      const height = Math.abs(snappedCurrentY - snappedStartY);
+
+      // 이제 이미지 좌표에서 뷰어 요소 좌표로 변환
       const pointTL = viewer.viewport.imageToViewerElementCoordinates(
         new OpenSeadragon.Point(x, y)
       );
@@ -98,10 +104,11 @@ const BBoxCreator: React.FC<
         new OpenSeadragon.Point(x + width, y + height)
       );
 
-      overlayElement.style.left = `${pointTL.x}px`;
-      overlayElement.style.top = `${pointTL.y}px`;
-      overlayElement.style.width = `${pointBR.x - pointTL.x}px`;
-      overlayElement.style.height = `${pointBR.y - pointTL.y}px`;
+      // 최종적으로 뷰어 요소 좌표에서도 반올림 처리
+      overlayElement.style.left = `${Math.round(pointTL.x)}px`;
+      overlayElement.style.top = `${Math.round(pointTL.y)}px`;
+      overlayElement.style.width = `${Math.round(pointBR.x - pointTL.x)}px`;
+      overlayElement.style.height = `${Math.round(pointBR.y - pointTL.y)}px`;
     };
 
     const handleCanvasRelease = (event: OpenSeadragon.MouseTrackerEvent) => {
