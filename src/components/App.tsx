@@ -1,4 +1,3 @@
-// App.tsx
 import { useCallback, useEffect, useState } from 'react';
 import { Annotation, ImageInfo } from '../types/app';
 import ClassManager from './ClassManager';
@@ -26,6 +25,8 @@ function App() {
       setAnnotations([]);
       return;
     }
+
+    setAnnotations([]);
     // 확장자 제거 후 "_annotation" 붙여서 IPC로 로드
     const baseName = selectedImageName.split('.')[0];
     console.log('Loading annotations via window.api:', baseName);

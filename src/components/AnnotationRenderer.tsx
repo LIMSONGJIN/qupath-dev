@@ -411,8 +411,9 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   }, [isHoldingMouse, mousePosition, selectedAnnotations, dragOffset, annotations, viewer]);
 
   const handleCanvasDoubleClick = (event: CustomOSDEvent) => {
-    if (isDragging) return; // ✅ 드래그 중에는 실행 안됨
+    if (isDragging) return; // 🚀 드래그 중이면 실행 안 함
 
+    // 기존 더블 클릭 로직 유지
     const viewportPoint = viewer.viewport.pointFromPixel(event.position);
     const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
 
@@ -421,7 +422,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     const borderTolerance = 2;
 
     annotations.forEach(({ id, bbox }) => {
-      if (selectedAnnotations.includes(id)) return; // ✅ 이미 선택된 주석이면 무시
+      if (selectedAnnotations.includes(id)) return;
 
       const [x, y, width, height] = bbox;
       if (
@@ -439,18 +440,18 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     });
 
     if (clickedAnnotationId) {
-      setSelectedAnnotations([clickedAnnotationId]); // ✅ 새롭게 선택된 것만 반영
+      setSelectedAnnotations([clickedAnnotationId]);
       setSelectedSide(clickedSide ? { id: clickedAnnotationId, side: clickedSide } : null);
     } else {
-      setSelectedAnnotations([]); // 선택 해제
+      setSelectedAnnotations([]);
       setSelectedSide(null);
     }
   };
 
-  // ✅ ALT + 클릭 (다중 선택 유지)
-  const handleCanvasAltClick = (event: CustomOSDEvent) => {
+  // ✅ Ctrl + 클릭 (다중 선택 유지)
+  const handleCanvasCtrlClick = (event: CustomOSDEvent) => {
     if (isDragging) return; // ✅ 드래그 중이면 실행 안됨
-    if (!event.originalEvent.ctrlKey) return; // Alt 키가 없으면 실행 안 함
+    if (!event.originalEvent.ctrlKey) return; // Ctrl 키가 없으면 실행 안 함
     const viewportPoint = viewer.viewport.pointFromPixel(event.position);
     const imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
 
@@ -475,7 +476,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
         if (prevSelected.includes(clickedAnnotationId)) {
           return prevSelected.filter((id) => id !== clickedAnnotationId); // 🔥 이미 선택된 경우 해제
         } else {
-          return [...prevSelected, clickedAnnotationId]; // 🔥 Alt + 클릭 시 다중 선택
+          return [...prevSelected, clickedAnnotationId]; // 🔥 Ctrl + 클릭 시 다중 선택
         }
       });
       setSelectedSide(null);
@@ -490,14 +491,14 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     viewer.addHandler('canvas-drag', handleMouseMove);
     viewer.addHandler('canvas-release', handleMouseUp);
     viewer.addHandler('canvas-double-click', handleCanvasDoubleClick); // 🔥 더블클릭으로 선택
-    viewer.addHandler('canvas-press', handleCanvasAltClick); // 🔥 Alt + 클릭으로 다중 선택
+    viewer.addHandler('canvas-press', handleCanvasCtrlClick); // 🔥 Ctrl + 클릭으로 다중 선택
 
     return () => {
       viewer.removeHandler('canvas-press', handleMouseDown);
       viewer.removeHandler('canvas-drag', handleMouseMove);
       viewer.removeHandler('canvas-release', handleMouseUp);
       viewer.removeHandler('canvas-double-click', handleCanvasDoubleClick);
-      viewer.removeHandler('canvas-press', handleCanvasAltClick);
+      viewer.removeHandler('canvas-press', handleCanvasCtrlClick);
     };
   }, [viewer, annotations, selectedAnnotations]);
 
@@ -628,6 +629,9 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
 
   useEffect(() => {
     const handleArrowKey = (event: KeyboardEvent) => {
+      // Shift 키가 눌렸다면 side 토글 로직 실행 X
+      if (event.shiftKey) return;
+
       if (selectedAnnotations.length !== 1) return; // 하나의 annotation만 선택된 경우에만 동작
 
       const selectedId = selectedAnnotations[0];
@@ -653,8 +657,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
           return;
       }
 
-      // 1. 동일한 화살표 키를 다시 눌렀으면 선택 해제
-      // 2. 다른 화살표 키를 누르면 선택된 모서리 변경
+      // 동일한 화살표 키를 다시 누르면 선택 해제, 다른 키면 변경
       if (selectedSide && selectedSide.id === selectedId && selectedSide.side === newSide) {
         setSelectedSide(null);
       } else {

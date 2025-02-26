@@ -1,62 +1,12 @@
 {
   "annotations": [
     {
-      "id": "63015fd3-2272-4a1d-ba1c-b305b713879a",
+      "id": "e1d176e3-aafb-4c37-8065-23905cf7861e",
       "bbox": [
-        1254,
-        2820,
-        1118,
-        569
-      ],
-      "class": "Class 1"
-    },
-    {
-      "id": "b96ba0db-4c86-4857-92bd-51f364b1bb2a",
-      "bbox": [
-        421,
-        1278,
-        383,
-        533
-      ],
-      "class": "Class 1"
-    },
-    {
-      "id": "fb3d75f9-12d0-4013-b073-ff438e5ddc72",
-      "bbox": [
-        3148,
-        2422,
-        528,
-        849
-      ],
-      "class": "Class 3"
-    },
-    {
-      "id": "50dfcbbc-397d-4048-ae12-99e3744a4ae6",
-      "bbox": [
-        985,
-        2044,
-        637,
-        305
-      ],
-      "class": "Unclassified"
-    },
-    {
-      "id": "8a6be84c-9909-4401-b9d8-9c0d84c4fd89",
-      "bbox": [
-        3381,
-        999,
-        274,
-        849
-      ],
-      "class": "Unclassified"
-    },
-    {
-      "id": "0e7f09ab-f02e-40b0-ad44-32db2de86bdf",
-      "bbox": [
-        1994,
-        1536,
-        580,
-        455
+        1479,
+        1221,
+        1011,
+        1036
       ],
       "class": "Unclassified"
     }

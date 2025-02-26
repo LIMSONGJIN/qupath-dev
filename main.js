@@ -46,6 +46,7 @@ ipcMain.handle('get-annotations', async (event, fileName) => {
     return { success: false, error: error.message, annotations: [] };
   }
 });
+
 ipcMain.handle('load-annotations', async (event, fileName) => {
   // fileName은 "2_annotation" 등, 확장자를 뺀 상태로 넘어올 것으로 가정
   const filePath = path.join(__dirname, 'public', 'annotations', `${fileName}.json`);

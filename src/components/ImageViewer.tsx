@@ -104,34 +104,39 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
   // ---------------------------------------------------------
   // [B] 이미지나 annotations가 바뀔 때, "자동 선택" 플래그 리셋
   // ---------------------------------------------------------
+  // 이미지 URL이 바뀔 때마다 "자동 선택 아직 안 함" 상태로 리셋
+  // ----------------------------------------------
+  // (1) 이미지가 바뀔 때마다 "자동 선택 아직 안 함" 상태로 리셋
+  // ----------------------------------------------
   useEffect(() => {
-    // 이미지나 어노테이션 배열이 변경되면 새로 자동 선택 가능
+    if (!imageUrl) return;
+    console.log('[AutoSelect] New image loaded, resetting auto select flag');
     setHasAutoSelected(false);
-  }, [imageUrl, annotations]);
+    // 초기 선택을 풀어줍니다.
+    setSelectedAnnotations([]);
+    setSelectedSide(null);
+  }, [imageUrl]);
 
-  // ---------------------------------------------------------
-  // [C] "이미지 변경 시 + Annotation 준비 완료"에 한 번만 자동 선택
-  // ---------------------------------------------------------
   useEffect(() => {
-    if (!viewerRef.current || !isViewerReady) return; // 뷰어가 준비 안 됨
-    if (!imageUrl || annotations.length === 0) return; // 이미지나 어노테이션이 비어 있음
-    if (hasAutoSelected) return; // 이미 자동 선택 완료
+    // 뷰어가 준비 안 됐거나 이미지가 없으면 스킵
+    if (!viewerRef.current || !isViewerReady) return;
+    if (!imageUrl) return;
+    // 이미 자동 선택을 했다면 스킵
+    if (hasAutoSelected) return;
+    // 어노테이션이 아직 없다면 스킵
+    if (annotations.length === 0) return;
 
-    console.log('자동 선택 실행:', imageUrl);
-
-    // 1) 뷰어의 화면 중심 좌표
+    console.log('[AutoSelect] Running auto select for image:', imageUrl);
     const viewportCenter = viewerRef.current.viewport.getCenter();
     const imageCenter = viewerRef.current.viewport.viewportToImageCoordinates(viewportCenter);
 
-    // 2) 어노테이션 중에서 화면 중심과 가장 가까운 것 찾기
     let closestAnnotationId: string | null = null;
     let closestDistance = Infinity;
 
     annotations.forEach(({ id, bbox }) => {
-      const [x, y, width, height] = bbox;
-      const centerX = x + width / 2;
-      const centerY = y + height / 2;
-
+      const [x, y, w, h] = bbox;
+      const centerX = x + w / 2;
+      const centerY = y + h / 2;
       const distance = Math.hypot(centerX - imageCenter.x, centerY - imageCenter.y);
       if (distance < closestDistance) {
         closestDistance = distance;
@@ -139,21 +144,16 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
       }
     });
 
-    // 3) 선택 적용
     if (closestAnnotationId) {
+      console.log('[AutoSelect] Selected annotation:', closestAnnotationId);
       setSelectedAnnotations([closestAnnotationId]);
       setSelectedSide(null);
+    } else {
+      console.log('[AutoSelect] No annotation found near center.');
     }
 
-    // 4) "자동 선택 완료" 표시
+    // 이 이미지에 대해 자동 선택을 완료함.
     setHasAutoSelected(true);
-
-    // 디버깅 로그
-    console.log('자동 선택 조건 충족:', {
-      isViewerReady,
-      imageUrl,
-      annotationCount: annotations.length,
-    });
   }, [imageUrl, isViewerReady, annotations, hasAutoSelected]);
 
   return (
