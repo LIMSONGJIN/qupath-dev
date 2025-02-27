@@ -374,6 +374,8 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     const borderTolerance = 2;
 
     annotations.forEach(({ id, bbox }) => {
+      if (selectedAnnotations.includes(id)) return;
+
       const [x, y, width, height] = bbox;
       if (
         imagePoint.x >= x - borderTolerance &&
