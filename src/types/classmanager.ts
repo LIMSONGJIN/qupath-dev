@@ -1,10 +1,13 @@
 export interface ClassInfo {
-    id: number;
-    name: string;
-    color: string;
-    count: number;
+  id: number;
+  name: string;
+  color: string;
+  count: number;
 }
-  
+
 export interface ClassManagerProps {
-    selectedImageName: string;
+  classes: ClassInfo[];
+  setClasses: React.Dispatch<React.SetStateAction<ClassInfo[]>>;
+  setClassesUnsaved: React.Dispatch<React.SetStateAction<boolean>>;
+  classCounts: Record<string, number>;
 }

@@ -1,47 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ImageInfo, ImageListProps } from '../types/imagelist';
+import React, { useEffect, useRef } from 'react';
+import { ImageInfo } from '../types/app';
 
-const ImageList: React.FC<ImageListProps> = ({ onImageSelect, selectedImage, setImages }) => {
-  const [images, setLocalImages] = useState<ImageInfo[]>([]);
+interface ImageListProps {
+  images: ImageInfo[];
+  onImageSelect: (url: string, name: string) => void;
+  selectedImage: string;
+}
+
+const ImageList: React.FC<ImageListProps> = ({ images, onImageSelect, selectedImage }) => {
   const selectedImageRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const loadImages = async () => {
-      const imageModules = import.meta.glob('/public/images/*.png', { eager: true, as: 'url' });
-
-      const imageUrls = Object.entries(imageModules).map(([path, url]) => {
-        const name = path.split('/').pop() || 'Unknown';
-        return { url: url as string, name };
-      });
-
-      imageUrls.sort(
-        (a, b) => parseInt(a.name.split('.')[0], 10) - parseInt(b.name.split('.')[0], 10)
-      );
-
-      const imageInfoPromises = imageUrls.map(async (image) => {
-        const img = new Image();
-        img.src = image.url;
-        await img.decode();
-        return { ...image, width: img.naturalWidth, height: img.naturalHeight };
-      });
-
-      const imageInfoList = await Promise.all(imageInfoPromises);
-      setLocalImages(imageInfoList);
-      setImages(imageInfoList); // 부모 컴포넌트에 이미지 리스트 전달
-
-      const savedImage = localStorage.getItem('selectedImage');
-      const savedImageName = localStorage.getItem('selectedImageName');
-
-      if (savedImage && savedImageName) {
-        onImageSelect(savedImage, savedImageName);
-      } else if (imageInfoList.length > 0) {
-        onImageSelect(imageInfoList[0].url, imageInfoList[0].name);
-      }
-    };
-
-    loadImages();
-  }, [onImageSelect, setImages]);
-
+  // 선택된 이미지로 스크롤
   useEffect(() => {
     if (selectedImageRef.current) {
       selectedImageRef.current.scrollIntoView({
@@ -80,7 +49,12 @@ const ImageList: React.FC<ImageListProps> = ({ onImageSelect, selectedImage, set
         >
           <button
             onClick={() => onImageSelect(image.url, image.name)}
-            style={{ border: 'none', padding: 0, backgroundColor: 'transparent', width: '100%' }}
+            style={{
+              border: 'none',
+              padding: 0,
+              backgroundColor: 'transparent',
+              width: '100%',
+            }}
           >
             <img
               src={image.url}

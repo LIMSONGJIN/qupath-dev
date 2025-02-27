@@ -1,9 +1,10 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
 const isDev = !app.isPackaged;
 let mainWindow;
+const sizeOf = require('image-size').default || require('image-size');
 
 const classesFilePath = path.join(__dirname, 'public', 'config', 'classes.json');
 const annotationsDir = path.join(__dirname, 'public', 'annotations');
@@ -29,6 +30,227 @@ function createWindow() {
     mainWindow.webContents.openDevTools();
   }
 }
+
+// (A) 실제로 "Open" 클릭 시 실행되는 함수
+async function openImageFile() {
+  // 1) 파일 대화상자 열기 (PNG만)
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    filters: [{ name: 'PNG Images', extensions: ['png'] }],
+    properties: ['openFile'],
+  });
+  if (canceled || filePaths.length === 0) {
+    return; // 사용자가 취소
+  }
+
+  const sourceFile = filePaths[0]; // 사용자가 고른 파일 경로
+  const fileName = path.basename(sourceFile); // 예: "sample.png"
+
+  // 2) public/images 디렉토리에 복사할 경로
+  const imagesDir = path.join(__dirname, 'public', 'images');
+  const targetFile = path.join(imagesDir, fileName);
+
+  // 3) 만약 이미 해당 파일이 있다면 "이미 존재" 처리
+  if (fs.existsSync(targetFile)) {
+    // 이미 있으므로, 건너뛰거나 사용자에게 알림
+    console.log('이미 존재하는 파일입니다:', fileName);
+    return;
+  }
+
+  // 4) 파일 복사
+  fs.copyFileSync(sourceFile, targetFile);
+  console.log('복사 완료:', sourceFile, '->', targetFile);
+
+  // 5) annotation JSON 파일 만들기
+  const baseName = fileName.replace('.png', ''); // 예: "sample"
+  const annotationFileName = `${baseName}_annotation.json`;
+  const annotationDir = path.join(__dirname, 'public', 'annotations');
+  const annotationPath = path.join(annotationDir, annotationFileName);
+
+  if (!fs.existsSync(annotationPath)) {
+    // 없는 경우만 생성
+    const defaultData = {
+      annotations: [], // 빈 배열
+    };
+    fs.writeFileSync(annotationPath, JSON.stringify(defaultData, null, 2));
+    console.log('새 어노테이션 파일 생성:', annotationPath);
+  } else {
+    console.log('이미 어노테이션 파일이 존재:', annotationPath);
+  }
+
+  // 6) 렌더러에 "새 파일이 추가되었으니, 이미지 리스트 갱신" 같은 신호를 보낼 수도 있음
+  if (mainWindow) {
+    mainWindow.webContents.send('image-added', { fileName });
+  }
+}
+
+function createMenu() {
+  const isMac = process.platform === 'darwin';
+
+  const template = [
+    // (A) File 메뉴 예시
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Open',
+          accelerator: 'CmdOrCtrl+O',
+          click: () => {
+            openImageFile(); // 위에서 만든 함수 호출
+          },
+        },
+        {
+          label: 'Save',
+          accelerator: 'CmdOrCtrl+S',
+          click: () => {
+            const focusedWindow = BrowserWindow.getFocusedWindow();
+            if (focusedWindow) {
+              focusedWindow.webContents.send('menu-save');
+            }
+          },
+        },
+        { type: 'separator' },
+        {
+          label: isMac ? 'Quit' : 'Exit',
+          accelerator: isMac ? 'Cmd+Q' : 'Alt+F4',
+          click: () => {
+            app.quit();
+          },
+        },
+      ],
+    },
+    // (B) Edit 메뉴 예시
+    {
+      label: 'Edit',
+      submenu: [
+        {
+          label: 'Undo',
+          accelerator: 'CmdOrCtrl+Z',
+          click: () => {
+            const focusedWindow = BrowserWindow.getFocusedWindow();
+            if (focusedWindow) {
+              focusedWindow.webContents.send('menu-undo');
+            }
+          },
+        },
+        {
+          label: 'Redo',
+          accelerator: 'CmdOrCtrl+Y',
+          click: () => {
+            const focusedWindow = BrowserWindow.getFocusedWindow();
+            if (focusedWindow) {
+              focusedWindow.webContents.send('menu-redo');
+            }
+          },
+        },
+        { type: 'separator' },
+        { role: 'cut' },
+        { role: 'copy' },
+        { role: 'paste' },
+      ],
+    },
+    // (C) View 메뉴: 기본 Reload, DevTools, Zoom, Full Screen 등
+    {
+      label: 'View',
+      submenu: [
+        { role: 'reload' }, // Ctrl+R
+        { role: 'forceReload' }, // Ctrl+Shift+R
+        { role: 'toggleDevTools' }, // Ctrl+Shift+I
+        { type: 'separator' },
+        { role: 'resetZoom' }, // Ctrl+0
+        { role: 'zoomIn' }, // Ctrl+Plus
+        { role: 'zoomOut' }, // Ctrl+Minus
+        { type: 'separator' },
+        { role: 'togglefullscreen' }, // F11
+      ],
+    },
+    // (D) Window 메뉴: Minimize, Zoom, Close 등
+    {
+      label: 'Window',
+      submenu: [
+        { role: 'minimize' }, // Ctrl+M
+        { role: 'zoom' }, // macOS에서 윈도우 최대화/리사이즈
+        { role: 'close' }, // Ctrl+W
+      ],
+    },
+    // (E) macOS 전용 Help, 혹은 다른 메뉴
+    // {
+    //   label: 'Help',
+    //   submenu: [
+    //     // ...
+    //   ],
+    // },
+  ];
+
+  // (F) Mac 환경에서 첫 번째 메뉴가 앱 이름이 되도록 처리
+  if (isMac) {
+    template.unshift({
+      label: app.name,
+      submenu: [
+        { role: 'about' },
+        { type: 'separator' },
+        { role: 'services' },
+        { type: 'separator' },
+        { role: 'hide' },
+        { role: 'hideOthers' },
+        { role: 'unhide' },
+        { type: 'separator' },
+        { role: 'quit' },
+      ],
+    });
+  }
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+}
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+// main.js
+ipcMain.handle('reload-images', async () => {
+  try {
+    const imagesDir = path.join(__dirname, 'public', 'images');
+    let files = fs.readdirSync(imagesDir);
+
+    // .png만 필터링
+    files = files.filter((f) => f.toLowerCase().endsWith('.png'));
+
+    // 숫자 기반 정렬
+    files.sort((a, b) => {
+      const aNum = parseInt(a, 10);
+      const bNum = parseInt(b, 10);
+      return aNum - bNum;
+    });
+
+    // url, name, width, height 등
+    const imageInfos = [];
+    for (const file of files) {
+      const filePath = path.join(imagesDir, file);
+      const name = file;
+      // 브라우저에서 접근할 땐 /images/파일명 으로 가능
+      const url = `/images/${file}`;
+
+      // 너비/높이 계산
+      const fileBuffer = fs.readFileSync(filePath);
+      const { width, height } = sizeOf(fileBuffer);
+
+      imageInfos.push({
+        url,
+        name,
+        width,
+        height,
+      });
+    }
+
+    return imageInfos;
+  } catch (error) {
+    console.error('Error reloading images:', error);
+    return [];
+  }
+});
 
 // JSON 파일 읽기 (React에서 호출)
 ipcMain.handle('get-annotations', async (event, fileName) => {
@@ -268,6 +490,7 @@ ipcMain.handle('move-annotation', async (event, { fileName, annotation }) => {
 
 app.whenReady().then(() => {
   createWindow();
+  createMenu();
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {

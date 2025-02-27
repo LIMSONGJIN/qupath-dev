@@ -3,10 +3,20 @@
     {
       "id": "e1d176e3-aafb-4c37-8065-23905cf7861e",
       "bbox": [
-        1479,
-        1221,
+        2143,
+        874,
         1011,
         1036
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "5e176475-064c-4f82-8b1a-23cffccbb4c3",
+      "bbox": [
+        1487,
+        2153,
+        858,
+        686
       ],
       "class": "Unclassified"
     }

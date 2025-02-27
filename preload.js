@@ -1,6 +1,16 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('api', {
+  onImageAdded: (callback) => {
+    ipcRenderer.on('image-added', callback);
+  },
+
+  removeImageAddedListener: (callback) => {
+    ipcRenderer.removeListener('image-added', callback);
+  },
+
+  reloadImages: () => ipcRenderer.invoke('reload-images'),
+
   saveAnnotations: (fileName, data) => ipcRenderer.invoke('save-annotations', { fileName, data }),
 
   getAnnotations: (fileName) => ipcRenderer.invoke('get-annotations', fileName),

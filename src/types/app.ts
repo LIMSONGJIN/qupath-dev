@@ -1,10 +1,14 @@
+import { ReactNode } from 'react';
+
 export interface ImageInfo {
-    url: string;
-    name: string;
-  }
-  
+  height: ReactNode;
+  width: ReactNode;
+  url: string;
+  name: string;
+}
+
 export interface Annotation {
-    id: string;
-    bbox: [number, number, number, number]; // [centerX, centerY, width, height]
-    class: string;
-  }
+  id: string;
+  bbox: [number, number, number, number]; // [centerX, centerY, width, height]
+  class: string;
+}

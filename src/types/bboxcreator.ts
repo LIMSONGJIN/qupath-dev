@@ -8,8 +8,8 @@ export interface BBoxCreatorProps {
   viewer: OpenSeadragon.Viewer;
   imageFileName: string;
   setSelectedAnnotations: (ids: string[]) => void;
-  annotations: Annotation[];
   setAnnotations: React.Dispatch<React.SetStateAction<Annotation[]>>;
+  setAnnotationsUnsaved: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface CustomMouseTrackerEvent extends OpenSeadragon.MouseTrackerEvent {

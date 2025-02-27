@@ -1,37 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { SketchPicker } from 'react-color';
 import { useUndoRedo } from '../context/UndoRedoContext';
-import { ClassInfo, ClassManagerProps } from '../types/classmanager';
+import { ClassManagerProps } from '../types/classmanager';
 
-const ClassManager: React.FC<ClassManagerProps> = ({ selectedImageName }) => {
-  const [classes, setClasses] = useState<ClassInfo[]>([]);
-  const [classCounts, setClassCounts] = useState<Record<string, number>>({});
+const ClassManager: React.FC<ClassManagerProps> = ({
+  classes,
+  setClasses,
+  setClassesUnsaved,
+  classCounts,
+}) => {
   const [colorPickerVisible, setColorPickerVisible] = useState<number | null>(null);
   const { performCommand } = useUndoRedo();
-
-  useEffect(() => {
-    if (!selectedImageName) return;
-
-    const fetchClasses = async () => {
-      const response = await window.api.getClasses();
-      if (response.success) {
-        setClasses(response.classes);
-      }
-    };
-
-    const updateClassCounts = async () => {
-      const response = await window.api.getAnnotationsCounts(selectedImageName.replace('.png', ''));
-      if (response.success) {
-        setClassCounts(response.classCounts);
-      }
-    };
-
-    fetchClasses();
-    updateClassCounts();
-
-    const interval = setInterval(updateClassCounts, 1000);
-    return () => clearInterval(interval);
-  }, [selectedImageName]);
 
   // 클래스 이름 변경 핸들러 (Undo/Redo 적용)
   const handleNameChange = (id: number, oldName: string, newName: string) => {
@@ -41,16 +20,15 @@ const ClassManager: React.FC<ClassManagerProps> = ({ selectedImageName }) => {
       redo: () => {
         setClasses((prev) => {
           const updated = prev.map((cls) => (cls.id === id ? { ...cls, name: newName } : cls));
-          window.api.updateClasses(updated);
-          window.api.updateAnnotationsClassname(oldName, newName);
+          // API 호출 대신 unsaved 플래그 설정
+          setClassesUnsaved(true);
           return updated;
         });
       },
       undo: () => {
         setClasses((prev) => {
           const updated = prev.map((cls) => (cls.id === id ? { ...cls, name: oldName } : cls));
-          window.api.updateClasses(updated);
-          window.api.updateAnnotationsClassname(newName, oldName);
+          setClassesUnsaved(true);
           return updated;
         });
       },
@@ -67,14 +45,14 @@ const ClassManager: React.FC<ClassManagerProps> = ({ selectedImageName }) => {
       redo: () => {
         setClasses((prev) => {
           const updated = prev.map((cls) => (cls.id === id ? { ...cls, color: newColor } : cls));
-          window.api.updateClasses(updated);
+          setClassesUnsaved(true);
           return updated;
         });
       },
       undo: () => {
         setClasses((prev) => {
           const updated = prev.map((cls) => (cls.id === id ? { ...cls, color: oldColor } : cls));
-          window.api.updateClasses(updated);
+          setClassesUnsaved(true);
           return updated;
         });
       },
@@ -101,7 +79,6 @@ const ClassManager: React.FC<ClassManagerProps> = ({ selectedImageName }) => {
             disabled={cls.name === 'Unclassified'}
             onChange={(e) => handleNameChange(cls.id, cls.name, e.target.value)}
             onKeyDown={(e) => {
-              // Delete 키는 전파되도록 허용
               if (e.key !== 'Delete') {
                 e.stopPropagation();
               }
@@ -133,7 +110,7 @@ const ClassManager: React.FC<ClassManagerProps> = ({ selectedImageName }) => {
             {classCounts[cls.name] || 0}
           </span>
 
-          {/* react-color SketchPicker (고정된 위치) */}
+          {/* react-color SketchPicker */}
           {colorPickerVisible === cls.id && (
             <div
               style={{
@@ -146,7 +123,7 @@ const ClassManager: React.FC<ClassManagerProps> = ({ selectedImageName }) => {
             >
               <SketchPicker
                 color={cls.color}
-                onChange={(newColor) => handleColorChange(cls.id, newColor.hex)}
+                onChange={(newColor: { hex: string }) => handleColorChange(cls.id, newColor.hex)}
                 width="100%"
               />
               <button

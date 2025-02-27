@@ -1,3 +1,5 @@
+import { ClassInfo } from './classmanager';
+
 export interface Annotation {
   id: string;
   bbox: [number, number, number, number];
@@ -15,6 +17,8 @@ export interface AnnotationRendererProps {
   imageFileName: string;
   isDragging: boolean;
   setIsDragging: React.Dispatch<React.SetStateAction<boolean>>;
+  classes: ClassInfo[];
+  setAnnotationsUnsaved: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface CustomOSDEvent extends OpenSeadragon.OSDEvent<any> {

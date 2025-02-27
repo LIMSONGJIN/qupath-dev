@@ -12,28 +12,123 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   selectedSide,
   setSelectedSide,
   imageFileName,
+  classes,
+  setAnnotationsUnsaved,
 }) => {
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const oldAnnotationRef = useRef<Annotation | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState<{ x: number; y: number } | null>(null);
-  const [classColors, setClassColors] = useState<Record<string, string>>({});
   const [classVisibility, setClassVisibility] = useState<Record<string, boolean>>({});
   const [isHoldingMouse, setIsHoldingMouse] = useState(false); // ✅ 마우스를 클릭한 상태인지 추적
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null);
-  const [allClasses, setAllClasses] = useState<{ id: number; name: string; color: string }[]>([]);
 
   const { performCommand } = useUndoRedo();
 
+  // 1. classes prop가 변경되면 기본적으로 모든 클래스는 표시하도록 가시성 초기화
   useEffect(() => {
-    const fetchClasses = async () => {
-      const response = await window.api.getClasses();
-      if (response.success) {
-        setAllClasses(response.classes);
+    const visibility = classes.reduce((acc, curr) => {
+      acc[curr.name] = true;
+      return acc;
+    }, {} as Record<string, boolean>);
+    setClassVisibility(visibility);
+  }, [classes]);
+
+  // 3. 키보드 이벤트로 클래스 가시성 토글 (V, F키 등)
+  useEffect(() => {
+    let prevSelectedAnnotations: string[] = []; // 이전 선택 상태 저장
+    let isVPressed = false;
+    let vKeyTimeout: number | null = null;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const key = event.key.toLowerCase();
+      // Shift키와 함께 V는 무시
+      if (key === 'v' && event.shiftKey) return;
+
+      if (key === 'v') {
+        isVPressed = true;
+        if (vKeyTimeout) clearTimeout(vKeyTimeout);
+        vKeyTimeout = window.setTimeout(() => {
+          setClassVisibility((prev) => {
+            const anyVisible = Object.values(prev).some((v) => v);
+            if (anyVisible) {
+              prevSelectedAnnotations = selectedAnnotations;
+              setSelectedAnnotations([]); // 모두 선택 해제
+            } else {
+              setSelectedAnnotations(prevSelectedAnnotations); // 이전 선택 복구
+            }
+            const newVisibility = Object.keys(prev).reduce((acc, key) => {
+              acc[key] = !anyVisible; // 모든 클래스 가시성 반전
+              return acc;
+            }, {} as Record<string, boolean>);
+            console.log('🔄 New Class Visibility:', newVisibility);
+            return newVisibility;
+          });
+          isVPressed = false;
+          vKeyTimeout = null;
+        }, 200);
+        return;
+      }
+
+      if (isVPressed && !isNaN(parseInt(key))) {
+        if (vKeyTimeout) {
+          clearTimeout(vKeyTimeout);
+          vKeyTimeout = null;
+        }
+        const classIndex = parseInt(key);
+        const className = classIndex === 0 ? 'Unclassified' : `Class ${classIndex}`;
+        setClassVisibility((prev) => ({
+          ...prev,
+          [className]: !prev[className],
+        }));
+        isVPressed = false;
+        return;
+      }
+
+      if (key === 'f') {
+        setClassVisibility((prev) => {
+          const isUnclassifiedOnly = Object.keys(prev).every(
+            (key) => key === 'Unclassified' || !prev[key]
+          );
+          if (!isUnclassifiedOnly) {
+            prevSelectedAnnotations = selectedAnnotations;
+            setSelectedAnnotations([]);
+          } else {
+            setSelectedAnnotations(prevSelectedAnnotations);
+          }
+          const newVisibility = Object.keys(prev).reduce((acc, key) => {
+            acc[key] = isUnclassifiedOnly ? true : key === 'Unclassified';
+            return acc;
+          }, {} as Record<string, boolean>);
+          console.log('🔄 Updated Class Visibility:', newVisibility);
+          return newVisibility;
+        });
       }
     };
-    fetchClasses();
-  }, []);
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() === 'v') {
+        isVPressed = false;
+        if (vKeyTimeout) {
+          clearTimeout(vKeyTimeout);
+          vKeyTimeout = null;
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [selectedAnnotations]);
+
+  // getClassColor 함수: classes prop을 이용해 클래스 이름에 해당하는 색상을 반환
+  const getClassColor = (className: string): string => {
+    const found = classes.find((cls) => cls.name === className);
+    return found ? found.color : '#000000';
+  };
 
   useEffect(() => {
     if (!viewer || !overlayRef.current) return;
@@ -85,141 +180,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     };
   }, []);
 
-  // 초기화: 모든 클래스를 기본적으로 표시
-  useEffect(() => {
-    const fetchClassVisibility = async () => {
-      const response = await window.api.getClasses();
-      if (response.success) {
-        const visibility = response.classes.reduce((acc, { name }) => {
-          acc[name] = true; // 기본적으로 모두 표시
-          return acc;
-        }, {} as Record<string, boolean>);
-        setClassVisibility(visibility);
-      }
-    };
-
-    fetchClassVisibility();
-  }, []);
-
-  useEffect(() => {
-    let prevSelectedAnnotations: string[] = []; // 🔥 이전 선택 상태 저장
-    let isVPressed = false;
-    let vKeyTimeout: number | null = null;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      const key = event.key.toLowerCase();
-      // Shift키가 V에 대해서는 무시
-      if (key === 'v' && event.shiftKey) return;
-
-      if (key === 'v') {
-        // V키 단독 또는 V + 숫자키를 구분하기 위해 플래그 설정 및 타임아웃 시작
-        isVPressed = true;
-
-        if (vKeyTimeout) {
-          clearTimeout(vKeyTimeout);
-        }
-        vKeyTimeout = window.setTimeout(() => {
-          // 타임아웃 내에 숫자키가 없으면 V키 단독으로 전체 토글 실행
-          setClassVisibility((prev) => {
-            const anyVisible = Object.values(prev).some((v) => v);
-            if (anyVisible) {
-              prevSelectedAnnotations = selectedAnnotations;
-              setSelectedAnnotations([]); // 모든 선택 해제
-            } else {
-              setSelectedAnnotations(prevSelectedAnnotations); // 이전 선택 복구
-            }
-            const newVisibility = Object.keys(prev).reduce((acc, key) => {
-              acc[key] = !anyVisible; // 모든 클래스 가시성 반전
-              return acc;
-            }, {} as Record<string, boolean>);
-            console.log('🔄 New Class Visibility:', newVisibility);
-            return newVisibility;
-          });
-          isVPressed = false;
-          vKeyTimeout = null;
-        }, 200); // 타임아웃 시간은 필요에 따라 조정
-        return;
-      }
-
-      // V키가 눌린 상태에서 숫자키 입력이면 개별 클래스 토글 처리
-      if (isVPressed && !isNaN(parseInt(key))) {
-        if (vKeyTimeout) {
-          clearTimeout(vKeyTimeout);
-          vKeyTimeout = null;
-        }
-        const classIndex = parseInt(key);
-        const className = classIndex === 0 ? 'Unclassified' : `Class ${classIndex}`;
-        setClassVisibility((prev) => ({
-          ...prev,
-          [className]: !prev[className], // 개별 토글
-        }));
-        isVPressed = false;
-        return;
-      }
-
-      if (key === 'f') {
-        // F키: Unclassified(미분류)만 보이도록 토글
-        setClassVisibility((prev) => {
-          const isUnclassifiedOnly = Object.keys(prev).every(
-            (key) => key === 'Unclassified' || !prev[key]
-          );
-          if (!isUnclassifiedOnly) {
-            // 🔥 기존 선택된 것 저장 후 초기화
-            prevSelectedAnnotations = selectedAnnotations;
-            setSelectedAnnotations([]);
-          } else {
-            setSelectedAnnotations(prevSelectedAnnotations); // 🔥 복구
-          }
-          const newVisibility = Object.keys(prev).reduce((acc, key) => {
-            acc[key] = isUnclassifiedOnly ? true : key === 'Unclassified';
-            return acc;
-          }, {} as Record<string, boolean>);
-          console.log('🔄 Updated Class Visibility:', newVisibility);
-          return newVisibility;
-        });
-      }
-    };
-
-    const handleKeyUp = (event: KeyboardEvent) => {
-      if (event.key.toLowerCase() === 'v') {
-        isVPressed = false;
-        if (vKeyTimeout) {
-          clearTimeout(vKeyTimeout);
-          vKeyTimeout = null;
-        }
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('keyup', handleKeyUp);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('keyup', handleKeyUp);
-    };
-  }, [selectedAnnotations]);
-
-  const fetchClassColors = async () => {
-    const response = await window.api.getClasses();
-    if (response.success) {
-      const colors: Record<string, string> = {};
-      response.classes.forEach(({ name, color }) => {
-        colors[name] = color;
-      });
-      setClassColors(colors);
-    }
-  };
-
-  useEffect(() => {
-    fetchClassColors();
-
-    // ✅ 클래스 변경 감지 이벤트 추가 (자동 반영)
-    window.api.onClassesUpdated(fetchClassColors);
-
-    return () => {
-      window.api.onClassesUpdated(() => {}); // ✅ 이벤트 리스너 정리
-    };
-  }, []);
-
   const handleMouseDown = (event: CustomOSDEvent) => {
     if (selectedAnnotations.length !== 1) return;
 
@@ -254,9 +214,11 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     });
 
     setSelectedAnnotations([selectedId]);
-
+    // @ts-ignore
     viewer.panVertical = false;
+    // @ts-ignore
     viewer.panHorizontal = false;
+    // @ts-ignore
     viewer.gestureSettingsMouse.flickEnabled = false;
   };
 
@@ -279,8 +241,11 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     setIsHoldingMouse(false);
     setMousePosition(null);
     setDragOffset(null);
+    // @ts-ignore
     viewer.panVertical = true;
+    // @ts-ignore
     viewer.panHorizontal = true;
+    // @ts-ignore
     viewer.gestureSettingsMouse.flickEnabled = true;
 
     const selectedId = selectedAnnotations[0];
@@ -334,7 +299,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     );
 
     try {
-      await window.api.updateAnnotationBbox(`${imageFileName}_annotation`, newSelectedAnnotation);
+      // @ts-ignore
       setAnnotations(newAnnotations);
       setSelectedAnnotations([selectedId]);
       setTimeout(() => {
@@ -345,34 +310,21 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
       return;
     }
 
-    // Undo/Redo 등록
+    // (2) Undo/Redo 등록에서 파일 저장 호출 제거
     performCommand({
       redo: () => {
-        console.log('Redo: Applying new bounding box for', selectedId);
+        // @ts-ignore
         setAnnotations((prev) =>
           prev.map((a) => (a.id === selectedId ? newSelectedAnnotation : a))
         );
-
-        window.api
-          .saveAnnotations(`${imageFileName}_annotation`, {
-            annotations: newAnnotations,
-          })
-          .catch((error) => console.error('Error saving annotations on redo (move):', error));
+        // 🔥 여기서 파일 저장을 호출하지 않고, unsaved만 표시
+        setAnnotationsUnsaved(true);
       },
       undo: () => {
-        console.log('Undo: Restoring old bounding box for', selectedId);
         setAnnotations((prev) =>
           prev.map((a) => (a.id === selectedId ? oldSelectedAnnotation : a))
         );
-
-        const restoredAnnotations = newAnnotations.map((a) =>
-          a.id === selectedId ? oldSelectedAnnotation : a
-        );
-        window.api
-          .saveAnnotations(`${imageFileName}_annotation`, {
-            annotations: restoredAnnotations,
-          })
-          .catch((error) => console.error('Error saving annotations on undo (move):', error));
+        setAnnotationsUnsaved(true);
       },
     });
 
@@ -422,8 +374,6 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     const borderTolerance = 2;
 
     annotations.forEach(({ id, bbox }) => {
-      if (selectedAnnotations.includes(id)) return;
-
       const [x, y, width, height] = bbox;
       if (
         imagePoint.x >= x - borderTolerance &&
@@ -472,9 +422,10 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     });
 
     if (clickedAnnotationId) {
+      // @ts-ignore
       setSelectedAnnotations((prevSelected) => {
         if (prevSelected.includes(clickedAnnotationId)) {
-          return prevSelected.filter((id) => id !== clickedAnnotationId); // 🔥 이미 선택된 경우 해제
+          return prevSelected.filter((id: string | null) => id !== clickedAnnotationId); // 🔥 이미 선택된 경우 해제
         } else {
           return [...prevSelected, clickedAnnotationId]; // 🔥 Ctrl + 클릭 시 다중 선택
         }
@@ -530,20 +481,13 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     // Undo/Redo 명령 객체 등록
     performCommand({
       redo: () => {
-        setAnnotations(() => newAnnotations);
-        window.api
-          .saveAnnotations(`${imageFileName}_annotation`, {
-            annotations: newAnnotations,
-          })
-          .catch((error) => console.error('Error saving annotations on redo (delete):', error));
+        setAnnotations(newAnnotations);
+        // 🔥 파일 저장 제거
+        setAnnotationsUnsaved(true);
       },
       undo: () => {
-        setAnnotations(() => oldAnnotations);
-        window.api
-          .saveAnnotations(`${imageFileName}_annotation`, {
-            annotations: oldAnnotations,
-          })
-          .catch((error) => console.error('Error saving annotations on undo (delete):', error));
+        setAnnotations(oldAnnotations);
+        setAnnotationsUnsaved(true);
       },
     });
 
@@ -576,7 +520,8 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
       // 숫자키 단독: 클래스 변경 (undo/redo 적용)
       if (key >= '0' && key <= '9') {
         const classId = parseInt(key);
-        const targetClass = allClasses.find((cls) => cls.id === classId);
+        // allClasses 대신 전달받은 classes를 사용합니다.
+        const targetClass = classes.find((cls) => cls.id === classId);
         if (!targetClass) {
           console.warn(`No class found for ID=${classId}`);
           return;
@@ -596,23 +541,11 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
         performCommand({
           redo: () => {
             setAnnotations(newAnnotations);
-            window.api
-              .saveAnnotations(`${imageFileName}_annotation`, {
-                annotations: newAnnotations,
-              })
-              .catch((error) =>
-                console.error('Error saving annotations on redo (class change):', error)
-              );
+            setAnnotationsUnsaved(true);
           },
           undo: () => {
             setAnnotations(oldAnnotations);
-            window.api
-              .saveAnnotations(`${imageFileName}_annotation`, {
-                annotations: oldAnnotations,
-              })
-              .catch((error) =>
-                console.error('Error saving annotations on undo (class change):', error)
-              );
+            setAnnotationsUnsaved(true);
           },
         });
 
@@ -625,7 +558,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [selectedAnnotations, annotations, allClasses, imageFileName, performCommand]);
+  }, [selectedAnnotations, annotations, classes, imageFileName, performCommand]);
 
   useEffect(() => {
     const handleArrowKey = (event: KeyboardEvent) => {
@@ -796,9 +729,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
 
       event.preventDefault(); // 기본 동작 방지
 
-      // 함수형 업데이트를 통해 최신 상태를 기반으로 작업
       setAnnotations((prevAnnotations) => {
-        // 이전 상태 깊은 복사 (불변성 유지)
         const oldAnnotations = prevAnnotations.map((a) => ({
           ...a,
           bbox: [...a.bbox],
@@ -809,39 +740,23 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
           ? updateAnnotationBboxSync(event.key, prevAnnotations)
           : moveSelectedAnnotationSync(event.key, prevAnnotations);
 
-        // API 저장 (즉시 실행)
-        window.api
-          .saveAnnotations(`${imageFileName}_annotation`, {
-            annotations: newAnnotations,
-          })
-          .catch((error) => console.error('Error saving annotations (move/resize):', error));
+        // 🔥 파일 저장 제거 → unsaved = true
+        // setAnnotationsUnsaved(true);
 
-        // 이전에 등록된 undo/redo 커맨드가 있다면 재설정
+        // 디바운스
         if (commandTimeout) {
           clearTimeout(commandTimeout);
         }
-        // 디바운스: 100ms 후에 undo/redo 명령 등록 (여러 키 입력을 하나의 명령으로 묶음)
         commandTimeout = window.setTimeout(() => {
           performCommand({
             redo: () => {
               setAnnotations(newAnnotations);
-              window.api
-                .saveAnnotations(`${imageFileName}_annotation`, {
-                  annotations: newAnnotations,
-                })
-                .catch((error) =>
-                  console.error('Error saving annotations on redo (move/resize):', error)
-                );
+              setAnnotationsUnsaved(true);
             },
             undo: () => {
+              // @ts-ignore=
               setAnnotations(oldAnnotations);
-              window.api
-                .saveAnnotations(`${imageFileName}_annotation`, {
-                  annotations: oldAnnotations,
-                })
-                .catch((error) =>
-                  console.error('Error saving annotations on undo (move/resize):', error)
-                );
+              setAnnotationsUnsaved(true);
             },
           });
           commandTimeout = null;
@@ -879,7 +794,7 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
         const viewportHeight = bottomRight.y - topLeft.y;
 
         const isSelected = selectedAnnotations.some((selectedId) => selectedId === id);
-        const borderColor = classColors[annotationClass] || '#000000';
+        const borderColor = getClassColor(annotationClass);
         // ✅ 가시성 체크
         const isVisible = classVisibility[annotationClass] || isSelected; // 선택된 BBox는 항상 표시
 

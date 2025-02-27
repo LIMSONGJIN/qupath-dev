@@ -5,20 +5,25 @@ import { Annotation, BBoxCreatorProps, CustomMouseTrackerEvent } from '../types/
 
 const BBoxCreator: React.FC<
   BBoxCreatorProps & { setSelectedAnnotations: (ids: string[]) => void }
-> = ({ viewer, imageFileName, setSelectedAnnotations, annotations, setAnnotations }) => {
+> = ({ viewer, imageFileName, setSelectedAnnotations, setAnnotations, setAnnotationsUnsaved }) => {
   const [selectionMode, setSelectionMode] = useState(false);
   const dragRef = useRef<{
     startImagePos: OpenSeadragon.Point;
     overlayElement: HTMLDivElement;
   } | null>(null);
 
-  // Undo/Redo 컨텍스트에서 performCommand 함수를 가져옵니다.
   const { performCommand } = useUndoRedo();
 
   const resetMode = () => {
     document.body.style.cursor = 'default';
     setSelectionMode(false);
     viewer.setMouseNavEnabled(true);
+
+    // 🔥 만약 드래그 박스가 남아 있으면 제거
+    if (dragRef.current) {
+      dragRef.current.overlayElement.remove();
+      dragRef.current = null;
+    }
   };
 
   const fetchAnnotations = async () => {
@@ -46,6 +51,7 @@ const BBoxCreator: React.FC<
       }
 
       if (event.key === 'Escape') {
+        // 🔥 Esc로 모드 취소
         resetMode();
       }
     };
@@ -62,16 +68,14 @@ const BBoxCreator: React.FC<
       const viewportPos = viewer.viewport.pointFromPixel(position);
       const startImagePos = viewer.viewport.viewportToImageCoordinates(viewportPos);
 
-      // 드래그 박스를 위한 HTML 요소 생성
+      // 드래그 박스 생성
       const overlayElement = document.createElement('div');
       overlayElement.style.position = 'absolute';
       overlayElement.style.background = 'rgba(255, 0, 0, 0.3)';
       overlayElement.style.border = '2px solid red';
       overlayElement.style.pointerEvents = 'none';
 
-      // 뷰어 내부에 박스 요소 추가
       viewer.element.appendChild(overlayElement);
-
       dragRef.current = { startImagePos, overlayElement };
     };
 
@@ -83,20 +87,16 @@ const BBoxCreator: React.FC<
       const currentImagePos = viewer.viewport.viewportToImageCoordinates(viewportPos);
 
       const { startImagePos, overlayElement } = dragRef.current;
-
-      // 이미지 좌표를 먼저 1px 단위로 스냅핑
       const snappedStartX = Math.round(startImagePos.x);
       const snappedStartY = Math.round(startImagePos.y);
       const snappedCurrentX = Math.round(currentImagePos.x);
       const snappedCurrentY = Math.round(currentImagePos.y);
 
-      // 스냅핑된 좌표로 박스의 위치 및 크기 계산
       const x = Math.min(snappedStartX, snappedCurrentX);
       const y = Math.min(snappedStartY, snappedCurrentY);
       const width = Math.abs(snappedCurrentX - snappedStartX);
       const height = Math.abs(snappedCurrentY - snappedStartY);
 
-      // 이제 이미지 좌표에서 뷰어 요소 좌표로 변환
       const pointTL = viewer.viewport.imageToViewerElementCoordinates(
         new OpenSeadragon.Point(x, y)
       );
@@ -104,7 +104,6 @@ const BBoxCreator: React.FC<
         new OpenSeadragon.Point(x + width, y + height)
       );
 
-      // 최종적으로 뷰어 요소 좌표에서도 반올림 처리
       overlayElement.style.left = `${Math.round(pointTL.x)}px`;
       overlayElement.style.top = `${Math.round(pointTL.y)}px`;
       overlayElement.style.width = `${Math.round(pointBR.x - pointTL.x)}px`;
@@ -119,11 +118,8 @@ const BBoxCreator: React.FC<
       const endImagePos = viewer.viewport.viewportToImageCoordinates(viewportPos);
 
       const { startImagePos, overlayElement } = dragRef.current;
-
-      // 이미지 경계 크기 가져오기
       const imageBounds = viewer.world.getItemAt(0).getContentSize();
 
-      // 경계를 넘어가지 않도록 제한
       const boundedStartX = Math.max(0, Math.min(imageBounds.x, startImagePos.x));
       const boundedStartY = Math.max(0, Math.min(imageBounds.y, startImagePos.y));
       const boundedEndX = Math.max(0, Math.min(imageBounds.x, endImagePos.x));
@@ -134,7 +130,6 @@ const BBoxCreator: React.FC<
       const width = Math.abs(boundedEndX - boundedStartX);
       const height = Math.abs(boundedEndY - boundedStartY);
 
-      // 박스 크기가 유효한 경우에만 처리
       if (width > 0 && height > 0) {
         const newAnnotation: Annotation = {
           id: crypto.randomUUID(),
@@ -142,31 +137,29 @@ const BBoxCreator: React.FC<
           class: 'Unclassified',
         };
 
-        // ... 생략 ...
         performCommand({
           redo: () => {
             setAnnotations((prev) => {
               const updated = [...prev, newAnnotation];
-              window.api
-                .saveAnnotations(`${imageFileName}_annotation`, { annotations: updated })
-                .catch((error) => console.error('Error saving annotation on redo:', error));
               setSelectedAnnotations([newAnnotation.id]);
               return updated;
             });
+
+            // 새 박스가 추가되었으니 unsaved 상태로 표시
+            if (setAnnotationsUnsaved) {
+              setAnnotationsUnsaved(true);
+            }
           },
           undo: () => {
             setAnnotations((prev) => {
               const updated = prev.filter((ann) => ann.id !== newAnnotation.id);
-              window.api
-                .saveAnnotations(`${imageFileName}_annotation`, { annotations: updated })
-                .catch((error) => console.error('Error saving annotation on undo:', error));
               return updated;
             });
           },
         });
       }
 
-      // 드래그 박스 삭제 및 모드 리셋
+      // 드래그 박스 삭제 + 모드 리셋
       overlayElement.remove();
       dragRef.current = null;
       resetMode();

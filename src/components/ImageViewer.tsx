@@ -8,7 +8,13 @@ import Scalebar from './ScaleBar';
 import Toolbar from './Toolbar';
 import ViewerSetup from './ViewerSetup';
 
-const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnnotations }) => {
+const ImageViewer: React.FC<ImageViewerProps> = ({
+  imageUrl,
+  annotations,
+  setAnnotations,
+  classes,
+  setAnnotationsUnsaved,
+}) => {
   const viewerRef = useRef<OpenSeadragon.Viewer | null>(null);
   const [isViewerReady, setIsViewerReady] = useState(false);
   const [imageWidth, setImageWidth] = useState(0);
@@ -32,7 +38,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
       if (!['w', 'a', 's', 'd'].includes(e.key.toLowerCase())) return;
       e.preventDefault();
       e.stopPropagation();
-
+      if (e.ctrlKey) return;
       if (!viewerRef.current || selectedAnnotations.length === 0) return;
 
       const currentAnnotationId = selectedAnnotations[0];
@@ -101,16 +107,8 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [handleKeyPress]);
 
-  // ---------------------------------------------------------
-  // [B] 이미지나 annotations가 바뀔 때, "자동 선택" 플래그 리셋
-  // ---------------------------------------------------------
-  // 이미지 URL이 바뀔 때마다 "자동 선택 아직 안 함" 상태로 리셋
-  // ----------------------------------------------
-  // (1) 이미지가 바뀔 때마다 "자동 선택 아직 안 함" 상태로 리셋
-  // ----------------------------------------------
   useEffect(() => {
     if (!imageUrl) return;
-    console.log('[AutoSelect] New image loaded, resetting auto select flag');
     setHasAutoSelected(false);
     // 초기 선택을 풀어줍니다.
     setSelectedAnnotations([]);
@@ -126,7 +124,6 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
     // 어노테이션이 아직 없다면 스킵
     if (annotations.length === 0) return;
 
-    console.log('[AutoSelect] Running auto select for image:', imageUrl);
     const viewportCenter = viewerRef.current.viewport.getCenter();
     const imageCenter = viewerRef.current.viewport.viewportToImageCoordinates(viewportCenter);
 
@@ -145,7 +142,6 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
     });
 
     if (closestAnnotationId) {
-      console.log('[AutoSelect] Selected annotation:', closestAnnotationId);
       setSelectedAnnotations([closestAnnotationId]);
       setSelectedSide(null);
     } else {
@@ -180,6 +176,8 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
             imageFileName={imageFileName}
             isDragging={isDragging}
             setIsDragging={setIsDragging}
+            classes={classes}
+            setAnnotationsUnsaved={setAnnotationsUnsaved}
           />
           <Scalebar
             viewer={viewerRef.current}
@@ -195,9 +193,9 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, annotations, setAnn
           <BBoxCreator
             viewer={viewerRef.current}
             imageFileName={imageFileName}
-            annotations={annotations}
             setAnnotations={setAnnotations}
             setSelectedAnnotations={setSelectedAnnotations}
+            setAnnotationsUnsaved={setAnnotationsUnsaved}
           />
           {isToolbarVisible && <Toolbar viewer={viewerRef.current} />}
         </>

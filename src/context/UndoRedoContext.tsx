@@ -12,6 +12,7 @@ interface UndoRedoContextType {
   performCommand: (command: Command) => void;
   undo: () => void;
   redo: () => void;
+  clearHistory: () => void; // 스택 초기화 함수 추가
 }
 
 const UndoRedoContext = createContext<UndoRedoContextType | null>(null);
@@ -74,6 +75,12 @@ export const UndoRedoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     undoStackRef.current.push(command);
   };
 
+  // 스택 초기화 함수
+  const clearHistory = () => {
+    undoStackRef.current = [];
+    redoStackRef.current = [];
+  };
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key === 'z') {
@@ -92,6 +99,7 @@ export const UndoRedoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     performCommand,
     undo,
     redo,
+    clearHistory, // 컨텍스트 값에 clearHistory 추가
   };
 
   return <UndoRedoContext.Provider value={value}>{children}</UndoRedoContext.Provider>;
