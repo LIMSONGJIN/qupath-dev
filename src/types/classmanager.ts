@@ -1,3 +1,5 @@
+import { Annotation } from "./imageviewer";
+
 export interface ClassInfo {
   id: number;
   name: string;
@@ -10,4 +12,6 @@ export interface ClassManagerProps {
   setClasses: React.Dispatch<React.SetStateAction<ClassInfo[]>>;
   setClassesUnsaved: React.Dispatch<React.SetStateAction<boolean>>;
   classCounts: Record<string, number>;
+  setAnnotations: React.Dispatch<React.SetStateAction<Annotation[]>>;
+  setAnnotationsUnsaved: React.Dispatch<React.SetStateAction<boolean>>
 }

@@ -8,29 +8,44 @@ const ClassManager: React.FC<ClassManagerProps> = ({
   setClasses,
   setClassesUnsaved,
   classCounts,
+  setAnnotations,
+  setAnnotationsUnsaved,
 }) => {
   const [colorPickerVisible, setColorPickerVisible] = useState<number | null>(null);
   const { performCommand } = useUndoRedo();
 
   // 클래스 이름 변경 핸들러 (Undo/Redo 적용)
+  // ClassManager.tsx (일부 발췌)
   const handleNameChange = (id: number, oldName: string, newName: string) => {
     if (oldName === 'Unclassified' || oldName === newName) return;
 
     performCommand({
       redo: () => {
+        // 1) classes 배열에서 해당 클래스 이름 변경
         setClasses((prev) => {
-          const updated = prev.map((cls) => (cls.id === id ? { ...cls, name: newName } : cls));
-          // API 호출 대신 unsaved 플래그 설정
-          setClassesUnsaved(true);
-          return updated;
+          return prev.map((cls) => (cls.id === id ? { ...cls, name: newName } : cls));
         });
+        // 2) 어노테이션에서도 oldName → newName 로 일괄 변경
+        setAnnotations((prev: any[]) => {
+          return prev.map((ann) => (ann.class === oldName ? { ...ann, class: newName } : ann));
+        });
+
+        // 저장 플래그
+        setClassesUnsaved(true);
+        setAnnotationsUnsaved(true);
       },
       undo: () => {
+        // classes 배열 되돌리기
         setClasses((prev) => {
-          const updated = prev.map((cls) => (cls.id === id ? { ...cls, name: oldName } : cls));
-          setClassesUnsaved(true);
-          return updated;
+          return prev.map((cls) => (cls.id === id ? { ...cls, name: oldName } : cls));
         });
+        // 어노테이션에서도 newName → oldName로 되돌림
+        setAnnotations((prev: any[]) => {
+          return prev.map((ann) => (ann.class === newName ? { ...ann, class: oldName } : ann));
+        });
+
+        setClassesUnsaved(true);
+        setAnnotationsUnsaved(true);
       },
     });
   };

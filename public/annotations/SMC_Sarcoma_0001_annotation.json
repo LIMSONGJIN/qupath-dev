@@ -8,7 +8,7 @@
         1011,
         1036
       ],
-      "class": "Unclassified"
+      "class": "Class 1"
     },
     {
       "id": "5e176475-064c-4f82-8b1a-23cffccbb4c3",
@@ -17,6 +17,36 @@
         2153,
         858,
         686
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "7771fc30-5211-4147-b503-6e345980422a",
+      "bbox": [
+        592,
+        692,
+        498,
+        330
+      ],
+      "class": "Unclassified"
+    },
+    {
+      "id": "ed20765b-6dd0-4167-adbd-76beb8fab87f",
+      "bbox": [
+        3000,
+        2394,
+        545,
+        679
+      ],
+      "class": "Class 1"
+    },
+    {
+      "id": "f47249b1-6f99-44f3-a1c8-fe1f1af6f99f",
+      "bbox": [
+        579,
+        1566,
+        410,
+        794
       ],
       "class": "Unclassified"
     }

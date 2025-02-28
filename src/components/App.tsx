@@ -313,6 +313,8 @@ function App() {
             setClasses={setClasses}
             setClassesUnsaved={setClassesUnsaved}
             classCounts={classCounts}
+            setAnnotations={setAnnotations}
+            setAnnotationsUnsaved={setAnnotationsUnsaved}
           />
         </div>
       </div>
