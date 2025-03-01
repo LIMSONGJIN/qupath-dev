@@ -18,7 +18,8 @@
         858,
         686
       ],
-      "class": "Unclassified"
+      "class": "Class 1",
+      "classId": 1
     },
     {
       "id": "7771fc30-5211-4147-b503-6e345980422a",
@@ -38,7 +39,7 @@
         545,
         679
       ],
-      "class": "Class 1"
+      "class": "Unclassified"
     },
     {
       "id": "f47249b1-6f99-44f3-a1c8-fe1f1af6f99f",

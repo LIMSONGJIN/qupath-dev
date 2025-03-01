@@ -19,19 +19,19 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
   const oldAnnotationRef = useRef<Annotation | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState<{ x: number; y: number } | null>(null);
-  const [classVisibility, setClassVisibility] = useState<Record<string, boolean>>({});
   const [isHoldingMouse, setIsHoldingMouse] = useState(false); // ✅ 마우스를 클릭한 상태인지 추적
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null);
+  const [classVisibility, setClassVisibility] = useState<Record<number, boolean>>({});
 
   const { performCommand } = useUndoRedo();
 
-  // 1. classes prop가 변경되면 기본적으로 모든 클래스는 표시하도록 가시성 초기화
+  // (1) classes 바뀔 때마다, 각 클래스 ID에 대해 기본값 true로 초기화
   useEffect(() => {
-    const visibility = classes.reduce((acc, curr) => {
-      acc[curr.name] = true;
+    const visibilityById = classes.reduce((acc, cls) => {
+      acc[cls.id] = true; // 처음엔 모두 true
       return acc;
-    }, {} as Record<string, boolean>);
-    setClassVisibility(visibility);
+    }, {} as Record<number, boolean>);
+    setClassVisibility(visibilityById);
   }, [classes]);
 
   // 3. 키보드 이벤트로 클래스 가시성 토글 (V, F키 등)
@@ -45,11 +45,14 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
       // Shift키와 함께 V는 무시
       if (key === 'v' && event.shiftKey) return;
 
+      // V키 기능: 숫자 토글을 ID 기반으로 처리
       if (key === 'v') {
         isVPressed = true;
         if (vKeyTimeout) clearTimeout(vKeyTimeout);
         vKeyTimeout = window.setTimeout(() => {
+          // 전체 토글: 모든 클래스의 가시성을 반전 (ID 기반)
           setClassVisibility((prev) => {
+            // prev의 키는 string이지만 실제로 숫자값(예: "0", "1", "2" 등)임
             const anyVisible = Object.values(prev).some((v) => v);
             if (anyVisible) {
               prevSelectedAnnotations = selectedAnnotations;
@@ -57,11 +60,12 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
             } else {
               setSelectedAnnotations(prevSelectedAnnotations); // 이전 선택 복구
             }
-            const newVisibility = Object.keys(prev).reduce((acc, key) => {
-              acc[key] = !anyVisible; // 모든 클래스 가시성 반전
-              return acc;
-            }, {} as Record<string, boolean>);
-            console.log('🔄 New Class Visibility:', newVisibility);
+            const newVisibility: Record<number, boolean> = {};
+            for (const idStr in prev) {
+              const id = parseInt(idStr, 10);
+              newVisibility[id] = !anyVisible;
+            }
+            console.log('🔄 New Class Visibility (ID 기반):', newVisibility);
             return newVisibility;
           });
           isVPressed = false;
@@ -75,20 +79,21 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
           clearTimeout(vKeyTimeout);
           vKeyTimeout = null;
         }
-        const classIndex = parseInt(key);
-        const className = classIndex === 0 ? 'Unclassified' : `Class ${classIndex}`;
+        const classId = parseInt(key, 10);
         setClassVisibility((prev) => ({
           ...prev,
-          [className]: !prev[className],
+          [classId]: !prev[classId],
         }));
         isVPressed = false;
         return;
       }
 
+      // F키 기능: 기존 로직 유지하되, Unclassified는 id 0로 처리 (숫자 기반)
       if (key === 'f') {
         setClassVisibility((prev) => {
+          // 모든 키는 string이지만 실제 숫자값으로 변환하여 처리
           const isUnclassifiedOnly = Object.keys(prev).every(
-            (key) => key === 'Unclassified' || !prev[key]
+            (k) => parseInt(k, 10) === 0 || !prev[parseInt(k, 10)]
           );
           if (!isUnclassifiedOnly) {
             prevSelectedAnnotations = selectedAnnotations;
@@ -96,11 +101,13 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
           } else {
             setSelectedAnnotations(prevSelectedAnnotations);
           }
-          const newVisibility = Object.keys(prev).reduce((acc, key) => {
-            acc[key] = isUnclassifiedOnly ? true : key === 'Unclassified';
-            return acc;
-          }, {} as Record<string, boolean>);
-          console.log('🔄 Updated Class Visibility:', newVisibility);
+          const newVisibility: Record<number, boolean> = {};
+          for (const k in prev) {
+            const id = parseInt(k, 10);
+            // Unclassified(id 0)은 항상 보이도록 설정
+            newVisibility[id] = isUnclassifiedOnly ? true : id === 0;
+          }
+          console.log('🔄 Updated Class Visibility (F키):', newVisibility);
           return newVisibility;
         });
       }
@@ -795,11 +802,15 @@ const AnnotationRenderer: React.FC<AnnotationRendererProps> = ({
         const viewportWidth = bottomRight.x - topLeft.x;
         const viewportHeight = bottomRight.y - topLeft.y;
 
-        const isSelected = selectedAnnotations.some((selectedId) => selectedId === id);
         const borderColor = getClassColor(annotationClass);
         // ✅ 가시성 체크
-        const isVisible = classVisibility[annotationClass] || isSelected; // 선택된 BBox는 항상 표시
-
+        const foundClass = classes.find((c) => c.name === annotationClass);
+        if (!foundClass) {
+          // 매칭 실패 시 표시 X
+          return null;
+        }
+        const isSelected = selectedAnnotations.includes(id);
+        const isVisible = classVisibility[foundClass.id] || isSelected;
         if (!isVisible) return null; // 가시성이 false면 렌더링 X
         return (
           <div
